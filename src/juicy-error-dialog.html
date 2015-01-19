@@ -1,0 +1,53 @@
+<link rel="import" href="../../paper-dialog/paper-dialog.html">
+
+<polymer-element name="juicy-error-data" attributes="error">
+  <script>
+    Polymer("juicy-error-data", {
+      error: null
+    });
+  </script>
+</polymer-element>
+
+<polymer-element name="juicy-error-dialog">
+  <template>
+    <style>
+      :host {
+        font-family: sans-serif;
+      }
+    </style>
+
+    <paper-dialog id="dialog" backdrop layered="false" on-core-overlay-close-completed="{{dialogClosed}}">
+      <template repeat="{{error in errors}}">
+        <juicy-error-data error="{{error}}">
+          <template bind ref="reporters"></template>
+        </juicy-error-data>
+      </template>
+      <content></content>
+    </paper-dialog>
+  </template>
+  <script>
+    Polymer("juicy-error-dialog", {
+      errors: [],
+      attached: function () {
+        var that = this;
+        var tpl = this.querySelector('template');
+        tpl.id = "reporters";
+        this.shadowRoot.appendChild(tpl);
+        this._handleErrorEvent = function (ev) {
+          that.errors.push(ev);
+          window.requestAnimationFrame(function () {
+            //must be in next frame to be properly positioned in the window center
+            that.$.dialog.open();
+          });
+        };
+        window.addEventListener("error", this._handleErrorEvent);
+      },
+      detached: function () {
+        window.removeEventListener("error", this._handleErrorEvent);
+      },
+      dialogClosed: function () {
+        this.errors.length = 0;
+      }
+    });
+  </script>
+</polymer-element>

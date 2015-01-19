@@ -1,0 +1,20 @@
+{
+  "name": "juicy-error",
+  "version": "0.0.0",
+  "description": "Juicy error reporting",
+  "license": "MIT",
+  "main": "src/juicy-error-dialog.html",
+  "keywords": [
+    "web-components"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "^0.5.1",
+    "juicy-jsoneditor": "~0.0.5",
+    "paper-dialog": "polymer/paper-dialog"
+  }
+}

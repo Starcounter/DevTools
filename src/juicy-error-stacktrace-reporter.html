@@ -1,0 +1,53 @@
+<template>
+  <h1></h1>
+
+  <div></div>
+  <pre></pre>
+</template>
+
+<script>
+  (function (window, document) {
+    var thatDoc = document;
+
+    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+
+    var template = thisDoc.querySelector('template').content;
+
+    var element = Object.create(HTMLElement.prototype);
+
+    element.createdCallback = function () {
+      this.createShadowRoot();
+    };
+
+    element.attachedCallback = function () {
+      var errorData = this.parentNode;
+      if (errorData.error) {
+        this.showError(errorData.error);
+      }
+    };
+
+    element.showError = function (ev) {
+      if (ev.error.stack) {
+        var clone = thatDoc.importNode(template, true);
+
+        var name;
+        if (ev.error.constructor.name !== ev.error.name) {
+          name = ev.error.constructor.name + ": " + ev.error.name;
+        }
+        else {
+          name = ev.error.name;
+        }
+
+        clone.querySelector('h1').textContent = "Uncaught " + name;
+        clone.querySelector('div').textContent = ev.error.message;
+        clone.querySelector('pre').textContent = ev.error.stack;
+
+        this.shadowRoot.appendChild(clone);
+      }
+    };
+
+    document.registerElement('juicy-error-stacktrace-reporter', {
+      prototype: element
+    });
+  }(window, document));
+</script>

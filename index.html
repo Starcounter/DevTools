@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>&lt;juicy-error&gt;</title>
+
+  <script src="../webcomponentsjs/webcomponents.min.js"></script>
+
+  <link rel="import" href="src/juicy-error-dialog.html">
+  <link rel="import" href="src/juicy-error-stacktrace-reporter.html">
+  <link rel="import" href="src/fast-json-patch-error-reporter.html">
+</head>
+<body>
+
+<h2>Sample errors</h2>
+
+<button id="button1">JavaScript error (call unexisting function twice)</button>
+<script>
+  document.getElementById("button1").addEventListener("click", function () {
+    unexisting();
+  });
+
+  document.getElementById("button1").addEventListener("click", function () {
+    unexisting2();
+  });
+</script>
+
+<br>
+<button id="button2">XMLHttpRequest error (send to an unopened connection)</button>
+<script>
+  function clickHandler() {
+    xhrSender();
+  }
+
+  function xhrSender() {
+    var xhr = new XMLHttpRequest();
+    xhr.send();
+  }
+
+  document.getElementById("button2").addEventListener("click", function () {
+    clickHandler();
+  });
+</script>
+
+<br>
+<button id="button3">JSON-Patch error</button>
+<script>
+  document.getElementById("button3").addEventListener("click", function () {
+     window.JsonPatchError = function (message, patch, obj) {
+      var err = new Error(message);
+      Object.setPrototypeOf(err, JsonPatchError.prototype);
+      err.patch = patch;
+      err.obj = obj;
+      return err;
+    };
+    JsonPatchError.prototype = Object.create(Error.prototype, {name: {value: 'JsonPatchError', enumerable: false}});
+
+    throw new JsonPatchError("Cannot add property", {op: "add", path: "/firstName", value: "Elvis"}, {name: "Albert"});
+  });
+</script>
+
+<!--<polyjuice-debug-aid></polyjuice-debug-aid>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<juicy-error-dialog>
+  <template>
+    <fast-json-patch-error-reporter></fast-json-patch-error-reporter>
+    <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
+  </template>
+</juicy-error-dialog>
+
+
+
+</body>
+</html>

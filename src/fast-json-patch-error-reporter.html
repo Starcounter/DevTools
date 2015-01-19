@@ -1,0 +1,61 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../juicy-jsoneditor/src/juicy-jsoneditor.html">
+
+<template>
+  <style>
+    div {
+      white-space: pre-wrap;
+    }
+  </style>
+  <h1></h1>
+
+  <div></div>
+  <pre></pre>
+
+  <div></div>
+  <pre></pre>
+  <juicy-jsoneditor></juicy-jsoneditor>
+</template>
+
+<script>
+  (function (window, document) {
+    var thatDoc = document;
+
+    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+
+    var template = thisDoc.querySelector('template').content;
+
+    var element = Object.create(HTMLElement.prototype);
+
+    element.createdCallback = function () {
+      this.createShadowRoot();
+    };
+
+    element.attachedCallback = function () {
+      var errorData = this.parentNode;
+      if (errorData.error) {
+        this.showError(errorData.error);
+      }
+    };
+
+    element.showError = function (ev) {
+      if (window.JsonPatchError && ev.error instanceof JsonPatchError) {
+        var clone = thatDoc.importNode(template, true);
+
+        clone.querySelector('h1').textContent = "JSON-Patch error";
+        clone.querySelector('div').textContent = ev.error.message + "\n\n" + "At patch:";
+        clone.querySelector('pre').textContent = JSON.stringify(ev.error.patch);
+        clone.querySelector('div:nth-of-type(2)').textContent = "In object:";
+        clone.querySelector('juicy-jsoneditor').json = ev.error.obj;
+
+        ev.handled = true;
+
+        this.shadowRoot.appendChild(clone);
+      }
+    };
+
+    document.registerElement('fast-json-patch-error-reporter', {
+      prototype: element
+    });
+  }(window, document));
+</script>
