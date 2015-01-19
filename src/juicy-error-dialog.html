@@ -26,7 +26,8 @@
       }
     </style>
 
-    <paper-dialog id="dialog" backdrop layered="false" on-core-overlay-close-completed="{{dialogClosed}}">
+    <paper-dialog id="dialog" backdrop layered="false" on-core-overlay-close-completed="{{dialogClosed}}"
+      on-core-overlay-open-completed="{{dialogOpened}}">
       <template repeat="{{error, index in errors}}">
         <juicy-error-data error="{{error}}">
           <template if="{{index > 0}}">
@@ -53,7 +54,7 @@
           }
           that.errors.push(ev);
           window.requestAnimationFrame(function () {
-            //must be in next frame to be properly positioned in the window center
+            //needed for proper position in the window center (Chrome)
             that.$.dialog.open();
           });
         };
@@ -61,6 +62,12 @@
       },
       detached: function () {
         window.removeEventListener("error", this._handleErrorEvent);
+      },
+      dialogOpened: function () {
+        var that = this;
+        window.requestAnimationFrame(function () {
+          that.$.dialog.resizeHandler(); //needed for proper position in the window center (Firefox)
+        });
       },
       dialogClosed: function () {
         this.errors.length = 0;
