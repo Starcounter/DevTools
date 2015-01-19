@@ -1,53 +1,116 @@
-<template>
-  <h1></h1>
+<link rel="import" href="../../polymer/polymer.html">
+<script src="../lib/tracekit.js"></script>
 
-  <div></div>
-  <pre></pre>
-</template>
-
-<script>
-  (function (window, document) {
-    var thatDoc = document;
-
-    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
-
-    var template = thisDoc.querySelector('template').content;
-
-    var element = Object.create(HTMLElement.prototype);
-
-    element.createdCallback = function () {
-      this.createShadowRoot();
-    };
-
-    element.attachedCallback = function () {
-      var errorData = this.parentNode;
-      if (errorData.error) {
-        this.showError(errorData.error);
+<polymer-element name="juicy-error-stacktrace-reporter">
+  <template>
+    <style>
+      h1 {
+        margin-top: 0;
+        font-weight: normal;
       }
-    };
 
-    element.showError = function (ev) {
-      if (ev.error.stack) {
-        var clone = thatDoc.importNode(template, true);
-
-        var name;
-        if (ev.error.constructor.name !== ev.error.name) {
-          name = ev.error.constructor.name + ": " + ev.error.name;
-        }
-        else {
-          name = ev.error.name;
-        }
-
-        clone.querySelector('h1').textContent = "Uncaught " + name;
-        clone.querySelector('div').textContent = ev.error.message;
-        clone.querySelector('pre').textContent = ev.error.stack;
-
-        this.shadowRoot.appendChild(clone);
+      h2 {
+        margin-top: 24px;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: normal;
       }
-    };
 
-    document.registerElement('juicy-error-stacktrace-reporter', {
-      prototype: element
+      p {
+        margin-top: 12px;
+        margin-bottom: 2px;
+      }
+
+      .url {
+        font-size: 70%;
+        margin-top: 2px;
+        margin-left: 18px;
+        color: #999;
+        white-space: nowrap;
+      }
+
+      .url strong {
+        color: #777;
+      }
+
+      code, .tag {
+        padding: 0;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        margin: 0;
+        font-size: 98%; /*github has it at 85%*/
+        background-color: rgba(0, 0, 0, 0.04);
+        border-radius: 3px;
+      }
+
+      code {
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      }
+
+      code:before, code:after, .tag:before, .tag:after {
+        letter-spacing: -0.2em;
+        content: "\00a0";
+      }
+    </style>
+
+    <template if="{{constructorName}}">
+      <h2><span class="tag">{{constructorName}}</span></h2>
+    </template>
+
+    <h1>
+      Uncaught {{name}}:
+      <template if="{{codeMessage}}">
+        <br><strong><code>{{codeMessage}}</code> {{message}}</strong>
+      </template>
+      <template if="{{!codeMessage}}">
+        <br><strong>{{message}}</strong>
+      </template>
+    </h1>
+
+    <template repeat="{{trace}}">
+      <p class="big">at {{func}}</p>
+
+      <p class="url">{{url}}<strong>{{file}}</strong>, line {{line}}, column {{column}}</p>
+    </template>
+  </template>
+  <script>
+    Polymer("juicy-error-stacktrace-reporter", {
+      constructorName: "",
+      name: "",
+      codeMessage: "",
+      message: "",
+      trace: [],
+      attached: function () {
+        var errorData = this.parentNode;
+        if (errorData.error) {
+          this.showError(errorData.error);
+        }
+      },
+      showError: function (ev) {
+        if (ev.error.stack) {
+          this.constructorName = ev.error.constructor.name;
+
+          var trace = TraceKit.computeStackTrace(ev.error);
+
+          for (var i = 0; i < trace.stack.length; i++) {
+            var url = trace.stack[i].url;
+            var lastSlash = url.lastIndexOf("/");
+            trace.stack[i].url = url.substring(0, lastSlash + 1);
+            trace.stack[i].file = url.substring(lastSlash + 1, url.length);
+          }
+
+          this.trace = trace.stack;
+
+          this.name = trace.name;
+
+          this.message = trace.message;
+          var codeEnd = this.message.indexOf(" is not defined");
+          if (codeEnd > -1) {
+            this.codeMessage = this.message.substring(0, codeEnd);
+            this.message = this.message.substring(codeEnd + 1, this.message.length);
+          }
+        }
+      }
     });
-  }(window, document));
-</script>
+  </script>
+</polymer-element>
