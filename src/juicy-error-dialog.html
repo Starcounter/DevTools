@@ -15,32 +15,38 @@
         font-family: sans-serif;
       }
 
-      hr {
-        border: 1px inset #ddd;
-        margin-top: 24px;
-        margin-bottom: 24px;
+      paper-dialog /deep/ #scroller {
+        padding: 0;
       }
 
-      paper-dialog /deep/ #scroller {
-        padding-top: 0;
+      .errorHeader {
+        background-color: firebrick;
+        color: white;
+        padding: 2px 24px;
+        font-size: 80%;
+      }
+
+      .errorPad {
+        margin: 24px;
       }
     </style>
 
     <paper-dialog id="dialog" backdrop layered="false" on-core-overlay-close-completed="{{dialogClosed}}"
       on-core-overlay-open-completed="{{dialogOpened}}">
-      <template repeat="{{error, index in errors}}">
+      <template repeat="{{error in errors}}">
+        <div class="errorHeader">Error {{error.errorNo}}</div>
+        <div class="errorPad">
         <juicy-error-data error="{{error}}">
-          <template if="{{index > 0}}">
-            <hr>
-          </template>
           <template bind ref="reporters"></template>
         </juicy-error-data>
+        </div>
       </template>
       <content></content>
     </paper-dialog>
   </template>
   <script>
     Polymer("juicy-error-dialog", {
+      errorNo: 0,
       limit: 10,
       errors: [],
       attached: function () {
@@ -49,6 +55,8 @@
         tpl.id = "reporters";
         this.shadowRoot.appendChild(tpl);
         this._handleErrorEvent = function (ev) {
+          that.errorNo++;
+          ev.errorNo = that.errorNo;
           if (that.errors.length > that.limit) {
             return;
           }

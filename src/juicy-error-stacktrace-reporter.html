@@ -53,24 +53,26 @@
       }
     </style>
 
-    <template if="{{constructorName}}">
-      <h2><span class="tag">{{constructorName}}</span></h2>
-    </template>
-
-    <h1>
-      Uncaught {{name}}:
-      <template if="{{codeMessage}}">
-        <br><strong><code>{{codeMessage}}</code> {{message}}</strong>
+    <template if="{{message}}">
+      <template if="{{constructorName}}">
+        <h2><span class="tag">{{constructorName}} Stack Trace</span></h2>
       </template>
-      <template if="{{!codeMessage}}">
-        <br><strong>{{message}}</strong>
+
+      <h1>
+        Uncaught {{name}}:
+        <template if="{{codeMessage}}">
+          <br><strong><code>{{codeMessage}}</code> {{message}}</strong>
+        </template>
+        <template if="{{!codeMessage}}">
+          <br><strong>{{message}}</strong>
+        </template>
+      </h1>
+
+      <template repeat="{{trace}}">
+        <p class="big">at {{func}}</p>
+
+        <p class="url">{{url}}<strong>{{file}}</strong>, line {{line}}, column {{column}}</p>
       </template>
-    </h1>
-
-    <template repeat="{{trace}}">
-      <p class="big">at {{func}}</p>
-
-      <p class="url">{{url}}<strong>{{file}}</strong>, line {{line}}, column {{column}}</p>
     </template>
   </template>
   <script>
@@ -87,27 +89,28 @@
         }
       },
       showError: function (ev) {
-        if (ev.error.stack) {
-          this.constructorName = ev.error.constructor.name;
-
+        if (!ev.handled) {
           var trace = TraceKit.computeStackTrace(ev.error);
+          if (trace) {
+            this.constructorName = ev.error.constructor.name;
 
-          for (var i = 0; i < trace.stack.length; i++) {
-            var url = trace.stack[i].url;
-            var lastSlash = url.lastIndexOf("/");
-            trace.stack[i].url = url.substring(0, lastSlash + 1);
-            trace.stack[i].file = url.substring(lastSlash + 1, url.length);
-          }
+            for (var i = 0; i < trace.stack.length; i++) {
+              var url = trace.stack[i].url;
+              var lastSlash = url.lastIndexOf("/");
+              trace.stack[i].url = url.substring(0, lastSlash + 1);
+              trace.stack[i].file = url.substring(lastSlash + 1, url.length);
+            }
 
-          this.trace = trace.stack;
+            this.trace = trace.stack;
 
-          this.name = trace.name;
+            this.name = trace.name;
 
-          this.message = trace.message;
-          var codeEnd = this.message.indexOf(" is not defined");
-          if (codeEnd > -1) {
-            this.codeMessage = this.message.substring(0, codeEnd);
-            this.message = this.message.substring(codeEnd + 1, this.message.length);
+            this.message = trace.message;
+            var codeEnd = this.message.indexOf(" is not defined");
+            if (codeEnd > -1) {
+              this.codeMessage = this.message.substring(0, codeEnd);
+              this.message = this.message.substring(codeEnd + 1, this.message.length);
+            }
           }
         }
       }

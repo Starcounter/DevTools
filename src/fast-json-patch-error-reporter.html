@@ -4,23 +4,56 @@
 <template>
   <style>
     h1 {
+      margin-top: 0;
+    }
+
+    h2 {
       margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 16px;
       font-weight: normal;
     }
 
     p {
       margin-top: 12px;
       margin-bottom: 2px;
-      white-space: pre-wrap;
+    }
+
+    pre {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 3px;
+      padding: 0.4em;
+      font-size: 98%; /*github has it at 85%*/
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    }
+
+    code, .tag {
+      padding: 0;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      margin: 0;
+      font-size: 98%; /*github has it at 85%*/
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 3px;
+    }
+
+    code {
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    }
+
+    code:before, code:after, .tag:before, .tag:after {
+      letter-spacing: -0.2em;
+      content: "\00a0";
     }
   </style>
+  <h2><span class="tag">Fast-JSON-Patch Error</span></h2>
+
   <h1></h1>
 
   <p></p>
   <pre></pre>
 
   <p></p>
-  <pre></pre>
   <juicy-jsoneditor></juicy-jsoneditor>
 </template>
 
@@ -49,8 +82,8 @@
       if (window.JsonPatchError && ev.error instanceof JsonPatchError) {
         var clone = thatDoc.importNode(template, true);
 
-        clone.querySelector('h1').textContent = "JSON-Patch error";
-        clone.querySelector('p').textContent = ev.error.message + "\n\n" + "At patch:";
+        clone.querySelector('h1').textContent = ev.error.message;
+        clone.querySelector('p').textContent = "At patch:";
         clone.querySelector('pre').textContent = JSON.stringify(ev.error.patch);
         clone.querySelector('p:nth-of-type(2)').textContent = "In object:";
         clone.querySelector('juicy-jsoneditor').json = ev.error.obj;
