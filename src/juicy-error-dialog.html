@@ -14,11 +14,24 @@
       :host {
         font-family: sans-serif;
       }
+
+      hr {
+        border: 1px inset #ddd;
+        margin-top: 24px;
+        margin-bottom: 24px;
+      }
+
+      paper-dialog /deep/ #scroller {
+        padding-top: 0;
+      }
     </style>
 
     <paper-dialog id="dialog" backdrop layered="false" on-core-overlay-close-completed="{{dialogClosed}}">
-      <template repeat="{{error in errors}}">
+      <template repeat="{{error, index in errors}}">
         <juicy-error-data error="{{error}}">
+          <template if="{{index > 0}}">
+            <hr>
+          </template>
           <template bind ref="reporters"></template>
         </juicy-error-data>
       </template>
@@ -27,6 +40,7 @@
   </template>
   <script>
     Polymer("juicy-error-dialog", {
+      limit: 10,
       errors: [],
       attached: function () {
         var that = this;
@@ -34,6 +48,9 @@
         tpl.id = "reporters";
         this.shadowRoot.appendChild(tpl);
         this._handleErrorEvent = function (ev) {
+          if (that.errors.length > that.limit) {
+            return;
+          }
           that.errors.push(ev);
           window.requestAnimationFrame(function () {
             //must be in next frame to be properly positioned in the window center
