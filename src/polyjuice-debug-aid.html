@@ -1,0 +1,14 @@
+<link rel="import" href="juicy-error-stacktrace-reporter.html">
+<link rel="import" href="fast-json-patch-error-reporter.html">
+<link rel="import" href="juicy-error-dialog.html">
+
+<polymer-element name="polyjuice-debug-aid" noscript>
+  <template>
+    <juicy-error-dialog>
+      <template>
+        <fast-json-patch-error-reporter></fast-json-patch-error-reporter>
+        <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
+      </template>
+    </juicy-error-dialog>
+  </template>
+</polymer-element>

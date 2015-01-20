@@ -1,9 +1,9 @@
 {
-  "name": "juicy-error",
+  "name": "polyjuice-debug-aid",
   "version": "0.0.0",
-  "description": "Juicy error reporting",
+  "description": "Friendly messages that help to debug Polyjuice apps",
   "license": "MIT",
-  "main": "src/juicy-error-dialog.html",
+  "main": "src/polyjuice-debug-aid.html",
   "keywords": [
     "web-components"
   ],
