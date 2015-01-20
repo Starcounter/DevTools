@@ -50,10 +50,10 @@
 
   <h1></h1>
 
-  <p></p>
+  <p class="patchLabel"></p>
   <pre></pre>
 
-  <p></p>
+  <p class="objectLabel"></p>
   <juicy-jsoneditor></juicy-jsoneditor>
 </template>
 
@@ -83,9 +83,9 @@
         var clone = thatDoc.importNode(template, true);
 
         clone.querySelector('h1').textContent = ev.error.message;
-        clone.querySelector('p').textContent = "At patch:";
+        clone.querySelector('p.patchLabel').textContent = "At patch:";
         clone.querySelector('pre').textContent = JSON.stringify(ev.error.patch);
-        clone.querySelector('p:nth-of-type(2)').textContent = "In object:";
+        clone.querySelector('p.objectLabel').textContent = "In object:";
         clone.querySelector('juicy-jsoneditor').json = ev.error.obj;
 
         ev.handled = true;

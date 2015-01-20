@@ -96,9 +96,17 @@
 
             for (var i = 0; i < trace.stack.length; i++) {
               var url = trace.stack[i].url;
-              var lastSlash = url.lastIndexOf("/");
-              trace.stack[i].url = url.substring(0, lastSlash + 1);
-              trace.stack[i].file = url.substring(lastSlash + 1, url.length);
+              if (url) { //IE11 sees it as null sometimes
+                var lastSlash = url.lastIndexOf("/");
+                trace.stack[i].url = url.substring(0, lastSlash + 1);
+                trace.stack[i].file = url.substring(lastSlash + 1, url.length);
+              }
+              if(trace.stack[i].line == null) { //IE11 sees it as null sometimes
+                trace.stack[i].line = '';
+              }
+              if(trace.stack[i].column == null) { //IE11 sees it as null sometimes
+                trace.stack[i].column = '';
+              }
             }
 
             this.trace = trace.stack;

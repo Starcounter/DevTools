@@ -22,7 +22,8 @@
   });
 </script>
 
-<br><button id="button2">Two JavaScript errors (call unexisting function)</button>
+<br>
+<button id="button2">Two JavaScript errors (call unexisting function)</button>
 <script>
   document.getElementById("button2").addEventListener("click", function () {
     unexisting();
@@ -37,7 +38,7 @@
 <button id="button3">JSON-Patch error</button>
 <script>
   document.getElementById("button3").addEventListener("click", function () {
-     window.JsonPatchError = function (message, patch, obj) {
+    window.JsonPatchError = function (message, patch, obj) {
       var err = new Error(message);
       Object.setPrototypeOf(err, JsonPatchError.prototype);
       err.patch = patch;
@@ -46,21 +47,19 @@
     };
     JsonPatchError.prototype = Object.create(Error.prototype, {name: {value: 'JsonPatchError', enumerable: false}});
 
-    throw new JsonPatchError("Cannot add property", {op: "add", path: "/firstName", value: "Elvis"}, {name: "Albert"});
+    var error = new JsonPatchError("Cannot add property", {
+      op: "add",
+      path: "/firstName",
+      value: "Elvis"
+    }, {name: "Albert"});
+
+    var ev = new Event("error", {"bubbles": true, "cancelable": false});
+    ev.error = error;
+    window.dispatchEvent(ev); //normally it will be dispatched at `<polyjuice-puppet>`
   });
 </script>
 
 <!--<polyjuice-debug-aid></polyjuice-debug-aid>-->
-
-
-
-
-
-
-
-
-
-
 
 
 <juicy-error-dialog>
@@ -69,7 +68,6 @@
     <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
   </template>
 </juicy-error-dialog>
-
 
 
 </body>
