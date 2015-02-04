@@ -11,34 +11,6 @@
 <polymer-element name="juicy-error-dialog">
   <template>
     <style>
-      :host {
-        font-family: sans-serif;
-      }
-
-      #overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      #overlay.hidden {
-        display: none;
-      }
-
-      #dialog {
-        background: white;
-        box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);
-        max-width: 90vw;
-        max-height: 90vh;
-        overflow: auto;
-      }
-
       .errorHeader {
         background-color: firebrick;
         color: white;
@@ -51,19 +23,15 @@
       }
     </style>
 
-    <div id="overlay" class="hidden">
-      <div id="dialog">
-        <template repeat="{{error in errors}}">
-          <div class="errorHeader">Error {{error.errorNo}}</div>
-          <div class="errorPad">
-            <juicy-error-data error="{{error}}">
-              <template bind ref="reporters"></template>
-            </juicy-error-data>
-          </div>
-        </template>
-        <content></content>
+    <template repeat="{{error in errors}}">
+      <div class="errorHeader">Error {{error.errorNo}}</div>
+      <div class="errorPad">
+        <juicy-error-data error="{{error}}">
+          <template bind ref="reporters"></template>
+        </juicy-error-data>
       </div>
-    </div>
+    </template>
+    <content></content>
   </template>
   <script>
     Polymer("juicy-error-dialog", {
@@ -82,13 +50,10 @@
             return;
           }
           that.errors.push(ev);
-          that.$.overlay.classList.remove("hidden");
         };
         window.addEventListener("error", this._handleErrorEvent);
-        this.$.overlay.addEventListener("click", this.dialogClosed.bind(this));
       },
-      dialogClosed: function () {
-        this.$.overlay.classList.add("hidden");
+      reset: function () {
         this.errors.length = 0;
       }
     });
