@@ -1,4 +1,4 @@
-<link rel="import" href="../../paper-dialog/paper-dialog.html">
+<link rel="import" href="../../polymer/polymer.html">
 
 <polymer-element name="juicy-error-data" attributes="error">
   <script>
@@ -15,8 +15,28 @@
         font-family: sans-serif;
       }
 
-      paper-dialog /deep/ #scroller {
-        padding: 0;
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #overlay.hidden {
+        display: none;
+      }
+
+      #dialog {
+        background: white;
+        box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow: auto;
       }
 
       .errorHeader {
@@ -31,25 +51,26 @@
       }
     </style>
 
-    <paper-dialog id="dialog" backdrop layered="false" on-core-overlay-close-completed="{{dialogClosed}}"
-      on-core-overlay-open-completed="{{dialogOpened}}">
-      <template repeat="{{error in errors}}">
-        <div class="errorHeader">Error {{error.errorNo}}</div>
-        <div class="errorPad">
-        <juicy-error-data error="{{error}}">
-          <template bind ref="reporters"></template>
-        </juicy-error-data>
-        </div>
-      </template>
-      <content></content>
-    </paper-dialog>
+    <div id="overlay" class="hidden">
+      <div id="dialog">
+        <template repeat="{{error in errors}}">
+          <div class="errorHeader">Error {{error.errorNo}}</div>
+          <div class="errorPad">
+            <juicy-error-data error="{{error}}">
+              <template bind ref="reporters"></template>
+            </juicy-error-data>
+          </div>
+        </template>
+        <content></content>
+      </div>
+    </div>
   </template>
   <script>
     Polymer("juicy-error-dialog", {
       errorNo: 0,
       limit: 10,
       errors: [],
-      attached: function () {
+      ready: function () {
         var that = this;
         var tpl = this.querySelector('template');
         tpl.id = "reporters";
@@ -61,23 +82,13 @@
             return;
           }
           that.errors.push(ev);
-          window.requestAnimationFrame(function () {
-            //needed for proper position in the window center (Chrome)
-            that.$.dialog.open();
-          });
+          that.$.overlay.classList.remove("hidden");
         };
         window.addEventListener("error", this._handleErrorEvent);
-      },
-      detached: function () {
-        window.removeEventListener("error", this._handleErrorEvent);
-      },
-      dialogOpened: function () {
-        var that = this;
-        window.requestAnimationFrame(function () {
-          that.$.dialog.resizeHandler(); //needed for proper position in the window center (Firefox)
-        });
+        this.$.overlay.addEventListener("click", this.dialogClosed.bind(this));
       },
       dialogClosed: function () {
+        this.$.overlay.classList.add("hidden");
         this.errors.length = 0;
       }
     });
