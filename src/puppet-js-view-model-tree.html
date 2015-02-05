@@ -1,0 +1,57 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../juicy-jsoneditor/src/juicy-jsoneditor.html">
+
+<template>
+  <style>
+    h1 {
+      margin-top: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: normal;
+    }
+
+    juicy-jsoneditor {
+      min-width: 50vw;
+      min-height: 50vh;
+      background: yellow;
+    }
+  </style>
+  <h1>Puppet view-model tree</h1>
+
+  <juicy-jsoneditor></juicy-jsoneditor>
+</template>
+
+<script>
+  (function (window, document) {
+    var thatDoc = document;
+
+    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+
+    var template = thisDoc.querySelector('template').content;
+
+    var element = Object.create(HTMLElement.prototype);
+
+    element.createdCallback = function () {
+      this.createShadowRoot();
+    };
+
+    element.attachedCallback = function () {
+      var puppet = document.querySelector('puppet-js');
+
+      if (puppet) {
+        var clone = thatDoc.importNode(template, true);
+        clone.querySelector('juicy-jsoneditor').json = puppet.obj;
+        this.shadowRoot.appendChild(clone);
+      }
+    };
+
+    document.registerElement('puppet-js-view-model-tree', {
+      prototype: element
+    });
+  }(window, document));
+</script>
