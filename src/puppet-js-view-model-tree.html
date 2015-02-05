@@ -52,8 +52,8 @@
   </div>
 
   <div id="view">
-  <juicy-jsoneditor></juicy-jsoneditor>
-  <pre id="plain" class="hidden"></pre>
+    <juicy-jsoneditor></juicy-jsoneditor>
+    <pre id="plain" class="hidden"></pre>
   </div>
 </template>
 
@@ -78,7 +78,7 @@
       }
     };
 
-    element.selectPlain = function() {
+    element.selectPlain = function () {
       var range = document.createRange();
       range.selectNode(this.shadowRoot.querySelector("#plain"));
       window.getSelection().empty();
@@ -109,7 +109,7 @@
         var plain = that.shadowRoot.querySelector("#plain");
         plain.classList.remove("hidden");
         plain.textContent = JSON.stringify(that.getPuppetData(), null, 2);
-        });
+      });
 
       clone.querySelector('#plainRadio').addEventListener('click', function (ev) {
         that.selectPlain();
