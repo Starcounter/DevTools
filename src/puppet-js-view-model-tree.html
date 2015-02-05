@@ -16,9 +16,13 @@
     }
 
     juicy-jsoneditor {
-      min-width: 50vw;
-      min-height: 50vh;
-      background: yellow;
+      max-height: 50vh;
+    }
+
+    juicy-jsoneditor /deep/ .jsoneditor,
+    juicy-jsoneditor /deep/ .jsoneditor div.outer,
+    juicy-jsoneditor /deep/ .jsoneditor div.tree {
+      overflow: hidden;
     }
   </style>
   <h1>Puppet view-model tree</h1>
