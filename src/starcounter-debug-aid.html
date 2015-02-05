@@ -62,53 +62,56 @@
       }
     </style>
 
-    <div id="overlay" class="hidden">
-      <div id="dialog">
+    <template if="{{visible}}">
+      <div id="overlay" on-click="{{onClickOverlay}}">
+        <div id="dialog">
 
-        <input id="tab1" name="tab-control" type="radio" checked>
-        <input id="tab2" name="tab-control" type="radio">
-        <input id="tab3" name="tab-control" type="radio">
+          <input id="tab1" name="tab-control" type="radio" checked>
+          <input id="tab2" name="tab-control" type="radio">
+          <input id="tab3" name="tab-control" type="radio">
 
-        <label for="tab1">View-model</label>
-        <label for="tab2">Settings</label>
-        <label for="tab3">Help</label>
+          <label for="tab1">View-model</label>
+          <label for="tab2">Settings</label>
+          <label for="tab3">Help</label>
 
-        <div class="tab-content">
-          <puppet-js-view-model-tree></puppet-js-view-model-tree>
-        </div>
-
-        <div class="tab-content">
-          <puppet-js-settings></puppet-js-settings>
-        </div>
-
-        <div class="tab-content">
-          <div>
-            <h1>Starcounter Debug Aid</h1>
-
-            <p>Suggestions and bug reports welcome at <a href="https://github.com/Polyjuice/starcounter-debug-aid">GitHub
-              Issues</a>.</p>
+          <div class="tab-content">
+            <puppet-js-view-model-tree></puppet-js-view-model-tree>
           </div>
 
-          <!-- uncomment with a nice tabbed UI and no errors in Launcher
-          <juicy-error-dialog id="errorDialog" on-error-catched="{{openDialog}}">
-            <template>
-              <fast-json-patch-error-reporter></fast-json-patch-error-reporter>
-              <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
-            </template>
-          </juicy-error-dialog>-->
+          <div class="tab-content">
+            <puppet-js-settings></puppet-js-settings>
+          </div>
+
+          <div class="tab-content">
+            <div>
+              <h1>Starcounter Debug Aid</h1>
+
+              <p>Suggestions and bug reports welcome at <a href="https://github.com/Polyjuice/starcounter-debug-aid">GitHub
+                Issues</a>.</p>
+            </div>
+
+            <!-- uncomment with a nice tabbed UI and no errors in Launcher
+            <juicy-error-dialog id="errorDialog" on-error-catched="{{openDialog}}">
+              <template>
+                <fast-json-patch-error-reporter></fast-json-patch-error-reporter>
+                <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
+              </template>
+            </juicy-error-dialog>-->
+          </div>
         </div>
       </div>
-    </div>
-    </div>
+      </div>
+    </template>
     <content></content>
   </template>
   <script>
     Polymer("starcounter-debug-aid", {
+      visible: false,
       ready: function () {
         var that = this;
-        window.addEventListener("keyup", function (ev) {
+        window.addEventListener("keydown", function (ev) {
           if ((ev.keyCode === 192 || ev.keyCode === 220) && (ev.ctrlKey || ev.metaKey)) { //CTRL+` (Windows) or CMD+§ (Mac) or CTRL+/ (Windows+Parallels)
-            if (that.$.overlay.classList.contains("hidden")) {
+            if (!that.visible) {
               that.openDialog();
             }
             else {
@@ -116,25 +119,24 @@
             }
           }
           else if (ev.keyCode === 27) { //Esc
-            if (!that.$.overlay.classList.contains("hidden")) {
+            if (that.visible) {
               that.closeDialog();
             }
           }
         });
         //window.addEventListener("error", this.openDialog.bind(this));
-        this.$.overlay.addEventListener("click", function (ev) {
-          if (ev.target === that.$.overlay || ev.target === that.$.dialog) {
-            that.closeDialog();
-          }
-        });
+      },
+      onClickOverlay: function (ev) {
+        if (ev.target === this.shadowRoot.querySelector('#overlay') || ev.target === this.shadowRoot.querySelector('#dialog')) {
+          this.closeDialog();
+        }
       },
       closeDialog: function () {
-        this.$.overlay.classList.add("hidden");
+        this.visible = false;
         //this.$.errorDialog.reset();
       },
       openDialog: function () {
-        this.$.overlay.classList.remove("hidden");
-        this.shadowRoot.querySelector("input").checked = true; //open first tab
+        this.visible = true;
       }
     });
   </script>
