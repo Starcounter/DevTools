@@ -71,11 +71,8 @@
       this.createShadowRoot();
     };
 
-    element.getPuppetData = function () {
-      var puppet = document.querySelector('puppet-js');
-      if (puppet) {
-        return puppet.obj;
-      }
+    function getPuppet() {
+      return document.querySelector('puppet-js') || document.querySelector('puppet-client') || window.puppet;
     };
 
     element.selectPlain = function () {
@@ -90,14 +87,17 @@
 
       var clone = thatDoc.importNode(template, true);
 
-      var data = this.getPuppetData();
-      if (data) {
-        clone.querySelector('juicy-jsoneditor').json = data;
-        clone.querySelector("#plain").textContent = JSON.stringify(that.getPuppetData(), null, 2);
+      var puppet = getPuppet();
+      if (puppet) {
+        clone.querySelector('juicy-jsoneditor').json = puppet.obj;
+        clone.querySelector("#plain").textContent = JSON.stringify(puppet.obj, null, 2);
       }
 
       clone.querySelector('#dumpButton').addEventListener('click', function () {
-        console.log(that.getPuppetData());
+        var puppet = getPuppet();
+        if (puppet) {
+          console.log(puppet.obj);
+        }
       });
 
       clone.querySelector('#treeRadio').addEventListener('change', function (ev) {

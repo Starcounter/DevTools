@@ -35,6 +35,10 @@
       }
     }
 
+    function getPuppet() {
+      return document.querySelector('puppet-js') || document.querySelector('puppet-client') || window.puppet;
+    };
+
     element.attachedCallback = function () {
       var clone = thatDoc.importNode(template, true);
 
@@ -42,7 +46,7 @@
 
       clone.querySelector('#isWebSocket').addEventListener('change', function (ev) {
         var newVal = ev.target.checked;
-        var puppet = document.querySelector("puppet-js");
+        var puppet = getPuppet();
         if (puppet) {
           puppet.useWebSocket = newVal;
         }
