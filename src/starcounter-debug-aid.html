@@ -106,8 +106,8 @@
     Polymer("starcounter-debug-aid", {
       ready: function () {
         var that = this;
-        window.addEventListener("keypress", function (ev) {
-          if ((ev.charCode === 96 || ev.charCode === 48) && (ev.ctrlKey)) { //CTRL+` (Windows/Mac) or CTRL+§ (Mac)
+        window.addEventListener("keyup", function (ev) {
+          if ((ev.keyCode === 192 || ev.keyCode === 220) && (ev.ctrlKey || ev.metaKey)) { //CTRL+` (Windows) or CMD+§ (Mac) or CTRL+/ (Windows+Parallels)
             if (that.$.overlay.classList.contains("hidden")) {
               that.openDialog();
             }
@@ -115,9 +115,7 @@
               that.closeDialog();
             }
           }
-        });
-        window.addEventListener("keyup", function (ev) {
-          if (ev.charCode === 27) { //Esc
+          else if (ev.keyCode === 27) { //Esc
             if (!that.$.overlay.classList.contains("hidden")) {
               that.closeDialog();
             }
