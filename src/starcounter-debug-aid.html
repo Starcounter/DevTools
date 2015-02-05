@@ -28,16 +28,15 @@
 
       #dialog {
         width: 90vw;
-        height: 90vh;
         margin-top: 5vh;
       }
 
       .tab-content {
         background: white;
         box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);
-        overflow: auto;
         padding: 4px 4px 4px 4px;
         display: none;
+        max-height: calc(90vh - 50px);
       }
 
       [type=radio] {
@@ -58,11 +57,11 @@
 
       [type=radio]:checked + * + * + * + .tab-content {
         /* number of asterisks must equal the number of tabs + 1 */
-        display: block;
+        display: flex;
       }
     </style>
 
-    <div id="overlay" xclass="hidden">
+    <div id="overlay" class="hidden">
       <div id="dialog">
 
         <input id="tab1" name="tab-control" type="radio" checked>
@@ -76,10 +75,12 @@
         </div>
 
         <div class="tab-content">
-          <h1>Starcounter Debug Aid</h1>
+          <div>
+            <h1>Starcounter Debug Aid</h1>
 
-          <p>Suggestions and bug reports welcome at <a href="https://github.com/Polyjuice/starcounter-debug-aid">GitHub
-            Issues</a>.</p>
+            <p>Suggestions and bug reports welcome at <a href="https://github.com/Polyjuice/starcounter-debug-aid">GitHub
+              Issues</a>.</p>
+          </div>
 
           <!-- uncomment with a nice tabbed UI and no errors in Launcher
           <juicy-error-dialog id="errorDialog" on-error-catched="{{openDialog}}">

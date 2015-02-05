@@ -3,18 +3,58 @@
 
 <template>
   <style>
-    juicy-jsoneditor {
-      max-height: 50vh;
+    :host {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      align-content: stretch;
+      flex: 1 1 auto;
     }
 
-    juicy-jsoneditor /deep/ .jsoneditor,
-    juicy-jsoneditor /deep/ .jsoneditor div.outer,
-    juicy-jsoneditor /deep/ .jsoneditor div.tree {
-      overflow: hidden;
+    #toolbar {
+      margin-bottom: 4px;
+      flex: 0 0 auto;
+    }
+
+    #view {
+      flex: 1 1 auto;
+      overflow: auto;
+      width: 100%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #plain {
+      margin: 0;
+      padding: 16px;
+      background: #f7f7f7;
+      border-radius: 3px;
+      white-space: pre-wrap;
+      font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
     }
   </style>
 
+  <div id="toolbar">
+    <label>
+      <input name="view-switch" type="radio" checked id="treeRadio">
+      Tree
+    </label>
+    <label>
+      <input name="view-switch" type="radio" id="plainRadio">
+      Text
+    </label>
+
+    <button id="dumpButton">Dump to console</button>
+  </div>
+
+  <div id="view">
   <juicy-jsoneditor></juicy-jsoneditor>
+  <pre id="plain" class="hidden"></pre>
+  </div>
 </template>
 
 <script>
@@ -31,14 +71,51 @@
       this.createShadowRoot();
     };
 
-    element.attachedCallback = function () {
+    element.getPuppetData = function () {
       var puppet = document.querySelector('puppet-js');
-
       if (puppet) {
-        var clone = thatDoc.importNode(template, true);
-        clone.querySelector('juicy-jsoneditor').json = puppet.obj;
-        this.shadowRoot.appendChild(clone);
+        return puppet.obj;
       }
+    };
+
+    element.selectPlain = function() {
+      var range = document.createRange();
+      range.selectNode(this.shadowRoot.querySelector("#plain"));
+      window.getSelection().empty();
+      window.getSelection().addRange(range);
+    };
+
+    element.attachedCallback = function () {
+      var that = this;
+
+      var clone = thatDoc.importNode(template, true);
+
+      var data = this.getPuppetData();
+      if (data) {
+        clone.querySelector('juicy-jsoneditor').json = data;
+      }
+
+      clone.querySelector('#dumpButton').addEventListener('click', function () {
+        console.log(that.getPuppetData());
+      });
+
+      clone.querySelector('#treeRadio').addEventListener('change', function (ev) {
+        that.shadowRoot.querySelector("#plain").classList.add("hidden");
+        that.shadowRoot.querySelector("juicy-jsoneditor").classList.remove("hidden");
+      });
+
+      clone.querySelector('#plainRadio').addEventListener('change', function (ev) {
+        that.shadowRoot.querySelector("juicy-jsoneditor").classList.add("hidden");
+        var plain = that.shadowRoot.querySelector("#plain");
+        plain.classList.remove("hidden");
+        plain.textContent = JSON.stringify(that.getPuppetData(), null, 2);
+        });
+
+      clone.querySelector('#plainRadio').addEventListener('click', function (ev) {
+        that.selectPlain();
+      });
+
+      this.shadowRoot.appendChild(clone);
     };
 
     document.registerElement('puppet-js-view-model-tree', {
