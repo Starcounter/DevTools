@@ -18,9 +18,7 @@
     };
 
     var knownResponses = {};
-    var knownResponsesChain = new Promise(function (resolve, reject) {
-      resolve(1);
-    });
+    var knownResponsesChain = Promise.resolve(true);
 
     element.attachedCallback = function () {
       var clone = thatDoc.importNode(template, true);
