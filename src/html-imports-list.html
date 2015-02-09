@@ -1,0 +1,169 @@
+<link rel="import" href="html-import-bower-info.html">
+
+<template id="shadow">
+  <style>
+    :host {
+      overflow: auto;
+    }
+
+    table {
+      border-spacing: 0;
+      width: 100%;
+    }
+
+    th {
+      text-align: left;
+      border-bottom: 1px solid #777;
+      padding: 8px 4px;
+      font-weight: normal;
+    }
+
+    td {
+      padding: 6px 4px;
+    }
+
+    td:first-child::before {
+      content: "└";
+    }
+
+    tr.level-0 td:first-child::before {
+      content: "";
+    }
+
+    tr.level-1 td:first-child {
+      padding-left: calc(1 * 1em);
+    }
+
+    tr.level-2 td:first-child {
+      padding-left: calc(1 * 2em + 1em);
+    }
+
+    tr.level-3 td:first-child {
+      padding-left: calc(2 * 2em + 1em);
+    }
+
+    tr.level-4 td:first-child {
+      padding-left: calc(3 * 2em + 1em);
+    }
+
+    tr.level-5 td:first-child {
+      padding-left: calc(4 * 2em + 1em);
+    }
+
+    tr.level-6 td:first-child {
+      padding-left: calc(5 * 2em + 1em);
+    }
+
+    tr.level-7 td:first-child {
+      padding-left: calc(6 * 2em + 1em);
+    }
+
+    tr.level-8 td:first-child {
+      padding-left: calc(7 * 2em + 1em);
+    }
+
+    .file {
+    }
+
+    .path {
+      font-size: 80%;
+      color: #555;
+    }
+
+    tr:hover td {
+      background: #f0f0f0;
+    }
+  </style>
+
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>File</th>
+        <th>Path</th>
+        <th style="cursor: help" title="Information from &quot;.bower.json&quot; file. Available only for packages installed using Bower.">
+          Bower version
+        </th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</template>
+
+<template id="row">
+  <tr>
+    <td>
+      <span class="file"></span>
+    </td>
+    <td>
+      <a class="path"></a>
+    </td>
+    <td>
+      <span class="version"><html-import-bower-info for-url=""></html-import-bower-info></span>
+    </td>
+  </tr>
+</template>
+
+<script>
+  (function (window, document) {
+    var thatDoc = document;
+
+    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+
+    var template = thisDoc.querySelector('template#shadow').content;
+    var rowTemplate = thisDoc.querySelector('template#row').content;
+
+    var element = Object.create(HTMLElement.prototype);
+
+    element.createdCallback = function () {
+      this.createShadowRoot();
+    };
+
+    var levels;
+
+    function findImports(doc, found, level) {
+      var found = found || [];
+      var level = level || 0;
+      var links = doc.querySelectorAll("link[rel=import");
+      for (var i = 0; i < links.length; i++) {
+        found.push(links[i]);
+        levels.push(level);
+        if (links[i].import) {
+          findImports(links[i].import, found, level + 1);
+        }
+      }
+      return found;
+    }
+
+    element.attachedCallback = function () {
+      var clone = thatDoc.importNode(template, true);
+
+      var TBODY = clone.querySelector('tbody');
+      levels = [];
+      var imports = findImports(document);
+      for (var i = 0; i < imports.length; i++) {
+        var row = thatDoc.importNode(rowTemplate, true);
+
+        row.querySelector("TR").classList.add("level-" + levels[i]);
+
+        if (imports[i].href) { //IE11 sees it as null sometimes
+          var url = new URL(imports[i].href, window.location.href);
+          var lastSlash = url.href.lastIndexOf("/");
+          row.querySelector(".path").textContent = url.href.replace(url.protocol + '//' + url.host, "");
+          row.querySelector(".path").setAttribute("href", url.href);
+          row.querySelector(".file").textContent = url.href.substring(lastSlash + 1, url.href.length);
+          row.querySelector("html-import-bower-info").setAttribute("for-url", url.href);
+        }
+
+        TBODY.appendChild(row);
+      }
+
+      this.shadowRoot.appendChild(clone);
+    };
+
+    document.registerElement('html-imports-list', {
+      prototype: element
+    });
+  }(window, document));
+</script>

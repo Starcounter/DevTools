@@ -1,0 +1,135 @@
+<template>
+  <a></a>
+  <content></content>
+</template>
+
+<script>
+  (function (window, document) {
+    var thatDoc = document;
+
+    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+
+    var template = thisDoc.querySelector('template').content;
+
+    var element = Object.create(HTMLElement.prototype);
+
+    element.createdCallback = function () {
+      this.createShadowRoot();
+    };
+
+    var knownResponses = {};
+    var knownResponsesChain = new Promise(function (resolve, reject) {
+      resolve(1);
+    });
+
+    element.attachedCallback = function () {
+      var clone = thatDoc.importNode(template, true);
+      var forUrl = this.getAttribute("for-url");
+      if (forUrl) {
+        this.attributeChangedCallback("for-url", "", forUrl);
+      }
+      this.shadowRoot.appendChild(clone);
+    };
+
+    element.attributeChangedCallback = function (attrName, oldVal, newVal) {
+      if (attrName === "for-url") {
+        this.getBowerInfo(newVal);
+      }
+    };
+
+    function getXhr(url) {
+      if (!(url instanceof URL)) {
+        throw new Error("Parameter must be an instance of URL");
+      }
+      return new Promise(function (resolve, reject) {
+        var href = url.href;
+        if (knownResponses[href]) {
+          resolve(knownResponses[href]);
+        }
+        else {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function (ev) {
+            if (ev.target.readyState == 4) { //done
+              knownResponses[href] = ev.target;
+              resolve(ev.target);
+            }
+          };
+          xhr.open("GET", href, true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send();
+        }
+      });
+    }
+
+    element.getBowerInfo = function (newVal) {
+      var url = new URL(newVal, window.location.href); //normalize url using https://developer.mozilla.org/en-US/docs/Web/API/URL.URL
+      var patharr = url.pathname.split('/');
+      var that = this;
+
+      var segments = patharr.length;
+      if (segments > 1) {
+        var guessBowerPath;
+        if (patharr[segments - 1] !== ".bower.json" /*&& patharr[segments - 1] !== "bower.json"*/) {
+          //0th pass
+          //try .bower.json first, because it is better: https://github.com/bower/bower/issues/1174
+          guessBowerPath = patharr.slice(0, segments - 1).join("/") + '/.bower.json';
+        }
+        /*else if (patharr[segments - 1] === ".bower.json") {
+         //1nd pass
+         guessBowerPath = patharr.slice(0, segments - 1).join("/") + '/bower.json';
+         }*/
+        else if (segments > 2) {
+          //2nd pass
+          guessBowerPath = patharr.slice(0, segments - 2).join("/") + '/.bower.json';
+        }
+
+        if (guessBowerPath) {
+          var guessBowerUrl = new URL(guessBowerPath, window.location.href);
+
+          knownResponsesChain = knownResponsesChain
+            .then(function () {
+              return getXhr(guessBowerUrl);
+            })
+            .then(function (xhrResponse) {
+              that.processBowerResponse(guessBowerUrl, xhrResponse);
+            });
+        }
+      }
+    };
+
+    element.processBowerResponse = function (url, xhrResponse) {
+      if (!(url instanceof URL)) {
+        throw new Error("Parameter must be an instance of URL");
+      }
+      if (!(xhrResponse instanceof XMLHttpRequest)) {
+        throw new Error("Parameter must be an instance of XMLHttpRequest");
+      }
+
+      if (xhrResponse.status === 200) {
+        if (!xhrResponse.json) {
+          xhrResponse.json = JSON.parse(xhrResponse.responseText);
+        }
+
+        var bowerInfo = xhrResponse.json.name;
+        if (xhrResponse.json._release) {
+          bowerInfo += '@' + xhrResponse.json._release; //only in .bower.json
+        }
+        /*else if(xhrResponse.json.version) {
+         bowerInfo += '@' + xhrResponse.json.version; //.bower.json or bower.json
+         }*/
+        this.shadowRoot.querySelector("a").textContent = bowerInfo;
+        if (xhrResponse.json.homepage) {
+          //non-standard but often present
+          this.shadowRoot.querySelector("a").setAttribute("href", xhrResponse.json.homepage);
+        }
+      }
+      else {
+        this.getBowerInfo(url); //will remove last segment and try loading again
+      }
+    };
+
+    document.registerElement('html-import-bower-info', {
+      prototype: element
+    });
+  }(window, document));
+</script>
