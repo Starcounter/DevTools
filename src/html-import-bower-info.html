@@ -18,7 +18,6 @@
     };
 
     var knownResponses = {};
-    var knownResponsesChain = Promise.resolve(true);
 
     element.attachedCallback = function () {
       var clone = thatDoc.importNode(template, true);
@@ -39,24 +38,22 @@
       if (!(url instanceof URL)) {
         throw new Error("Parameter must be an instance of URL");
       }
-      return new Promise(function (resolve, reject) {
-        var href = url.href;
-        if (knownResponses[href]) {
-          resolve(knownResponses[href]);
-        }
-        else {
+      var href = url.href;
+      if (knownResponses[href]) {
+        return knownResponses[href];
+      } else {
+        return knownResponses[href] = new Promise(function (resolve, reject) {
           var xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function (ev) {
             if (ev.target.readyState == 4) { //done
-              knownResponses[href] = ev.target;
               resolve(ev.target);
             }
           };
           xhr.open("GET", href, true);
           xhr.setRequestHeader("Content-Type", "application/json");
           xhr.send();
-        }
-      });
+        });
+      }
     }
 
     element.getBowerInfo = function (newVal) {
@@ -84,13 +81,9 @@
         if (guessBowerPath) {
           var guessBowerUrl = new URL(guessBowerPath, window.location.href);
 
-          knownResponsesChain = knownResponsesChain
-            .then(function () {
-              return getXhr(guessBowerUrl);
-            })
-            .then(function (xhrResponse) {
-              that.processBowerResponse(guessBowerUrl, xhrResponse);
-            });
+          getXhr(guessBowerUrl).then(function (xhrResponse) {
+            that.processBowerResponse(guessBowerUrl, xhrResponse);
+          });
         }
       }
     };
