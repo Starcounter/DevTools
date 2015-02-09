@@ -3,7 +3,24 @@
 <template id="shadow">
   <style>
     :host {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      align-content: stretch;
+      flex: 1 1 auto;
+    }
+
+    #toolbar {
+      margin-bottom: 4px;
+      flex: 0 0 auto;
+    }
+
+    #view {
+      flex: 1 1 auto;
       overflow: auto;
+      width: 100%;
     }
 
     table {
@@ -67,26 +84,56 @@
 
     .path {
       font-size: 80%;
-      color: #555;
+      color: #000;
+    }
+
+    .error {
+      color: red;
+      font-size: 80%;
+    }
+
+    a,
+    html-import-bower-info /deep/ a	{
+      text-decoration: none;
+    }
+
+    a:hover,
+    html-import-bower-info /deep/ a:hover	{
+      text-decoration: underline;
     }
 
     tr:hover td {
       background: #f0f0f0;
     }
+
+    .duplicate {
+      opacity: 0.5;
+    }
+
+    .duplicatesHidden .duplicate {
+      display: none;
+    }
   </style>
 
-  <div>
+  <div id="toolbar">
+    <label style="cursor: help" title="Show imports that are dependency of more than one import">
+      <input type="checkbox" id="showDuplicates">
+      Show duplicates
+    </label>
+  </div>
+  <div id="view">
     <table>
       <thead>
       <tr>
         <th>File</th>
         <th>Path</th>
-        <th style="cursor: help" title="Information from &quot;.bower.json&quot; file. Available only for packages installed using Bower.">
+        <th style="cursor: help"
+          title="Information from &quot;.bower.json&quot; file. Available only for packages installed using Bower.">
           Bower version
         </th>
       </tr>
       </thead>
-      <tbody></tbody>
+      <tbody class="duplicatesHidden"></tbody>
     </table>
   </div>
 </template>
@@ -98,6 +145,7 @@
     </td>
     <td>
       <a class="path"></a>
+      <span class="error"></span>
     </td>
     <td>
       <span class="version"><html-import-bower-info for-url=""></html-import-bower-info></span>
@@ -142,6 +190,7 @@
       var TBODY = clone.querySelector('tbody');
       levels = [];
       var imports = findImports(document);
+      var seenHrefs = {};
       for (var i = 0; i < imports.length; i++) {
         var row = thatDoc.importNode(rowTemplate, true);
 
@@ -154,10 +203,29 @@
           row.querySelector(".path").setAttribute("href", url.href);
           row.querySelector(".file").textContent = url.href.substring(lastSlash + 1, url.href.length);
           row.querySelector("html-import-bower-info").setAttribute("for-url", url.href);
+
+          if (seenHrefs[url.href]) {
+            row.querySelector("TR").classList.add("duplicate");
+          }
+          else {
+            seenHrefs[url.href] = true;
+          }
+
+          if(!imports[i].import) {
+            row.querySelector(".error").textContent = "Import failed";
+          }
+        }
+        else {
+          row.querySelector(".error").textContent = "href attribute missing";
+          row.querySelector(".file").textContent = "???";
         }
 
         TBODY.appendChild(row);
       }
+
+      clone.querySelector('#showDuplicates').addEventListener('change', function (ev) {
+        TBODY.classList.toggle("duplicatesHidden");
+      });
 
       this.shadowRoot.appendChild(clone);
     };
