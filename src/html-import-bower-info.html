@@ -17,7 +17,7 @@
       this.createShadowRoot();
     };
 
-    var knownResponses = {};
+    var knownRequests = {};
 
     element.attachedCallback = function () {
       var clone = thatDoc.importNode(template, true);
@@ -39,10 +39,10 @@
         throw new Error("Parameter must be an instance of URL");
       }
       var href = url.href;
-      if (knownResponses[href]) {
-        return knownResponses[href];
+      if (knownRequests[href]) {
+        return knownRequests[href];
       } else {
-        return knownResponses[href] = new Promise(function (resolve, reject) {
+        return knownRequests[href] = new Promise(function (resolve, reject) {
           var xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function (ev) {
             if (ev.target.readyState == 4) { //done
