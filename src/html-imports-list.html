@@ -152,7 +152,7 @@
       <a class="path"></a>
       <span class="error"></span>
     </td>
-    <td class="bower"></td>
+    <td class="bowerCell"></td>
   </tr>
 </template>
 
@@ -190,6 +190,13 @@
         }
       }
       return found;
+    }
+
+    function emptyElement(element) {
+      var child;
+      while (child = element.lastChild) {
+        element.removeChild(child);
+      }
     }
 
     element.attachedCallback = function () {
@@ -230,34 +237,32 @@
         TBODY.appendChild(row);
       }
 
-      clone.querySelector('#showDuplicates').addEventListener('change', function (ev) {
-        TBODY.classList.toggle("duplicatesHidden");
-      });
+      clone.querySelector('#showDuplicates').addEventListener('change', this.toggleDuplicates.bind(this));
 
-      function emptyElement(element) {
-        var child;
-        while (child = element.lastChild) {
-          element.removeChild(child);
-        }
-      };
-
-      clone.querySelector('#showBowerJson').addEventListener('change', function (ev) {
-        var bowerCells = TBODY.querySelectorAll("td.bower");
-        if (ev.target.checked) {
-          for (var i = 0; i < bowerCells.length; i++) {
-            var bowerCell = thatDoc.importNode(bowerCellTemplate, true);
-            bowerCell.querySelector("html-import-bower-info").setAttribute("for-url", bowerCells[i].parentNode.querySelector(".path").href);
-            bowerCells[i].appendChild(bowerCell);
-          }
-        }
-        else {
-          for (var i = 0; i < bowerCells.length; i++) {
-            emptyElement(bowerCells[i]);
-          }
-        }
-      });
+      clone.querySelector('#showBowerJson').addEventListener('change', this.toggleBowerJson.bind(this));
 
       this.shadowRoot.appendChild(clone);
+    };
+
+    element.toggleDuplicates = function () {
+      this.shadowRoot.querySelector("TBODY").classList.toggle("duplicatesHidden");
+    };
+
+    element.toggleBowerJson = function () {
+      var bowerCells = this.shadowRoot.querySelector("TBODY").querySelectorAll("td.bowerCell");
+      var i = 0;
+      if (this.shadowRoot.querySelector('#showBowerJson').checked) {
+        for (; i < bowerCells.length; i++) {
+          var bowerCell = thatDoc.importNode(bowerCellTemplate, true);
+          bowerCell.querySelector("html-import-bower-info").setAttribute("for-url", bowerCells[i].parentNode.querySelector(".path").href);
+          bowerCells[i].appendChild(bowerCell);
+        }
+      }
+      else {
+        for (; i < bowerCells.length; i++) {
+          emptyElement(bowerCells[i]);
+        }
+      }
     };
 
     document.registerElement('html-imports-list', {
