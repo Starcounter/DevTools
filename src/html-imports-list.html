@@ -93,12 +93,12 @@
     }
 
     a,
-    html-import-bower-info /deep/ a	{
+    html-import-bower-info /deep/ a {
       text-decoration: none;
     }
 
     a:hover,
-    html-import-bower-info /deep/ a:hover	{
+    html-import-bower-info /deep/ a:hover {
       text-decoration: underline;
     }
 
@@ -116,9 +116,14 @@
   </style>
 
   <div id="toolbar">
-    <label style="cursor: help" title="Show imports that are dependency of more than one import">
+    <label title="Show imports that are dependency of more than one import">
       <input type="checkbox" id="showDuplicates">
       Show duplicates
+    </label>
+
+    <label title="Show installed versions, as reported by .bower.json">
+      <input type="checkbox" id="showBowerJson">
+      Show Bower versions
     </label>
   </div>
   <div id="view">
@@ -147,10 +152,12 @@
       <a class="path"></a>
       <span class="error"></span>
     </td>
-    <td>
-      <span class="version"><html-import-bower-info for-url=""></html-import-bower-info></span>
-    </td>
+    <td class="bower"></td>
   </tr>
+</template>
+
+<template id="bowerCell">
+  <span class="version"><html-import-bower-info for-url=""></html-import-bower-info></span>
 </template>
 
 <script>
@@ -161,6 +168,7 @@
 
     var template = thisDoc.querySelector('template#shadow').content;
     var rowTemplate = thisDoc.querySelector('template#row').content;
+    var bowerCellTemplate = thisDoc.querySelector('template#bowerCell').content;
 
     var element = Object.create(HTMLElement.prototype);
 
@@ -202,7 +210,6 @@
           row.querySelector(".path").textContent = url.href.replace(url.protocol + '//' + url.host, "");
           row.querySelector(".path").setAttribute("href", url.href);
           row.querySelector(".file").textContent = url.href.substring(lastSlash + 1, url.href.length);
-          row.querySelector("html-import-bower-info").setAttribute("for-url", url.href);
 
           if (seenHrefs[url.href]) {
             row.querySelector("TR").classList.add("duplicate");
@@ -211,7 +218,7 @@
             seenHrefs[url.href] = true;
           }
 
-          if(!imports[i].import) {
+          if (!imports[i].import) {
             row.querySelector(".error").textContent = "Import failed";
           }
         }
@@ -225,6 +232,29 @@
 
       clone.querySelector('#showDuplicates').addEventListener('change', function (ev) {
         TBODY.classList.toggle("duplicatesHidden");
+      });
+
+      function emptyElement(element) {
+        var child;
+        while (child = element.lastChild) {
+          element.removeChild(child);
+        }
+      };
+
+      clone.querySelector('#showBowerJson').addEventListener('change', function (ev) {
+        var bowerCells = TBODY.querySelectorAll("td.bower");
+        if (ev.target.checked) {
+          for (var i = 0; i < bowerCells.length; i++) {
+            var bowerCell = thatDoc.importNode(bowerCellTemplate, true);
+            bowerCell.querySelector("html-import-bower-info").setAttribute("for-url", bowerCells[i].parentNode.querySelector(".path").href);
+            bowerCells[i].appendChild(bowerCell);
+          }
+        }
+        else {
+          for (var i = 0; i < bowerCells.length; i++) {
+            emptyElement(bowerCells[i]);
+          }
+        }
       });
 
       this.shadowRoot.appendChild(clone);
