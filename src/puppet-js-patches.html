@@ -1,92 +1,91 @@
-﻿<link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="../../polymer/polymer.html" />
 <link rel="import" href="../../juicy-jsoneditor/src/juicy-jsoneditor.html" />
 
 <polymer-element name="puppet-js-patches" attributes="rows" constructor="PuppetJsPatchesElement">
     <template>
         <style>
-            .puppet-js-patches { overflow:auto; background-color:white; color:#333333; }
-            .puppet-js-patches .icon-socket { display:inline-block; width:28px; height:28px; background-position:center center; background-repeat:no-repeat; background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB1ElEQVRIx62VyUoDURBFz9JhHzXGOKwFCfgnEvEbghjEOOwVggriL4hIPiGgK1077ERFEBH3oqCZtN3cB0URu9PBB0VDvbq3iqr7qiH+TAFbwCnwCrRkr/JtApP0cfJADfgGogTrACdArlfyJeDDELRU7TZQku0AZ0DbxL0DxSTyVQNoAFUgExM/AuwCTWF+gJW4ygP5IzCboqVzwJNJUuzW8w9DPtrH3LImybufSc20xVc+LLXc6L4BXAMbwJCLLWhmEXBspRjUUnWAGeAhRkH3wLTDHBh15ZHOg1oyrvKHHmR6Bwy6VnV0t44kGOlrz2YP5MEqDnsufx29ykg6t+cmRYIrh92T/wUzlJILaqRI8OWwZfmb/5XgMy5BaNGOC7pOkeDSYfdti8KQz1zQRooEaw57YYcc1NLWbglnSDpPIr8FBgxu3LyrCtrnQbe7rpJp6TyOfMphDs1DmwjOEzOUOQcYVCVXUsuner7mKgeYNyv8yF7ktKAiLaxsH8suBzyL460bx6JWbUhSSEE+b8h/gIW/AssmSUuLayyGeFw9bxvy5aRqiqZdYVjnev5l2b6kaP/Zb3GVd+vnsVFX0k//qM+5kdfKretVNmUv8lWsFLudX2bBEyhH4fhrAAAAAElFTkSuQmCC); }
-            .puppet-js-patches .icon-http { display:inline-block; width:28px; height:28px; background-position:center center; background-repeat:no-repeat; background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABgElEQVRIie3UsUtVYRgG8J8GJpTIhTZrDR3DQQinJonaGhqb2kLhBoJjIDgUtFdz/0GL0VJEBCEEbYFDoRQRJJiDxG04z82P47lyrggtPnD4eN/3eZ73+77znsMp/jfOHEMzjfuYwfuT3U6FFfTwrA15tAXnbC2ey/oOY+33dRhXsI5ukRvBD9UJZlJbD7c1LuEJ9mNUNric3E/V6buJ96O5eJTxBTzCXkQ9fHRwJXAn+ReJ58Lp8/fwMF7/0MEadgviS8w3bOJp6iu1/Hw0ff1uPDvwvSi8xsIRp/wU3rUB9QW8Kfy+KYKvuKF6kU3o4I/qvs8P4IzgZrz6vu5hu0hs4JbDI3w99Q8NxqPRbBQ+2/FGNc93sVUQNrGI8XBWk39cGI+Hs1notuLV+I1M4gF2CsFSaq8S3y74SwVvJ9rJJuM6JrCMX6pZH8PvGE0VvG44y9EMjSnM5unhS60+W2t4bCymwfNhhW1+dnA169thGwya+TqmcQ6fVXd+ipPDXx6faNEPP6gVAAAAAElFTkSuQmCC); }
-            .puppet-js-patches .icon-send { border:1px solid #fe8484; background-color:#fe8484; }
-            .puppet-js-patches .icon-receive { border:1px solid #9ff5a9; background-color:#9ff5a9; }
-            .puppet-js-patches table { width:100%; border-collapse:collapse; padding:0px; margin:0px; border-left:1px solid #dddddd; border-right:1px solid #dddddd; }
-            .puppet-js-patches table th, .puppet-js-patches table td { padding:8px; border:1px solid #dddddd; text-align:left; border-left:0px; border-right: 0px; }
-            .puppet-js-patches table th { border-bottom-width:2px; font-size: 110%; }
-            .puppet-js-patches table td.td-index { white-space:nowrap; width:20px; }
-            .puppet-js-patches table td.td-type { white-space:nowrap; width:30px; }
-            .puppet-js-patches table td.td-date { white-space:nowrap; width:130px; }
-            .puppet-js-patches table td.td-direction { white-space:nowrap; width:70px; }
-            .puppet-js-patches table td.td-body { font-size:10px; }
-            .puppet-js-patches table td.td-url input { width:100%; box-sizing:border-box; border:1px solid transparent; padding:5px 8px; }
-            .puppet-js-patches table td.td-body textarea { width:100%; box-sizing:border-box; border:1px solid transparent; }
-            .puppet-js-patches table td.td-url input:hover, .puppet-js-patches table td.td-body textarea:hover { border:1px solid #dddddd; }
-            .puppet-js-patches table tr.tr-ws td.td-url { color:blue; }
-            .puppet-js-patches .btn { background-color: white; border: 2px solid #dddddd; padding: 6px 22px; margin: 8px 0px; display:inline-block; cursor:pointer; }
-            .puppet-js-patches .btn:hover { border-color:#333333; }
-            .puppet-js-patches .actions { overflow:auto; }
-            .puppet-js-patches .form-control { padding: 6px; border: 1px solid #dddddd; margin: 8px 0px; }
-            .puppet-js-patches .pull-right { float:right; }
+            :host { width: 100%; overflow:auto; background-color:white; color:#333333; }
+            .icon-socket { display:inline-block; width:28px; height:28px; background-position:center center; background-repeat:no-repeat; background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB1ElEQVRIx62VyUoDURBFz9JhHzXGOKwFCfgnEvEbghjEOOwVggriL4hIPiGgK1077ERFEBH3oqCZtN3cB0URu9PBB0VDvbq3iqr7qiH+TAFbwCnwCrRkr/JtApP0cfJADfgGogTrACdArlfyJeDDELRU7TZQku0AZ0DbxL0DxSTyVQNoAFUgExM/AuwCTWF+gJW4ygP5IzCboqVzwJNJUuzW8w9DPtrH3LImybufSc20xVc+LLXc6L4BXAMbwJCLLWhmEXBspRjUUnWAGeAhRkH3wLTDHBh15ZHOg1oyrvKHHmR6Bwy6VnV0t44kGOlrz2YP5MEqDnsufx29ykg6t+cmRYIrh92T/wUzlJILaqRI8OWwZfmb/5XgMy5BaNGOC7pOkeDSYfdti8KQz1zQRooEaw57YYcc1NLWbglnSDpPIr8FBgxu3LyrCtrnQbe7rpJp6TyOfMphDs1DmwjOEzOUOQcYVCVXUsuner7mKgeYNyv8yF7ktKAiLaxsH8suBzyL460bx6JWbUhSSEE+b8h/gIW/AssmSUuLayyGeFw9bxvy5aRqiqZdYVjnev5l2b6kaP/Zb3GVd+vnsVFX0k//qM+5kdfKretVNmUv8lWsFLudX2bBEyhH4fhrAAAAAElFTkSuQmCC); }
+            .icon-http { display:inline-block; width:28px; height:28px; background-position:center center; background-repeat:no-repeat; background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABgElEQVRIie3UsUtVYRgG8J8GJpTIhTZrDR3DQQinJonaGhqb2kLhBoJjIDgUtFdz/0GL0VJEBCEEbYFDoRQRJJiDxG04z82P47lyrggtPnD4eN/3eZ73+77znsMp/jfOHEMzjfuYwfuT3U6FFfTwrA15tAXnbC2ey/oOY+33dRhXsI5ukRvBD9UJZlJbD7c1LuEJ9mNUNric3E/V6buJ96O5eJTxBTzCXkQ9fHRwJXAn+ReJ58Lp8/fwMF7/0MEadgviS8w3bOJp6iu1/Hw0ff1uPDvwvSi8xsIRp/wU3rUB9QW8Kfy+KYKvuKF6kU3o4I/qvs8P4IzgZrz6vu5hu0hs4JbDI3w99Q8NxqPRbBQ+2/FGNc93sVUQNrGI8XBWk39cGI+Hs1notuLV+I1M4gF2CsFSaq8S3y74SwVvJ9rJJuM6JrCMX6pZH8PvGE0VvG44y9EMjSnM5unhS60+W2t4bCymwfNhhW1+dnA169thGwya+TqmcQ6fVXd+ipPDXx6faNEPP6gVAAAAAElFTkSuQmCC); }
+            .icon-send { border:1px solid #fe8484; background-color:#fe8484; }
+            .icon-receive { border:1px solid #9ff5a9; background-color:#9ff5a9; }
+            table { width:100%; border-collapse:collapse; padding:0px; margin:0px; border-left:1px solid #dddddd; border-right:1px solid #dddddd; }
+            table th, table td { padding:8px; border:1px solid #dddddd; text-align:left; border-left:0px; border-right: 0px; }
+            table th { border-bottom-width:2px; font-size: 110%; }
+            table td.td-index { white-space:nowrap; width:20px; }
+            table td.td-type { white-space:nowrap; width:30px; }
+            table td.td-date { white-space:nowrap; width:130px; }
+            table td.td-direction { white-space:nowrap; width:70px; }
+            table td.td-body { font-size:10px; }
+            table td.td-url input { width:100%; box-sizing:border-box; border:1px solid transparent; padding:5px 8px; }
+            table td.td-body textarea { width:100%; box-sizing:border-box; border:1px solid transparent; }
+            table td.td-url input:hover, table td.td-body textarea:hover { border:1px solid #dddddd; }
+            table tr.tr-ws td.td-url { color:blue; }
+            .btn { background-color: white; border: 2px solid #dddddd; padding: 6px 22px; margin: 8px 0px; display:inline-block; cursor:pointer; }
+            .btn:hover { border-color:#333333; }
+            .actions { overflow:auto; }
+            .form-control { padding: 6px; border: 1px solid #dddddd; margin: 8px 0px; }
+            .pull-right { float:right; }
         </style>
-        <div class="puppet-js-patches">
-            <template if="{{editor.visible == false}}">
-                <div class="actions">
-                    <button type="button" class="btn pull-right" onclick="getModel(this).clear();">Clear log</button>
-                    <select value="{{filter.type}}" class="form-control">
-                        <option value="all">All types</option>
-                        <option value="ws">WebSocket</option>
-                        <option value="http">HTTP</option>
-                    </select>
-                    <select value="{{filter.direction}}" class="form-control">
-                        <option value="all">All direction</option>
-                        <option value="send">Send</option>
-                        <option value="receive">Receive</option>
-                    </select>
-                </div>
-                <table>
-                    <thead>
+        <template if="{{editor.visible == false}}">
+            <div class="actions">
+                <button type="button" class="btn pull-right" on-click="{{clear}}">Clear log</button>
+                <select value="{{filter.type}}" class="form-control">
+                    <option value="all">All types</option>
+                    <option value="ws">WebSocket</option>
+                    <option value="http">HTTP</option>
+                </select>
+                <select value="{{filter.direction}}" class="form-control">
+                    <option value="all">All direction</option>
+                    <option value="send">Send</option>
+                    <option value="receive">Receive</option>
+                </select>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Url</th>
+                        <th>Body</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template id="results" repeat="{{row, i in filteredRows}}">
                         <tr>
-                            <th>#</th>
-                            <th>Type</th>
-                            <th>Date</th>
-                            <th>Url</th>
-                            <th>Body</th>
+                            <td class="td-index">{{i}}</td>
+                            <td class="td-type">
+                                <template if="{{row.isHttp}}">
+                                    <i class="icon-http icon-{{row.direction}}" title="HTTP {{row.direction}}"></i>
+                                </template>
+                                <template if="{{row.isWs}}">
+                                    <i class="icon-socket icon-{{row.direction}}" title="WebSocket {{row.direction}}"></i>
+                                </template>
+                            </td>
+                            <td class="td-date">{{row.date}}</td>
+                            <td class="td-url">
+                                <input type="text" readonly="readonly" value="{{row.url}}" onclick="this.select();" />
+                            </td>
+                            <td class="td-body">
+                                <template if="{{row.body}}">
+                                    <textarea readonly="readonly" onclick="this.select();" ondblclick="getModel(this).editor.json = getModel(this).row.json; getModel(this).editor.visible = true;" title="Double click me to enter JSON viewer">{{row.body}}</textarea>
+                                </template>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <template repeat="{{row, i in { type: filter.type, direction: filter.direction, clear: filter.clear } | getRows()}}">
-                            <tr>
-                                <td class="td-index">{{i}}</td>
-                                <td class="td-type">
-                                    <template if="{{row.isHttp}}">
-                                        <i class="icon-http icon-{{row.direction}}" title="HTTP {{row.direction}}"></i>
-                                    </template>
-                                    <template if="{{row.isWs}}">
-                                        <i class="icon-socket icon-{{row.direction}}" title="WebSocket {{row.direction}}"></i>
-                                    </template>
-                                </td>
-                                <td class="td-date">{{row.date}}</td>
-                                <td class="td-url">
-                                    <input type="text" readonly="readonly" value="{{row.url}}" onclick="this.select();" />
-                                </td>
-                                <td class="td-body">
-                                    <template if="{{row.body}}">
-                                        <textarea readonly="readonly" onclick="this.select();" ondblclick="getModel(this).editor.json = getModel(this).row.json; getModel(this).editor.visible = true;" title="Double click me to enter JSON viewer">{{row.body}}</textarea>
-                                    </template>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </template>
-            <template if="{{editor.visible}}">
-                <juicy-jsoneditor json="{{editor.json}}" mode="view" history="false"></juicy-jsoneditor>
-                <div class="actions">
-                    <button type="button" class="btn pull-right" onclick="getModel(this).editor.visible = false;">Close</button>
-                </div>
-            </template>
-        </div>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        <template if="{{editor.visible}}">
+            <juicy-jsoneditor json="{{editor.json}}" mode="view" history="false"></juicy-jsoneditor>
+            <div class="actions">
+                <button type="button" class="btn pull-right" onclick="getModel(this).editor.visible = false;">Close</button>
+            </div>
+        </template>
     </template>
     <script>
+    (function(){
         var rows = [];
 
         function formatDate(date) {
@@ -128,51 +127,70 @@
 
         listenPuppetEvents();
 
-        Polymer({
-            rows: [1, 2, 3],
-            ready: function () {
-                var me = this;
 
-                this.rows = rows;
-                this.style.width = "100%";
-                this.style.overflow = "auto";
-                this.editor = {
-                    json: null,
-                    visible: false
-                };
+        function filterRows(rows, filter) {
+            var result = [];
+            var type = filter.type;
+            var direction = filter.direction;
+
+            for (var i = 0; i < rows.length; i++) {
+                var is = true;
+                var row = rows[i];
+
+                is = is && (type == "all" || (type == "ws" && row.isWs) || (type == "http" && row.isHttp));
+                is = is && (direction == "all" || (direction == row.direction));
+
+                if (is) {
+                    result.push(row);
+                }
+            }
+
+            return result;
+        }
+
+        Polymer({
+            // {Array} array of rows to consider
+            rows: null,
+            // {Object} Filter setup
+            filter: null,
+            // {Object} JSON editor config
+            editor: null,
+            filteredRows: null,
+            // set default values
+            created: function(){
                 this.filter = {
                     type: "all",
                     direction: "all",
                     clear: 0,
                 };
-
-                this.getRows = function () {
-                    var result = [];
-                    var type = me.filter.type;
-                    var direction = me.filter.direction;
-
-                    for (var i = 0; i < rows.length; i++) {
-                        var is = true;
-                        var row = rows[i];
-
-                        is = is && (type == "all" || (type == "ws" && row.isWs) || (type == "http" && row.isHttp));
-                        is = is && (direction == "all" || (direction == row.direction));
-
-                        if (is) {
-                            result.push(row);
-                        }
-                    }
-
-                    return result;
+                this.editor = {
+                    json: null,
+                    visible: false
                 };
 
-                this.clear = function () {
-                    me.rows.splice(0, me.rows.length);
-                    me.filter.type = "all";
-                    me.filter.direction = "all";
-                    me.filter.clear++;
-                };
+                this.rows = rows;
+                this.filteredRows = rows;
+            },
+            // observe filter changes
+            // @IDEA (tomalec): consider changing .filter:{..} to .type and .direction (.claer seems not needed)
+            observe:{
+                "filter.type": "filterRows",
+                "filter.direction": "filterRows",
+                "filter.clear": "filterRows"
+            },
+            // Update filteredRows property with filtered rows
+            filterRows: function(){
+                this.filteredRows = filterRows(this.rows, this.filter);
+            },
+            // Splice results and increase clear counter
+            clear: function () {
+                this.rows.splice(0, this.rows.length);
+                this.filter.type = "all";
+                this.filter.direction = "all";
+                // IDEA (tomalec): consider replacing clear++ with more explicit filterRows()
+                this.filter.clear++;
             }
         });
+    })();
     </script>
 </polymer-element>
