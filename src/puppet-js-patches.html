@@ -89,10 +89,6 @@
         (function (gloabl) {
             var listener = gloabl.PuppetListener;
 
-            if (!listener) {
-                throw "PuppetListener was not found! Make sure you have included puppet-js-listener.js script.";
-            }
-
             listener.startListen();
 
             function filterRows(rows, filter) {

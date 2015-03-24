@@ -1,9 +1,10 @@
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer.html" />
+<script type="text/javascript" src="puppet-js-listener.js"></script>
 
 <template>
   <div>
     <label>
-      <input type="checkbox" id="isWebSocket">
+      <input type="checkbox" id="isWebSocket" />
       WebSocket
     </label>
   </div>
@@ -11,6 +12,8 @@
 
 <script>
   (function (window, document) {
+    var listener = window.PuppetListener;
+
     var thatDoc = document;
 
     var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
@@ -35,10 +38,6 @@
       }
     }
 
-    function getPuppet() {
-      return document.querySelector('puppet-js') || document.querySelector('puppet-client') || window.puppet;
-    };
-
     element.attachedCallback = function () {
       var clone = thatDoc.importNode(template, true);
 
@@ -46,7 +45,7 @@
 
       clone.querySelector('#isWebSocket').addEventListener('change', function (ev) {
         var newVal = ev.target.checked;
-        var puppet = getPuppet();
+        var puppet = listener.getPuppetClient();
         if (puppet) {
           puppet.useWebSocket = newVal;
         }

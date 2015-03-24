@@ -1,5 +1,6 @@
-<link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../juicy-jsoneditor/src/juicy-jsoneditor.html">
+<link rel="import" href="../../polymer/polymer.html"/>
+<link rel="import" href="../../juicy-jsoneditor/src/juicy-jsoneditor.html"/>
+<script type="text/javascript" src="puppet-js-listener.js"></script>
 
 <template>
   <style>
@@ -59,6 +60,8 @@
 
 <script>
   (function (window, document) {
+    var listener = window.PuppetListener;
+
     var thatDoc = document;
 
     var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
@@ -69,10 +72,6 @@
 
     element.createdCallback = function () {
       this.createShadowRoot();
-    };
-
-    function getPuppet() {
-      return document.querySelector('puppet-js') || document.querySelector('puppet-client') || window.puppet;
     };
 
     element.selectPlain = function () {
@@ -87,14 +86,14 @@
 
       var clone = thatDoc.importNode(template, true);
 
-      var puppet = getPuppet();
+      var puppet = listener.getPuppetClient();
       if (puppet) {
         clone.querySelector('juicy-jsoneditor').json = puppet.obj;
         clone.querySelector("#plain").textContent = JSON.stringify(puppet.obj, null, 2);
       }
 
       clone.querySelector('#dumpButton').addEventListener('click', function () {
-        var puppet = getPuppet();
+        var puppet = listener.getPuppetClient();
         if (puppet) {
           console.log(puppet.obj);
         }
