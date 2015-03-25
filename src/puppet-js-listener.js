@@ -1,16 +1,17 @@
 ﻿(function (global) {
-    var listenter = function () {
-        var me = this;
+    var Listener = function () {
+        this.rows = [];
+        this.isListening = false;
 
-        me.rows = [];
-        me.isListening = false;
+        this.onPatchReceived = this.onPatchReceived.bind(this);
+        this.onPatchSent = this.onPatchSent.bind(this);
     };
 
-    listenter.prototype.formatDate = function (date) {
+    Listener.prototype.formatDate = function (date) {
         return [date.getFullYear(), "-", date.getMonth() + 1, "-", date.getDate(), " ", date.getHours(), ":", date.getMinutes(), ":", date.getSeconds()].join("");
     };
 
-    listenter.prototype.createRow = function (direction, data, url) {
+    Listener.prototype.createRow = function (direction, data, url) {
         var row = {
             date: this.formatDate(new Date()),
             direction: direction,
@@ -24,7 +25,7 @@
         return row;
     };
 
-    listenter.prototype.getPuppetClient = function () {
+    Listener.prototype.getPuppetClient = function () {
         var client = document.getElementsByTagName("puppet-client")[0];
 
         if (!client) {
@@ -35,15 +36,15 @@
         return client;
     };
 
-    listenter.prototype.onPatchReceived = function (e) {
-        this.rows.push(this.createRow("receive", e.data, e.url));
+    Listener.prototype.onPatchReceived = function (e) {
+        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url));
     };
 
-    listenter.prototype.onPatchSent = function (e) {
-        this.rows.push(this.createRow("send", e.data, e.url));
+    Listener.prototype.onPatchSent = function (e) {
+        this.rows.push(this.createRow("send", e.detail.data, e.detail.url));
     };
 
-    listenter.prototype.startListen = function () {
+    Listener.prototype.startListen = function () {
         if (this.isListening) {
             return;
         }
@@ -51,16 +52,14 @@
         var client = this.getPuppetClient();
 
         if (client) {
-            this.bindedOnPatchReceived = this.onPatchReceived.bind(this);
-            this.bindedOnPatchSent = this.onPatchSent.bind(this);
             this.isListening = true;
 
-            client.addEventListener("patchreceived", this.bindedOnPatchReceived);
-            client.addEventListener("patchsent", this.bindedOnPatchSent);
+            client.addEventListener("patchreceived", this.onPatchReceived);
+            client.addEventListener("patchsent", this.onPatchSent);
         }
     };
 
-    listenter.prototype.stopListen = function () {
+    Listener.prototype.stopListen = function () {
         if (!this.isListening) {
             return;
         }
@@ -68,18 +67,16 @@
         var client = this.getPuppetClient();
 
         if (client) {
-            client.removeEventListener("patchreceived", this.bindedOnPatchReceived);
-            client.removeEventListener("patchsent", this.bindedOnPatchSent);
+            client.removeEventListener("patchreceived", this.onPatchReceived);
+            client.removeEventListener("patchsent", this.onPatchSent);
 
-            this.bindedOnPatchReceived = null;
-            this.bindedOnPatchSent = null;
             this.isListening = false;
         }
     };
 
-    listenter.prototype.clear = function () {
+    Listener.prototype.clear = function () {
         this.rows.splice(0, this.rows.length);
     };
 
-    global.PuppetListener = new listenter();
+    global.PuppetListener = new Listener();
 })(window);
