@@ -2,61 +2,61 @@
 <script type="text/javascript" src="puppet-js-listener.js"></script>
 
 <template>
-  <div>
-    <label>
-      <input type="checkbox" id="isWebSocket" />
-      WebSocket
-    </label>
-  </div>
+    <div>
+        <label>
+            <input type="checkbox" id="isWebSocket" />
+            WebSocket
+        </label>
+    </div>
 </template>
 
 <script>
-  (function (window, document) {
-    var listener = window.PuppetListener;
+    (function (window, document) {
+        var listener = window.PuppetListener;
 
-    var thatDoc = document;
+        var thatDoc = document;
 
-    var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+        var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
 
-    var template = thisDoc.querySelector('template').content;
+        var template = thisDoc.querySelector('template').content;
 
-    var element = Object.create(HTMLElement.prototype);
+        var element = Object.create(HTMLElement.prototype);
 
-    element.createdCallback = function () {
-      this.createShadowRoot();
-    };
+        element.createdCallback = function () {
+            this.createShadowRoot();
+        };
 
-    function isUseWebSocket(useWebSocketStr) {
-      if (!useWebSocketStr) {
-        return true;
-      }
-      else if (useWebSocketStr == "false") {
-        return false;
-      }
-      else {
-        return true;
-      }
-    }
-
-    element.attachedCallback = function () {
-      var clone = thatDoc.importNode(template, true);
-
-      clone.querySelector('#isWebSocket').checked = isUseWebSocket(window.localStorage.getItem("launcher-puppet-js-useWebSocket"))
-
-      clone.querySelector('#isWebSocket').addEventListener('change', function (ev) {
-        var newVal = ev.target.checked;
-        var puppet = listener.getPuppetClient();
-        if (puppet) {
-          puppet.useWebSocket = newVal;
+        function isUseWebSocket(useWebSocketStr) {
+            if (!useWebSocketStr) {
+                return true;
+            }
+            else if (useWebSocketStr == "false") {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
-        window.localStorage.setItem("launcher-puppet-js-useWebSocket", newVal);
-      });
 
-      this.shadowRoot.appendChild(clone);
-    };
+        element.attachedCallback = function () {
+            var clone = thatDoc.importNode(template, true);
 
-    document.registerElement('puppet-js-settings', {
-      prototype: element
-    });
-  }(window, document));
+            clone.querySelector('#isWebSocket').checked = isUseWebSocket(window.localStorage.getItem("launcher-puppet-js-useWebSocket"))
+
+            clone.querySelector('#isWebSocket').addEventListener('change', function (ev) {
+                var newVal = ev.target.checked;
+                var puppet = listener.getPuppetClient();
+                if (puppet) {
+                    puppet.useWebSocket = newVal;
+                }
+                window.localStorage.setItem("launcher-puppet-js-useWebSocket", newVal);
+            });
+
+            this.shadowRoot.appendChild(clone);
+        };
+
+        document.registerElement('puppet-js-settings', {
+            prototype: element
+        });
+    }(window, document));
 </script>
