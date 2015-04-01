@@ -17,7 +17,7 @@
             direction: direction,
             url: url,
             data: data,
-            isHttp: /^http/gi.test(url),
+            isHttp: !(/^ws/gi.test(url)),
             isWs: /^ws/gi.test(url),
             json: data ? eval(data) : null
         };
