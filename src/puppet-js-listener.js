@@ -8,18 +8,23 @@
     };
 
     Listener.prototype.formatDate = function (date) {
-        return [date.getFullYear(), "-", date.getMonth() + 1, "-", date.getDate(), " ", date.getHours(), ":", date.getMinutes(), ":", date.getSeconds()].join("");
+        //return [date.getFullYear(), "-", date.getMonth() + 1, "-", date.getDate(), " ", date.getHours(), ":", date.getMinutes(), ":", date.getSeconds()].join("");
+        return [date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ".", date.getMilliseconds()].join("");
     };
 
     Listener.prototype.createRow = function (direction, data, url) {
+        var isSocket = /^ws/gi.test(url);
+        var json = data ? eval("(" + data + ")") : null;
+        var code = (json && json.statusCode) ? json.statusCode : 200;
         var row = {
             date: this.formatDate(new Date()),
             direction: direction,
             url: url,
             data: data,
-            isHttp: !(/^ws/gi.test(url)),
-            isWs: /^ws/gi.test(url),
-            json: data ? eval(data) : null
+            isHttp: !isSocket,
+            isWs: isSocket,
+            statusCode: code,
+            json: json
         };
 
         return row;
