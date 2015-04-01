@@ -15,11 +15,13 @@
             table th { border-bottom-width: 2px; font-size: 110%; }
             table td.td-index { white-space: nowrap; width: 20px; }
             table td.td-type { white-space: nowrap; width: 30px; }
-            table td.td-date { white-space: nowrap; width: 130px; }
+            table td.td-date { white-space: nowrap; width: 80px; }
+            table td.td-code { white-space: nowrap; width: 50px; font-weight:bold; }
             table td.td-direction { white-space: nowrap; width: 70px; }
             table td.td-data { font-size: 10px; }
             table td.td-url input { width: 100%; box-sizing: border-box; border: 1px solid transparent; padding: 5px 8px; }
             table td.td-data textarea { width: 100%; box-sizing: border-box; border: 1px solid transparent; }
+            table tr.status-500 td, table tr.status-500 td input, table tr.status-500 td textarea { color: red; }
             table td.td-url input:hover, table td.td-data textarea:hover { border: 1px solid #dddddd; }
             table tr.tr-ws td.td-url { color: blue; }
             .btn { background-color: white; border: 2px solid #dddddd; padding: 6px 22px; margin: 8px 0px; display: inline-block; cursor: pointer; }
@@ -47,14 +49,15 @@
                     <tr>
                         <th>#</th>
                         <th>Type</th>
-                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Code</th>
                         <th>Url</th>
                         <th>Data</th>
                     </tr>
                 </thead>
                 <tbody>
                     <template id="results" repeat="{{row, i in filteredRows}}">
-                        <tr>
+                        <tr class="status-{{row.statusCode}}">
                             <td class="td-index">{{i}}</td>
                             <td class="td-type">
                                 <template if="{{row.isHttp}}">
@@ -65,6 +68,9 @@
                                 </template>
                             </td>
                             <td class="td-date">{{row.date}}</td>
+                            <td class="td-code">
+                                {{row.statusCode}}
+                            </td>
                             <td class="td-url">
                                 <input type="text" readonly="readonly" value="{{row.url}}" onclick="this.select();" />
                             </td>
