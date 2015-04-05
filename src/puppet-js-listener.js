@@ -1,6 +1,8 @@
 ﻿(function (global) {
     var Listener = function () {
         this.rows = [];
+        this.lastRequest = null;
+        this.lastResponse = null;
         this.isListening = false;
 
         this.onPatchReceived = this.onPatchReceived.bind(this);
@@ -13,12 +15,43 @@
         return [date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ".", date.getMilliseconds()].join("");
     };
 
-    Listener.prototype.createRow = function (direction, data, url) {
+    Listener.prototype.formatTime = function (time) {
+        var ms = time % 1000;
+        time = (time - ms) / 1000;
+
+        var secs = time % 60;
+        time = (time - secs) / 60;
+        
+        var mins = time % 60;
+        var hrs = (time - mins) / 60;
+
+        var r = [];
+
+        if (hrs) {
+            r.push(hrs, "h ");
+        }
+
+        if (hrs || mins) {
+            r.push(mins, "m ");
+        }
+
+        if (hrs || mins || secs) {
+            r.push(secs, "s ");
+        }
+
+        r.push(ms, "ms");
+
+        return r.join("");
+    };
+
+    Listener.prototype.createRow = function (direction, data, url, duration) {
         var isSocket = /^ws/gi.test(url);
         var json = data ? eval("(" + data + ")") : null;
         var code = (json && json.statusCode) ? json.statusCode : 200;
+
         var row = {
             date: this.formatDate(new Date()),
+            duration: duration,
             direction: direction,
             url: url,
             data: data,
@@ -43,10 +76,19 @@
     };
 
     Listener.prototype.onPatchReceived = function (e) {
-        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url));
+        this.lastResponse = new Date();
+
+        var duration = "N/A";
+
+        if (this.lastResponse && this.lastRequest) {
+            duration = this.formatTime(this.lastResponse - this.lastRequest);
+        }
+        
+        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url, duration));
     };
 
     Listener.prototype.onPatchSent = function (e) {
+        this.lastRequest = new Date();
         this.rows.push(this.createRow("send", e.detail.data, e.detail.url));
     };
 
