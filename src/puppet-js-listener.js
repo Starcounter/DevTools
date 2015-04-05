@@ -5,6 +5,7 @@
 
         this.onPatchReceived = this.onPatchReceived.bind(this);
         this.onPatchSent = this.onPatchSent.bind(this);
+        this.onSocketStateChanged = this.onSocketStateChanged.bind(this);
     };
 
     Listener.prototype.formatDate = function (date) {
@@ -49,6 +50,10 @@
         this.rows.push(this.createRow("send", e.detail.data, e.detail.url));
     };
 
+    Listener.prototype.onSocketStateChanged = function (e) {
+        this.rows.push(this.createRow("state", e.detail.data, e.detail.url));
+    };
+
     Listener.prototype.startListen = function () {
         if (this.isListening) {
             return;
@@ -61,6 +66,7 @@
 
             client.addEventListener("patchreceived", this.onPatchReceived);
             client.addEventListener("patchsent", this.onPatchSent);
+            client.addEventListener("socketstatechanged", this.onSocketStateChanged);
         }
     };
 
@@ -74,6 +80,7 @@
         if (client) {
             client.removeEventListener("patchreceived", this.onPatchReceived);
             client.removeEventListener("patchsent", this.onPatchSent);
+            client.removeEventListener("socketstatechanged", this.onSocketStateChanged);
 
             this.isListening = false;
         }

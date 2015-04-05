@@ -1,5 +1,5 @@
-<link rel="import" href="../../polymer/polymer.html" />
-<link rel="import" href="../../juicy-jsoneditor/src/juicy-jsoneditor.html" />
+<link rel="import" href="/sys/polymer/polymer.html" />
+<link rel="import" href="/sys/juicy-jsoneditor/src/juicy-jsoneditor.html" />
 <script type="text/javascript" src="puppet-js-listener.js"></script>
 
 <polymer-element name="puppet-js-patches" attributes="rows" constructor="PuppetJsPatchesElement">
@@ -20,7 +20,7 @@
             table td.td-direction { white-space: nowrap; width: 70px; }
             table td.td-data { font-size: 10px; }
             table td.td-url input { width: 100%; box-sizing: border-box; border: 1px solid transparent; padding: 5px 8px; }
-            table td.td-data textarea { width: 100%; box-sizing: border-box; border: 1px solid transparent; }
+            table td.td-data textarea { width: 100%; box-sizing: border-box; border: 1px solid transparent; resize:none; }
             table tr.status-500 td, table tr.status-500 td input, table tr.status-500 td textarea { color: red; }
             table td.td-url input:hover, table td.td-data textarea:hover { border: 1px solid #dddddd; }
             table tr.tr-ws td.td-url { color: blue; }
