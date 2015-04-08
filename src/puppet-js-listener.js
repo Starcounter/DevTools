@@ -46,7 +46,15 @@
 
     Listener.prototype.createRow = function (direction, data, url, duration) {
         var isSocket = /^ws/gi.test(url);
-        var json = data ? eval("(" + data + ")") : null;
+        var json = null;
+
+        if (typeof(data) == "string") {
+            json = JSON.parse(data);
+        } else if (typeof (data) == "object") {
+            json = data;
+            data = JSON.stringify(json);
+        }
+
         var code = (json && json.statusCode) ? json.statusCode : 200;
 
         var row = {
@@ -93,7 +101,9 @@
     };
 
     Listener.prototype.onSocketStateChanged = function (e) {
-        this.rows.push(this.createRow("state", e.detail.data, e.detail.url));
+        var data = { state: e.detail.state, url: e.detail.url, data: e.detail.data, code: e.detail.code, reason: e.detail.reason };
+
+        this.rows.push(this.createRow("state", data, e.detail.url));
     };
 
     Listener.prototype.startListen = function () {
