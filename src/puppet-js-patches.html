@@ -16,6 +16,7 @@
             table td.td-index { white-space: nowrap; width: 20px; }
             table td.td-type { white-space: nowrap; width: 30px; }
             table td.td-date { white-space: nowrap; width: 80px; }
+            table td.td-duration { white-space: nowrap; width: 60px; }
             table td.td-code { white-space: nowrap; width: 50px; font-weight:bold; }
             table td.td-direction { white-space: nowrap; width: 70px; }
             table td.td-data { font-size: 10px; }
@@ -50,6 +51,7 @@
                         <th>#</th>
                         <th>Type</th>
                         <th>Time</th>
+                        <th>Duration</th>
                         <th>Code</th>
                         <th>Url</th>
                         <th>Data</th>
@@ -68,6 +70,7 @@
                                 </template>
                             </td>
                             <td class="td-date">{{row.date}}</td>
+                            <td class="td-duration">{{row.duration}}</td>
                             <td class="td-code">
                                 {{row.statusCode}}
                             </td>
