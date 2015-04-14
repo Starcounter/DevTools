@@ -11,11 +11,14 @@
     };
 
     Listener.prototype.formatDate = function (date) {
-        //return [date.getFullYear(), "-", date.getMonth() + 1, "-", date.getDate(), " ", date.getHours(), ":", date.getMinutes(), ":", date.getSeconds()].join("");
-        return [date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ".", date.getMilliseconds()].join("");
+        return [date.getFullYear(), "-", date.getMonth() + 1, "-", date.getDate(), " ", date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ".", date.getMilliseconds()].join("");
     };
 
-    Listener.prototype.formatTime = function (time) {
+    Listener.prototype.formatTime = function (date) {
+        return [date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ".", date.getMilliseconds()].join("");
+    }
+
+    Listener.prototype.formatDuration = function (time) {
         var ms = time % 1000;
         time = (time - ms) / 1000;
 
@@ -44,8 +47,7 @@
         return r.join("");
     };
 
-    Listener.prototype.createRow = function (direction, data, url, duration) {
-        var isSocket = /^ws/gi.test(url);
+    Listener.prototype.createRow = function (direction, data, url, method, duration) {
         var json = null;
 
         if (typeof(data) == "string") {
@@ -56,15 +58,17 @@
         }
 
         var code = (json && json.statusCode) ? json.statusCode : 200;
+        var date = new Date();
 
         var row = {
-            date: this.formatDate(new Date()),
+            date: this.formatDate(date),
+            time: this.formatTime(date),
             duration: duration,
             direction: direction,
             url: url,
+            path: url.replace(/^[a-z]+[:][/][/][^/]*/gi, ""),
             data: data,
-            isHttp: !isSocket,
-            isWs: isSocket,
+            method: method,
             statusCode: code,
             json: json
         };
@@ -89,21 +93,21 @@
         var duration = "N/A";
 
         if (this.lastResponse && this.lastRequest) {
-            duration = this.formatTime(this.lastResponse - this.lastRequest);
+            duration = this.formatDuration(this.lastResponse - this.lastRequest);
         }
         
-        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url, duration));
+        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url, e.detail.method, duration));
     };
 
     Listener.prototype.onPatchSent = function (e) {
         this.lastRequest = new Date();
-        this.rows.push(this.createRow("send", e.detail.data, e.detail.url));
+        this.rows.push(this.createRow("send", e.detail.data, e.detail.url, e.detail.method));
     };
 
     Listener.prototype.onSocketStateChanged = function (e) {
         var data = { state: e.detail.state, url: e.detail.url, data: e.detail.data, code: e.detail.code, reason: e.detail.reason };
 
-        this.rows.push(this.createRow("state", data, e.detail.url));
+        this.rows.push(this.createRow("state", data, e.detail.url, "STATE"));
     };
 
     Listener.prototype.startListen = function () {
