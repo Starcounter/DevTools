@@ -1,6 +1,6 @@
 {
   "name": "starcounter-debug-aid",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Friendly messages that help to debug Polyjuice apps",
   "license": "MIT",
   "main": "src/starcounter-debug-aid.html",
