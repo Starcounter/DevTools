@@ -101,6 +101,7 @@
         (function (gloabl) {
             var listener = gloabl.PuppetListener;
 
+            window.addEventListener("polymer-ready", function (e) {
                 listener.startListen();
             });
 
