@@ -17,7 +17,7 @@
         var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
         var template = thisDoc.querySelector('template').content;
         var element = Object.create(HTMLElement.prototype);
-        var settingName = "launcher-puppet-js-useWebSocket";
+        var settingName = "starcounter-debug-aid-puppet-js-useWebSocket";
 
         element.createdCallback = function () {
             this.createShadowRoot();
