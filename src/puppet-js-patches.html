@@ -62,8 +62,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template id="results" repeat="{{row, i in filteredRows}}">
-                        <tr class="status-{{row.statusCode}}">
+                    <!-- <template id="results" repeat="{{row, i in filteredRows}}"> -->
+                    <!-- IE needs some hacking: -->
+                        <tr template class="status-{{row.statusCode}}" id="results" repeat="{{row, i in filteredRows}}">
                             <td class="td-index">{{i}}</td>
                             <td class="td-date">
                                 <span title="{{row.date}}">{{row.time}}</span>
@@ -86,7 +87,7 @@
                                 </template>
                             </td>
                         </tr>
-                    </template>
+                    <!-- </template> -->
                 </tbody>
             </table>
         </template>
@@ -100,7 +101,7 @@
     <script>
         (function (gloabl) {
             var listener = gloabl.PuppetListener;
-
+            window.rows = listener.rows;
             window.addEventListener("polymer-ready", function (e) {
                 listener.startListen();
             });
