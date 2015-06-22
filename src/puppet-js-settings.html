@@ -2,10 +2,24 @@
 <script type="text/javascript" src="puppet-js-listener.js"></script>
 
 <template>
+    <style>
+        label {
+            margin-right: 5px;
+        }
+
+        label * {
+            vertical-align: middle;
+        }
+    </style>
     <div>
         <label>
             <input type="checkbox" id="isWebSocket" />
-            WebSocket
+            <span>WebSocket</span>
+        </label>
+        <span>&nbsp;</span>
+        <label>
+            <input type="checkbox" id="isMorphUrl" />
+            <span>Morph url</span>
         </label>
     </div>
 </template>
@@ -17,51 +31,80 @@
         var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
         var template = thisDoc.querySelector('template').content;
         var element = Object.create(HTMLElement.prototype);
-        var settingName = "starcounter-debug-aid-puppet-js-useWebSocket";
+        var settingName = {
+            ws: "starcounter-debug-aid-puppet-js-useWebSocket",
+            morph: "starcounter-debug-aid-puppet-js-morphUrls"
+        };
 
         element.createdCallback = function () {
             this.createShadowRoot();
         };
 
-        function isUseWebSocket(useWebSocketStr) {
-            if (!useWebSocketStr) {
-                return true;
+        function parseBool(value, def) {
+            if (typeof value == "undefined" || value === null) {
+                return def;
             }
-            else if (useWebSocketStr == "false") {
+
+            if (!value || value == "false") {
                 return false;
-            }
-            else {
-                return true;
-            }
+            } 
+
+            return true;
         }
 
-        function getSettingValue() {
-            return isUseWebSocket(window.localStorage.getItem(settingName));
+        function getSettingValue(name) {
+            return parseBool(window.localStorage.getItem(name), true);
         }
 
-        function applyValue(value) {
+        function applyWebSocketValue(value) {
             var puppet = listener.getPuppetClient();
 
             if (puppet) {
                 puppet.useWebSocket = value;
             }
 
-            window.localStorage.setItem(settingName, value);
+            window.localStorage.setItem(settingName.ws, value);
+        }
+
+        function applyMorphUrlValue(value) {
+            var puppet = listener.getPuppetClient();
+
+            if (puppet) {
+                if (value) {
+                    puppet.listen();
+                } else {
+                    puppet.unlisten();
+                }
+            }
+
+            window.localStorage.setItem(settingName.morph, value);
         }
 
         element.attachedCallback = function () {
             var clone = thatDoc.importNode(template, true);
-            var chb = clone.querySelector('#isWebSocket');
+            var chbIsWebSocket = clone.querySelector("#isWebSocket");
+            var chbIsMorphUrl = clone.querySelector("#isMorphUrl");
 
-            chb.checked = getSettingValue();
-            chb.addEventListener('change', function (ev) {
-                applyValue(ev.target.checked);
+            chbIsWebSocket.checked = getSettingValue(settingName.ws);
+            chbIsWebSocket.addEventListener('change', function (ev) {
+                applyWebSocketValue(ev.target.checked);
+            });
+
+            chbIsMorphUrl.checked = getSettingValue(settingName.morph);
+            chbIsMorphUrl.addEventListener("change", function (ev) {
+                applyMorphUrlValue(ev.target.checked);
             });
 
             this.shadowRoot.appendChild(clone);
         };
 
-        applyValue(getSettingValue());
+        window.addEventListener("polymer-ready", function () {
+            setTimeout(function () {
+                applyWebSocketValue(getSettingValue(settingName.ws));
+                applyMorphUrlValue(getSettingValue(settingName.morph))
+            });
+        });
+        
         document.registerElement('puppet-js-settings', {
             prototype: element
         });
