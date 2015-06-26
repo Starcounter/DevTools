@@ -10,18 +10,59 @@
         label * {
             vertical-align: middle;
         }
+
+        fieldset {
+            border: none;
+            padding: 0px;
+        }
+
+        legend {
+              border-bottom: 1px solid #C0C0C0;
+              display: block;
+              width: 100%;
+              font-size: 1.3em;
+              margin-bottom: 10px;
+        }
+
+        .item {
+            margin-bottom: 10px;
+        }
+
+        .item .description {
+            font-size: 0.8em;
+            padding: 0px 25px;
+        }
     </style>
-    <div>
-        <label>
-            <input type="checkbox" id="isWebSocket" />
-            <span>WebSocket</span>
-        </label>
-        <span>&nbsp;</span>
-        <label>
-            <input type="checkbox" id="isMorphUrl" />
-            <span>Morph url</span>
-        </label>
-    </div>
+    <fieldset>
+        <legend>PuppetJs settings</legend>
+        <div class="item">
+            <label>
+                <input type="checkbox" id="isWebSocket" />
+                <span>Enable WebSocket</span>
+            </label>
+            <div class="description">
+                When checked PuppetJs sends patches over WebSocket connection.
+            </div>
+        </div>
+        <div class="item">
+            <label>
+                <input type="checkbox" id="isMorphUrl" />
+                <span>Enable URL morphing</span>
+            </label>
+            <div class="description">
+                When checked PuppetJs performs partial page reload on link clicks and url history changes.
+            </div>
+        </div>
+        <div class="item">
+            <label>
+                <input type="checkbox" id="isPreserveSettings" />
+                <span>Preserve settings upon page reload</span>
+            </label>
+            <div class="description">
+                When checked the above values will be stored in <code>window.localStorage</code> and restored on page load.
+            </div>
+        </div>
+    </fieldset>
 </template>
 
 <script>
@@ -33,7 +74,8 @@
         var element = Object.create(HTMLElement.prototype);
         var settingName = {
             ws: "starcounter-debug-aid-puppet-js-useWebSocket",
-            morph: "starcounter-debug-aid-puppet-js-morphUrls"
+            morph: "starcounter-debug-aid-puppet-js-morphUrls",
+            preserve: "starcounter-debug-aid-puppet-js-preserveSettings"
         };
 
         element.createdCallback = function () {
@@ -52,8 +94,10 @@
             return true;
         }
 
-        function getSettingValue(name) {
-            return parseBool(window.localStorage.getItem(name), true);
+        function getSettingValue(name, def) {
+            def = (typeof def === "undefined" ? true : def);
+
+            return parseBool(window.localStorage.getItem(name), def);
         }
 
         function applyWebSocketValue(value) {
@@ -84,15 +128,24 @@
             var clone = thatDoc.importNode(template, true);
             var chbIsWebSocket = clone.querySelector("#isWebSocket");
             var chbIsMorphUrl = clone.querySelector("#isMorphUrl");
+            var chbIsPreserverSettings = clone.querySelector("#isPreserveSettings");
 
+            chbIsPreserverSettings.checked = getSettingValue(settingName.preserve, false);
             chbIsWebSocket.checked = getSettingValue(settingName.ws);
+            chbIsMorphUrl.checked = getSettingValue(settingName.morph);
+
             chbIsWebSocket.addEventListener('change', function (ev) {
                 applyWebSocketValue(ev.target.checked);
             });
-
-            chbIsMorphUrl.checked = getSettingValue(settingName.morph);
+            
             chbIsMorphUrl.addEventListener("change", function (ev) {
                 applyMorphUrlValue(ev.target.checked);
+            });
+
+            chbIsPreserverSettings.addEventListener("change", function (ev) {
+                applyWebSocketValue(chbIsWebSocket.checked);
+                applyMorphUrlValue(chbIsMorphUrl.checked);
+                window.localStorage.setItem(settingName.preserve, ev.target.checked);
             });
 
             this.shadowRoot.appendChild(clone);
@@ -100,8 +153,15 @@
 
         window.addEventListener("polymer-ready", function () {
             setTimeout(function () {
-                applyWebSocketValue(getSettingValue(settingName.ws));
-                applyMorphUrlValue(getSettingValue(settingName.morph))
+                var preserve = getSettingValue(settingName.preserve, false);
+
+                if (preserve) {
+                    applyWebSocketValue(getSettingValue(settingName.ws));
+                    applyMorphUrlValue(getSettingValue(settingName.morph));
+                } else {
+                    applyWebSocketValue(true);
+                    applyMorphUrlValue(true);
+                }
             });
         });
         
