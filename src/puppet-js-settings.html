@@ -152,17 +152,21 @@
         };
 
         window.addEventListener("polymer-ready", function () {
-            setTimeout(function () {
-                var preserve = getSettingValue(settingName.preserve, false);
+            var preserve = getSettingValue(settingName.preserve, false);
 
+            setTimeout(function () {
                 if (preserve) {
-                    applyWebSocketValue(getSettingValue(settingName.ws));
                     applyMorphUrlValue(getSettingValue(settingName.morph));
                 } else {
-                    applyWebSocketValue(true);
                     applyMorphUrlValue(true);
                 }
             });
+
+            if (preserve) {
+                applyWebSocketValue(getSettingValue(settingName.ws));
+            } else {
+                applyWebSocketValue(true);
+            }
         });
         
         document.registerElement('puppet-js-settings', {
