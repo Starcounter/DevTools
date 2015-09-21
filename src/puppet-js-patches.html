@@ -2,7 +2,7 @@
 <link rel="import" href="/sys/juicy-jsoneditor/src/juicy-jsoneditor.html" />
 <script src="puppet-js-listener.js"></script>
 
-<polymer-element name="puppet-js-patches" attributes="rows" constructor="PuppetJsPatchesElement">
+<dom-module id="puppet-js-patches">
     <template>
         <style>
             :host { width: 100%; overflow: auto; background-color: white; color: #333333; }
@@ -32,10 +32,13 @@
             .direction-receive .send { display: none; }
             .direction-state { display: none; }
         </style>
-        <template if="{{editor.visible == false}}">
+        <template is="dom-if" if="{{!editorVisible}}">
             <div class="actions">
-                <button type="button" class="btn pull-right" on-click="{{clear}}">Clear log</button>
-                <select value="{{filter.method}}" class="form-control">
+                <span class="pull-right">
+                    <button type="button" class="btn" on-click="refreshRows" title="Relaod log entries from PuppetListener">Refresh</button>
+                    <button type="button" class="btn" on-click="clearRows" title="Remove all log entries">Clear log</button>
+                </span>
+                <select value="{{filterMethod::change}}" class="form-control">
                     <option value="all">All types</option>
                     <option value="GET">GET</option>
                     <option value="POST">POST</option>
@@ -43,7 +46,7 @@
                     <option value="PATCH">PATCH</option>
                     <option value="WS">WS</option>
                 </select>
-                <select value="{{filter.direction}}" class="form-control">
+                <select value="{{filterDirection::change}}" class="form-control">
                     <option value="all">All direction</option>
                     <option value="send">Send</option>
                     <option value="receive">Receive</option>
@@ -62,16 +65,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Should be replaced with div: https://github.com/Polymer/polymer/issues/1567 -->
                     <!-- <template id="results" repeat="{{row, i in filteredRows}}"> -->
                     <!-- IE needs some hacking: -->
-                        <tr template class="status-{{row.statusCode}}" id="results" repeat="{{row, i in filteredRows}}">
+                    <template is="dom-repeat" items="{{filteredRows}}" as="row" index-as="i">
+                        <tr class$="{{getStatusClass(row.statusCode)}}">
                             <td class="td-index">{{i}}</td>
                             <td class="td-date">
                                 <span title="{{row.date}}">{{row.time}}</span>
                             </td>
                             <td class="td-type">
                                 <span>{{row.method}}</span>
-                                <span class="direction-{{row.direction}}">
+                                <span class$="{{getDirectionClass(row.direction)}}">
                                     <span class="send" title="Sent">→</span>
                                     <span class="receive" title="Received">←</span>
                                 </span>
@@ -82,19 +87,19 @@
                             <td class="td-code">{{row.statusCode}}</td>
                             <td class="td-duration">{{row.duration}}</td>
                             <td class="td-data">
-                                <template if="{{row.data}}">
-                                    <textarea readonly="readonly" onclick="this.select();" ondblclick="getModel(this).editor.json = getModel(this).row.json; getModel(this).editor.visible = true;" title="Double click me to enter JSON viewer">{{row.data}}</textarea>
+                                <template is="dom-if" if="{{row.data}}">
+                                    <textarea readonly="readonly" onclick="this.select();" on-dblclick="openEditor" title="Double click me to enter JSON viewer" json="{{row.data}}">{{row.data}}</textarea>
                                 </template>
                             </td>
                         </tr>
-                    <!-- </template> -->
+                    </template>
                 </tbody>
             </table>
         </template>
-        <template if="{{editor.visible}}">
-            <juicy-jsoneditor json="{{editor.json}}" mode="view" history="false"></juicy-jsoneditor>
+        <template is="dom-if" if="{{editorVisible}}">
+            <juicy-jsoneditor json="{{editorJson}}" mode="view" history="false"></juicy-jsoneditor>
             <div class="actions">
-                <button type="button" class="btn pull-right" onclick="getModel(this).editor.visible = false;">Close</button>
+                <button type="button" class="btn pull-right" on-click="closeEditor">Close</button>
             </div>
         </template>
     </template>
@@ -102,16 +107,21 @@
         (function (gloabl) {
             var listener = gloabl.PuppetListener;
             window.rows = listener.rows;
-            window.addEventListener("polymer-ready", function (e) {
+            window.addEventListener("WebComponentsReady", function (e) {
                 listener.startListen();
             });
 
             function filterRows(rows, filter) {
+                if (!rows) {
+                    return [];
+                }
+
                 var result = [];
                 var method = filter.method;
                 var direction = filter.direction;
+                var i = rows.length - 1;
 
-                for (var i = 0; i < rows.length; i++) {
+                while (i >= 0) {
                     var is = true;
                     var row = rows[i];
 
@@ -121,51 +131,62 @@
                     if (is) {
                         result.push(row);
                     }
+
+                    i--;
                 }
 
                 return result;
             }
 
             Polymer({
-                // {Array} array of rows to consider
-                rows: null,
-                // {Object} Filter setup
-                filter: null,
+                is: "puppet-js-patches",
+                properties: {
+                    rows: { type: Array, value: null },
+                    filterMethod: { type: String, value: "all", observer: "applyFilter" },
+                    filterDirection: { type: String, value: "all", observer: "applyFilter" },
+                    filteredRows: { type: Array, value: null },
+                    editorJson: { type: Object, value: null },
+                    editorVisible: { type: Boolean, value: false }
+                },
                 // {Object} JSON editor config
                 editor: null,
-                filteredRows: null,
                 // set default values
-                created: function () {
-                    this.filter = {
-                        method: "all",
-                        direction: "all",
-                        clear: 0,
-                    };
-                    this.editor = {
-                        json: null,
-                        visible: false
-                    };
-
-                    this.rows = listener.rows;
-                    this.filteredRows = listener.rows;
-                },
-                // observe filter changes
-                observe: {
-                    "filter.method": "filterRows",
-                    "filter.direction": "filterRows"
+                ready: function () {
+                    this.refreshRows();
                 },
                 // Update filteredRows property with filtered rows
-                filterRows: function () {
-                    this.filteredRows = filterRows(this.rows, this.filter);
+                applyFilter: function () {
+                    this.set("filteredRows", filterRows(this.rows, { method: this.filterMethod, direction: this.filterDirection }));
                 },
-                // Splice rows
-                clear: function () {
+                refreshRows: function () {
+                    this.set("rows", listener.rows.slice());
+                    this.applyFilter();
+                },
+                clearRows: function () {
                     listener.clear();
-                    this.filteredRows.splice(0, this.filteredRows.length);
-                    this.filter.method = "all";
-                    this.filter.direction = "all";
+                    this.refreshRows();
+                    this.set("filterMethod", "all");
+                    this.set("filterDirection", "all");
+                },
+                getStatusClass: function (code) {
+                    return "status-" + code;
+                },
+                getDirectionClass: function (direction) {
+                    return "direction-" + direction;
+                },
+                openEditor: function (e) {
+                    if (!e.currentTarget.json) {
+                        return;
+                    }
+
+                    //getModel(this).editor.json = getModel(this).row.json; getModel(this).editor.visible = true;
+                    this.set("editorJson", JSON.parse(e.currentTarget.json));
+                    this.set("editorVisible", true)
+                },
+                closeEditor: function () {
+                    this.set("editorVisible", false);
                 }
             });
         })(window);
     </script>
-</polymer-element>
+</dom-module>
