@@ -155,7 +155,7 @@ version: 2.0.0
                 //window.addEventListener("error", this.openDialog.bind(this));
             },
             onClickOverlay: function (ev) {
-                if (ev.target === this.shadowRoot.querySelector('#overlay') || ev.target === this.shadowRoot.querySelector('#dialog')) {
+                if (ev.target === Polymer.dom(this.root).querySelector('#overlay') || ev.target === Polymer.dom(this.root).querySelector('#dialog')) {
                     this.closeDialog();
                 }
             },
@@ -167,7 +167,7 @@ version: 2.0.0
                 this.set("visible", true);
 
                 setTimeout(function () {
-                    this.shadowRoot.querySelector("puppet-js-patches").refreshRows();
+                    Polymer.dom(this.root).querySelector("puppet-js-patches").refreshRows();
                 }.bind(this));
             }
         });
