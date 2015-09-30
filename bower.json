@@ -13,8 +13,7 @@
     "bower_components"
   ],
   "dependencies": {
-    "webcomponentsjs": "^0.5.1",
-    "juicy-jsoneditor": "~0.0.5",
-    "polymer": "^0.5.1"
+    "juicy-jsoneditor": "~1.0.1",
+    "polymer": "~1.1.4"
   }
 }
