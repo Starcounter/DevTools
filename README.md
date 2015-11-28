@@ -1,6 +1,12 @@
 # &lt;starcounter-debug-aid&gt;
 
-Friendly messages that help to debug Starcounter apps
+Polymer Elements for debugging Starcounter Puppet web apps
+
+Pressing <kbd>CTRL</kbd>+<kbd>&#96;</kbd> brings up a popup that helps to debug Starcounter apps
+
+<img src="https://raw.githubusercontent.com/StarcounterSamples/starcounter-debug-aid/master/keyboard.svg">
+
+<img src="https://raw.githubusercontent.com/StarcounterSamples/starcounter-debug-aid/master/screenshot.png">
 
 Currently composed of:
 
