@@ -75,7 +75,7 @@ version: 2.0.2
             }
         </style>
 
-        <template is="dom-if" if="{{visible}}">
+        <template is="dom-if" if="{{visible}}" restamp>
             <div id="overlay" on-click="onClickOverlay">
                 <div id="dialog">
 
@@ -166,10 +166,6 @@ version: 2.0.2
             },
             openDialog: function () {
                 this.set("visible", true);
-
-                setTimeout(function () {
-                    Polymer.dom(this.root).querySelector("puppet-js-patches").refreshRows();
-                }.bind(this));
             }
         });
     </script>
