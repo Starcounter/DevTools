@@ -42,7 +42,7 @@
                 <rect id="rect658" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="609.54401" y="57.41608" width="37.607868" height="37.607868" rx="2.6862803"></rect>
                 <rect id="rect659" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="648.49506" y="57.41606" width="37.607861" height="37.607861" rx="2.6862803"></rect>
                 <rect id="rect660" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="687.21753" y="57.41612" width="37.607857" height="37.607857" rx="2.6862803"></rect>
-                <rect id="rect649" stroke="#000000" stroke-width="0.38075337" fill="#FDFF64" sketch:type="MSShapeGroup" x="11.846794" y="57.41612" width="37.607918" height="37.607918" rx="2.6862803"></rect>
+                <rect id="rect649" stroke="#000000" stroke-width="0.38075337" fill="#3497FF" sketch:type="MSShapeGroup" x="11.846794" y="57.41612" width="37.607918" height="37.607918" rx="2.6862803"></rect>
                 <rect id="rect650" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="89.07736" y="57.41607" width="37.607914" height="37.607914" rx="2.6862803"></rect>
                 <rect id="rect651" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="128.02844" y="57.4161" width="37.607899" height="37.607899" rx="2.6862803"></rect>
                 <rect id="rect652" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="166.97949" y="57.41607" width="37.607895" height="37.607895" rx="2.6862803"></rect>
@@ -100,15 +100,15 @@
                 <rect id="rect725" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="437.85635" y="213.11661" width="57.658958" height="37.607849" rx="2.6862803"></rect>
                 <rect id="rect726" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="108.26622" y="213.11664" width="57.658955" height="37.607845" rx="2.6862803"></rect>
                 <rect id="rect727" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="166.87552" y="213.11661" width="270.07538" height="37.607841" rx="2.6862803"></rect>
-                <rect id="rect729" stroke="#000000" stroke-width="0.38075337" fill="#FDFF64" sketch:type="MSShapeGroup" x="11.770256" y="213.11661" width="57.658943" height="37.607841" rx="2.6862803"></rect>
+                <rect id="rect729" stroke="#000000" stroke-width="0.38075337" fill="#3497FF" sketch:type="MSShapeGroup" x="11.770256" y="213.11661" width="57.658943" height="37.607841" rx="2.6862803"></rect>
                 <rect id="rect730" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="11.770287" y="96.52466" width="57.658943" height="37.607838" rx="2.6862803"></rect>
                 <rect id="rect731" stroke="#000000" stroke-width="0.50754493" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="11.833679" y="174.28606" width="88.277245" height="37.481041" rx="4.7893815"></rect>
                 <rect id="rect732" stroke="#000000" stroke-width="0.38075337" fill-opacity="0.08939999" fill="#808080" sketch:type="MSShapeGroup" x="11.770332" y="135.37367" width="68.311089" height="37.607834" rx="2.6862803"></rect>
                 <text id="tspan934" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="9.67060852" font-weight="normal">
                     <tspan x="19.588737" y="35.34705">Esc</tspan>
                 </text>
-                <text id="tspan940" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="9.67060852" font-weight="normal">
-                    <tspan x="16.702293" y="224.61929">Crtl</tspan>
+                <text id="Ctrl" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica" font-size="9.67060852" font-weight="normal">
+                    <tspan x="16.702293" y="224.61929" fill="#000000">Ctrl</tspan>
                 </text>
                 <text id="tspan943" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="9.67060852" font-weight="normal">
                     <tspan x="113.1983" y="224.61935">Alt</tspan>
@@ -179,11 +179,11 @@
                 <text id="tspan1049" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="12.894145" font-weight="normal">
                     <tspan x="403.70761" y="70.7184">)</tspan>
                 </text>
-                <text id="tspan1070" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="12.894145" font-weight="normal">
-                    <tspan x="17.676537" y="92.31131">`</tspan>
+                <text id="tspan1070" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica" font-size="12.894145" font-weight="normal">
+                    <tspan x="17.676537" y="92.31131" fill="#000000">`</tspan>
                 </text>
-                <text id="tspan1073" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="12.894145" font-weight="normal">
-                    <tspan x="17.676537" y="70.71843">~</tspan>
+                <text id="tspan1073" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica" font-size="12.894145" font-weight="normal">
+                    <tspan x="17.676537" y="70.71843" fill="#000000">~</tspan>
                 </text>
                 <text id="tspan1085" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="12.894145" font-weight="normal">
                     <tspan x="74.70633" y="110.35751">Q</tspan>
