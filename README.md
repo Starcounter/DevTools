@@ -2,7 +2,7 @@
 
 Polymer Elements for debugging Starcounter Puppet web apps
 
-Pressing <kbd>CTRL</kbd>+<kbd>&#96;</kbd> brings up a popup that helps to debug Starcounter apps
+Pressing <kbd>CTRL</kbd>+<kbd>&#96;</kbd> (or <kbd>CTRL</kbd>+<kbd>§</kbd> or any other key that's above your <kbd>Tab</kbd> key) brings up a popup that helps to debug Starcounter apps
 
 <img src="https://rawgit.com/StarcounterSamples/starcounter-debug-aid/master/keyboard.svg">
 
