@@ -11,6 +11,6 @@ Pressing <kbd>CTRL</kbd>+<kbd>&#96;</kbd> (or <kbd>CTRL</kbd>+<kbd>§</kbd> or a
 Currently composed of:
 
 - `fast-json-patch-error-reporter` - shows incorrect JSON-Patches (the incorrect patch and the expanable JSON tree)
-- `juicy-error-stacktrace-reporter` - shows uncatched errors (stack traces)
-- `puppet-js-listener.js` - subscribes to puppet-client patchreceived & patchsent events. Has shared `getPuppetClient` method.
+- `juicy-error-stacktrace-reporter` - shows uncaught errors (stack traces)
+- `puppet-js-listener.js` - subscribes to puppet-client `patchreceived` & `patchsent` events. Has shared `getPuppetClient` method.
 - `puppet-js-patches.html` - shows JSON-Patches log from PuppetListenter.
