@@ -23,94 +23,94 @@
       width: 100%;
     }
 
-    table {
+    table.sda-imports {
       border-spacing: 0;
       width: 100%;
     }
 
-    th {
+    table.sda-imports th {
       text-align: left;
       border-bottom: 1px solid #777;
       padding: 8px 4px;
       font-weight: normal;
     }
 
-    td {
+    table.sda-imports td {
       padding: 6px 4px;
     }
 
-    td:first-child::before {
+    table.sda-imports td:first-child::before {
       content: "└";
     }
 
-    tr.level-0 td:first-child::before {
+    table.sda-imports tr.level-0 td:first-child::before {
       content: "";
     }
 
-    tr.level-1 td:first-child {
+    table.sda-imports tr.level-1 td:first-child {
       padding-left: calc(1 * 1em);
     }
 
-    tr.level-2 td:first-child {
+    table.sda-imports tr.level-2 td:first-child {
       padding-left: calc(1 * 2em + 1em);
     }
 
-    tr.level-3 td:first-child {
+    table.sda-imports tr.level-3 td:first-child {
       padding-left: calc(2 * 2em + 1em);
     }
 
-    tr.level-4 td:first-child {
+    table.sda-imports tr.level-4 td:first-child {
       padding-left: calc(3 * 2em + 1em);
     }
 
-    tr.level-5 td:first-child {
+    table.sda-imports tr.level-5 td:first-child {
       padding-left: calc(4 * 2em + 1em);
     }
 
-    tr.level-6 td:first-child {
+    table.sda-imports tr.level-6 td:first-child {
       padding-left: calc(5 * 2em + 1em);
     }
 
-    tr.level-7 td:first-child {
+    table.sda-imports tr.level-7 td:first-child {
       padding-left: calc(6 * 2em + 1em);
     }
 
-    tr.level-8 td:first-child {
+    table.sda-imports tr.level-8 td:first-child {
       padding-left: calc(7 * 2em + 1em);
     }
 
-    .file {
+    table.sda-imports .file {
     }
 
-    .path {
+    table.sda-imports .path {
       font-size: 80%;
       color: #000;
     }
 
-    .error {
+    table.sda-imports .error {
       color: red;
       font-size: 80%;
     }
 
-    a,
-    html-import-bower-info /deep/ a {
+    table.sda-imports a,
+    table.sda-imports html-import-bower-info /deep/ a {
       text-decoration: none;
     }
 
-    a:hover,
-    html-import-bower-info /deep/ a:hover {
+    table.sda-imports a:hover,
+    table.sda-imports html-import-bower-info /deep/ a:hover {
       text-decoration: underline;
     }
 
-    tr:hover td {
+    table.sda-imports tr:hover td {
       background: #f0f0f0;
     }
 
-    .duplicate {
+    table.sda-imports .duplicate {
       opacity: 0.5;
     }
 
-    .duplicatesHidden .duplicate {
+    table.sda-imports .duplicatesHidden .duplicate {
       display: none;
     }
   </style>
@@ -127,7 +127,7 @@
     </label>
   </div>
   <div id="view">
-    <table>
+    <table class="sda-imports">
       <thead>
       <tr>
         <th>File</th>
@@ -144,7 +144,7 @@
 </template>
 <!-- <template><table><tr template> is needed for IE -->
 <template id="row">
-<table>
+<table class="sda-imports">
   <tr template>
     <td>
       <span class="file"></span>

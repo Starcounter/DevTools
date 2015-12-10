@@ -6,25 +6,31 @@
     <template>
         <style>
             :host { width: 100%; overflow: auto; background-color: white; color: #333333; }
-            table { width: 100%; border-collapse: collapse; padding: 0px; margin: 0px; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; }
-            table th, table td { padding: 8px; border: 1px solid #dddddd; text-align: left; border-left: 0px; border-right: 0px; }
-            table th { border-bottom-width: 2px; font-size: 110%; }
-            table td.td-index { white-space: nowrap; width: 20px; }
-            table td.td-type { white-space: nowrap; width: 30px; }
-            table td.td-date { white-space: nowrap; width: 80px; }
-            table td.td-duration { white-space: nowrap; width: 60px; }
-            table td.td-code { white-space: nowrap; width: 50px; font-weight:bold; }
-            table td.td-direction { white-space: nowrap; width: 70px; }
-            table td.td-data { font-size: 10px; width: 100%; }
-            table td.td-url input { width: 100%; box-sizing: border-box; border: 1px solid transparent; padding: 5px 8px; }
-            table td.td-data textarea { width: 100%; box-sizing: border-box; border: 1px solid transparent; resize:none; }
-            table tr.status-500 td, table tr.status-500 td input, table tr.status-500 td textarea { color: red; }
-            table td.td-url input:hover, table td.td-data textarea:hover { border: 1px solid #dddddd; }
-            table tr.tr-ws td.td-url { color: blue; }
-            .btn { background-color: white; border: 2px solid #dddddd; padding: 6px 22px; margin: 8px 0px; display: inline-block; cursor: pointer; }
+            table, div.table { display: table; width: 100%; border-collapse: collapse; padding: 0px; margin: 0px; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; }
+            div.tr { display: table-row; }
+            div.tbody { display: table-row-group; }
+            div.thead { display: table-header-group; }
+            div.tfoot { display: table-footer-group; }
+            table th, table td, div.table div.th, div.table div.td { display: table-cell; padding: 8px; border: 1px solid #dddddd; text-align: left; border-left: 0px; border-right: 0px; }
+            table th, div.table div.th { border-bottom-width: 2px; font-size: 110%; }
+            table td.td-index, div.table div.td.td-index { white-space: nowrap; width: 20px; }
+            table td.td-type, div.table div.td.td-type { white-space: nowrap; width: 30px; }
+            table td.td-date, div.table div.td.td-data { white-space: nowrap; width: 80px; }
+            table td.td-duration, div.table div.td.td-duration { white-space: nowrap; width: 60px; }
+            table td.td-code, div.table div.td.td-code { white-space: nowrap; width: 50px; font-weight:bold; }
+            table td.td-direction, div.table div.td.td-direction { white-space: nowrap; width: 70px; }
+            table td.td-data, div.table div.td.td-data { font-size: 10px; width: 100%; }
+            table td.td-url input, div.table div.td.td-url input { width: 100%; box-sizing: border-box; border: 1px solid transparent; padding: 5px 8px; }
+            table td.td-data textarea, div.table div.td.td-data textarea { width: 100%; box-sizing: border-box; border: 1px solid transparent; resize:none; }
+            table tr.status-500 td, table tr.status-500 td input, table tr.status-500 td textarea, 
+            div.table div.tr.status-500 div.td, div.table div.tr.status-500 div.td input, div.table div.tr.status-500 div.td textarea { color: red; }
+            table td.td-url input:hover, table td.td-data textarea:hover,
+            div.table div.td.td-url input:hover, div.table div.td.td-data textarea:hover { border: 1px solid #dddddd; }
+            table tr.tr-ws td.td-url, div.table div.tr.tr-ws div.td.td-url { color: blue; }
+            .btn { background-color: white; border: 2px solid #dddddd; padding: 6px 22px; margin: 8px 0px; display: inline-block; cursor: pointer; box-shadow: none; }
             .btn:hover { border-color: #333333; }
             .actions { overflow: auto; }
-            .form-control { padding: 6px; border: 1px solid #dddddd; margin: 8px 0px; }
+            .form-control { padding: 6px; border: 1px solid #dddddd; margin: 8px 0px; width: 180px; display: inline-block; }
             .pull-right { float: right; }
             .direction-send { color: green; font-weight: bold; }
             .direction-send .receive { display:none; }
@@ -52,49 +58,46 @@
                     <option value="receive">Receive</option>
                 </select>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Time</th>
-                        <th>Type</th>
-                        <th>Url</th>
-                        <th>Code</th>
-                        <th>Duration</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Should be replaced with div: https://github.com/Polymer/polymer/issues/1567 -->
-                    <!-- <template id="results" repeat="{{row, i in filteredRows}}"> -->
-                    <!-- IE needs some hacking: -->
+            <div class="table">
+                <div class="thead">
+                    <div class="tr">
+                        <div class="th">#</div>
+                        <div class="th">Time</div>
+                        <div class="th">Type</div>
+                        <div class="th">Url</div>
+                        <div class="th">Code</div>
+                        <div class="th">Duration</div>
+                        <div class="th">Data</div>
+                    </div>
+                </div>
+                <div class="tbody">
                     <template is="dom-repeat" items="{{filteredRows}}" as="row" index-as="i">
-                        <tr class$="{{getStatusClass(row.statusCode)}}">
-                            <td class="td-index">{{i}}</td>
-                            <td class="td-date">
+                        <div class$="{{getStatusClass(row.statusCode)}}">
+                            <div class="td td-index">{{i}}</div>
+                            <div class="td td-date">
                                 <span title="{{row.date}}">{{row.time}}</span>
-                            </td>
-                            <td class="td-type">
+                            </div>
+                            <div class="td td-type">
                                 <span>{{row.method}}</span>
                                 <span class$="{{getDirectionClass(row.direction)}}">
                                     <span class="send" title="Sent">→</span>
                                     <span class="receive" title="Received">←</span>
                                 </span>
-                            </td>
-                            <td class="td-url">
+                            </div>
+                            <div class="td td-url">
                                 <a title="{{row.url}}" href="{{row.url}}" target="_blank">{{row.path}}</a>
-                            </td>
-                            <td class="td-code">{{row.statusCode}}</td>
-                            <td class="td-duration">{{row.duration}}</td>
-                            <td class="td-data">
+                            </div>
+                            <div class="td td-code">{{row.statusCode}}</div>
+                            <div class="td td-duration">{{row.duration}}</div>
+                            <div class="td td-data">
                                 <template is="dom-if" if="{{row.data}}">
                                     <textarea readonly="readonly" onclick="this.select();" on-dblclick="openEditor" title="Double click me to enter JSON viewer" json="{{row.data}}">{{row.data}}</textarea>
                                 </template>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     </template>
-                </tbody>
-            </table>
+                </div>
+            </div>
         </template>
         <template is="dom-if" if="{{editorVisible}}">
             <juicy-jsoneditor json="{{editorJson}}" mode="view" history="false"></juicy-jsoneditor>
@@ -169,7 +172,7 @@
                     this.set("filterDirection", "all");
                 },
                 getStatusClass: function (code) {
-                    return "status-" + code;
+                    return "tr status-" + code;
                 },
                 getDirectionClass: function (direction) {
                     return "direction-" + direction;
