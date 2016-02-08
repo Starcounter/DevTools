@@ -100,23 +100,23 @@
         }
 
         function applyWebSocketValue(value) {
-            var puppet = listener.getPuppetClient();
+            var puppetClient = listener.getPuppetClient();
 
-            if (puppet) {
-                puppet.useWebSocket = value;
+            if (puppetClient) {
+                puppetClient.useWebSocket = value;
             }
 
             window.localStorage.setItem(settingName.ws, value);
         }
 
         function applyMorphUrlValue(value) {
-            var puppet = listener.getPuppetClient();
+            var puppetClient = listener.getPuppetClient();
 
-            if (puppet) {
+            if (puppetClient) {
                 if (value) {
-                    puppet.listen();
+                    puppetClient.puppet.listen();
                 } else {
-                    puppet.unlisten();
+                    puppetClient.puppet.unlisten();
                 }
             }
 
