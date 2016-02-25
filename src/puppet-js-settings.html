@@ -88,7 +88,7 @@
 
             if (!value || value == "false") {
                 return false;
-            } 
+            }
 
             return true;
         }
@@ -113,10 +113,13 @@
             var puppetClient = listener.getPuppetClient();
 
             if (puppetClient) {
+                //puppet-polymer-client exposes PuppetJS as a property
+                //original puppet-client extends PuppetJS directly
+                var puppet = puppetClient.puppet || puppetClient;
                 if (value) {
-                    puppetClient.puppet.listen();
+                    puppet.listen();
                 } else {
-                    puppetClient.puppet.unlisten();
+                    puppet.unlisten();
                 }
             }
 
@@ -136,7 +139,7 @@
             chbIsWebSocket.addEventListener('change', function (ev) {
                 applyWebSocketValue(ev.target.checked);
             });
-            
+
             chbIsMorphUrl.addEventListener("change", function (ev) {
                 applyMorphUrlValue(ev.target.checked);
             });
@@ -167,7 +170,7 @@
                 applyWebSocketValue(true);
             }
         });
-        
+
         document.registerElement('puppet-js-settings', {
             prototype: element
         });
