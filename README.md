@@ -14,3 +14,7 @@ Currently composed of:
 - `juicy-error-stacktrace-reporter` - shows uncaught errors (stack traces)
 - `puppet-js-listener.js` - subscribes to puppet-client `patchreceived` & `patchsent` events. Has shared `getPuppetClient` method.
 - `puppet-js-patches.html` - shows JSON-Patches log from PuppetListenter.
+
+## License
+
+MIT
