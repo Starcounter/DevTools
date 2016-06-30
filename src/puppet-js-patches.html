@@ -1,4 +1,4 @@
-﻿<link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="../../polymer/polymer.html" />
 <link rel="import" href="../../juicy-jsoneditor/juicy-jsoneditor.html" />
 <script src="puppet-js-listener.js"></script>
 
@@ -72,9 +72,9 @@
                     </div>
                 </div>
                 <div class="tbody">
-                    <template is="dom-repeat" items="{{filteredRows}}" as="row" index-as="i">
+                    <template is="dom-repeat" items="{{filteredRows}}" as="row">
                         <div class$="{{getStatusClass(row.statusCode)}}">
-                            <div class="td td-index">{{i}}</div>
+                            <div class="td td-index">{{row.index}}</div>
                             <div class="td td-date">
                                 <span title="{{row.date}}">{{row.time}}</span>
                             </div>

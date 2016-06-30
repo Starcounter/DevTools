@@ -24,7 +24,7 @@
 
         var secs = time % 60;
         time = (time - secs) / 60;
-        
+
         var mins = time % 60;
         var hrs = (time - mins) / 60;
 
@@ -47,7 +47,7 @@
         return r.join("");
     };
 
-    Listener.prototype.createRow = function (direction, data, url, method, duration) {
+    Listener.prototype.createRow = function (direction, data, url, method, index, duration) {
         var json = null;
 
         if (typeof(data) == "string") {
@@ -70,7 +70,8 @@
             data: data,
             method: method,
             statusCode: code,
-            json: json
+            json: json,
+            index: index
         };
 
         return row;
@@ -95,19 +96,19 @@
         if (this.lastResponse && this.lastRequest) {
             duration = this.formatDuration(this.lastResponse - this.lastRequest);
         }
-        
-        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url, e.detail.method, duration));
+
+        this.rows.push(this.createRow("receive", e.detail.data, e.detail.url, e.detail.method, this.rows.length, duration));
     };
 
     Listener.prototype.onPatchSent = function (e) {
         this.lastRequest = new Date();
-        this.rows.push(this.createRow("send", e.detail.data, e.detail.url, e.detail.method));
+        this.rows.push(this.createRow("send", e.detail.data, e.detail.url, e.detail.method, this.rows.length));
     };
 
     Listener.prototype.onSocketStateChanged = function (e) {
         var data = { state: e.detail.state, url: e.detail.url, data: e.detail.data, code: e.detail.code, reason: e.detail.reason };
 
-        this.rows.push(this.createRow("state", data, e.detail.url, "STATE"));
+        this.rows.push(this.createRow("state", data, e.detail.url, "STATE", this.rows.length));
     };
 
     Listener.prototype.startListen = function () {
