@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>&lt;starcounter-debug-aid&gt;</title>
@@ -8,60 +9,74 @@
   <script src="index.js"></script>
 
   <link rel="import" href="src/starcounter-debug-aid.html">
+  <link rel="import" href="../puppet-polymer-client/puppet-client.html">
 </head>
+
 <body>
 
-<h2>Sample errors</h2>
+  <h2>Sample errors</h2>
 
-<button id="button1">XMLHttpRequest error (send to an unopened connection)</button>
-<script>
-  document.getElementById("button1").addEventListener("click", function () {
-    clickHandler();
-  });
-</script>
+  <button id="button1">XMLHttpRequest error (send to an unopened connection)</button>
+  <script>
+    document.getElementById("button1").addEventListener("click", function() {
+      clickHandler();
+    });
+  </script>
 
-<br>
-<button id="button2">Two JavaScript errors (call unexisting function)</button>
-<script>
-  document.getElementById("button2").addEventListener("click", function () {
-    unexisting();
-  });
+  <br>
+  <button id="button2">Two JavaScript errors (call unexisting function)</button>
+  <script>
+    document.getElementById("button2").addEventListener("click", function() {
+      unexisting();
+    });
 
-  document.getElementById("button2").addEventListener("click", function () {
-    unexisting2();
-  });
-</script>
+    document.getElementById("button2").addEventListener("click", function() {
+      unexisting2();
+    });
+  </script>
 
-<br>
-<button id="button3">JSON-Patch error</button>
-<script>
-  document.getElementById("button3").addEventListener("click", function () {
-    window.JsonPatchError = function (message, patch, obj) {
-      var err = new Error(message);
-      Object.setPrototypeOf(err, JsonPatchError.prototype);
-      err.patch = patch;
-      err.obj = obj;
-      return err;
-    };
-    JsonPatchError.prototype = Object.create(Error.prototype, {name: {value: 'JsonPatchError', enumerable: false}});
+  <br>
+  <button id="button3">JSON-Patch error</button>
+  <script>
+    document.getElementById("button3").addEventListener("click", function() {
+      window.JsonPatchError = function(message, patch, obj) {
+        var err = new Error(message);
+        Object.setPrototypeOf(err, JsonPatchError.prototype);
+        err.patch = patch;
+        err.obj = obj;
+        return err;
+      };
+      JsonPatchError.prototype = Object.create(Error.prototype, {
+        name: {
+          value: 'JsonPatchError',
+          enumerable: false
+        }
+      });
 
-    var error = new JsonPatchError("Cannot add property", {
-      op: "add",
-      path: "/firstName",
-      value: "Elvis"
-    }, {name: "Albert"});
+      var error = new JsonPatchError("Cannot add property", {
+        op: "add",
+        path: "/firstName",
+        value: "Elvis"
+      }, {
+        name: "Albert"
+      });
 
-    var ev = new Event("error", {"bubbles": true, "cancelable": false});
-    ev.error = error;
-    window.dispatchEvent(ev); //normally it will be dispatched at `<polyjuice-puppet>`
-  });
-</script>
+      var ev = new Event("error", {
+        "bubbles": true,
+        "cancelable": false
+      });
+      ev.error = error;
+      window.dispatchEvent(ev); //normally it will be dispatched at `<polyjuice-puppet>`
+    });
+  </script>
 
 
 
-<starcounter-debug-aid></starcounter-debug-aid>
 
+  <starcounter-debug-aid></starcounter-debug-aid>
+  <puppet-client remote-url="demo/server.with.json"></puppet-client>
 
 
 </body>
+
 </html>

@@ -10,10 +10,14 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components"
+    "bower_components",
+    "demo"
   ],
   "dependencies": {
-    "juicy-jsoneditor": "~1.0.1",
-    "polymer": "~1.1.4"
+    "juicy-jsoneditor": ">=1.1.0",
+    "polymer": ">=1.6.0"
+  },
+  "devDependencies": {
+    "puppet-polymer-client": "PuppetJs/puppet-polymer-client#^3.0.0"
   }
 }
