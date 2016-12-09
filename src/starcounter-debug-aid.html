@@ -8,6 +8,7 @@ version: 2.0.7
 <!--<link rel="import" href="fast-json-patch-error-reporter.html">-->
 <!--<link rel="import" href="juicy-error-dialog.html">-->
 <link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="puppet-js-patches.html" />
 
 <dom-module id="starcounter-debug-aid">
     <template>
@@ -82,9 +83,7 @@ version: 2.0.7
             },
             openDialog: function () {
                 if (!Polymer.isInstance(this.$.ui)) {
-                    Polymer.Base.importHref("src/starcounter-debug-aid-ui.html", () => {
-                        
-                    });
+                    Polymer.Base.importHref("src/starcounter-debug-aid-ui.html");
                 }
                 this.set("visible", true);
             }
