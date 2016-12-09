@@ -15,6 +15,8 @@ Currently composed of:
 - `puppet-js-listener.js` - subscribes to puppet-client `patchreceived` & `patchsent` events. Has shared `getPuppetClient` method.
 - `puppet-js-patches.html` - shows JSON-Patches log from PuppetListenter.
 
+## [Contributing and Development](CONTRIBUTING.md)
+
 ## License
 
 MIT
