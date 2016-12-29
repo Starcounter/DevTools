@@ -1,0 +1,112 @@
+﻿<link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="puppet-js-view-model-tree.html" />
+<link rel="import" href="html-imports-list.html" />
+<link rel="import" href="puppet-js-settings.html" />
+<link rel="import" href="puppet-js-patches.html" />
+
+<dom-module id="starcounter-debug-aid-ui">
+    <template>
+        <style>
+            .tab-content {
+                background: white;
+                box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+                padding: 4px 4px 4px 4px;
+                display: none;
+                max-height: calc(90vh - 50px);
+            }
+
+            [type=radio] {
+                display: none;
+            }
+
+            label {
+                background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+                padding: 10px;
+                display: inline-block;
+                margin-right: -0.3em;
+            }
+
+            [type=radio]:checked + * + * + * + * + label {
+                /* number of asterisks must equal (number_of_tabs - 1) */
+                background: white;
+            }
+
+            [type=radio]:checked + * + * + * + * + * + * + * + * + * + .tab-content {
+                /* number of asterisks must equal (2 * (number_of_tabs - 1)) */
+                display: flex;
+            }
+
+            html-imports-list {
+                width: 100%;
+            }
+
+            puppet-js-view-model-tree {
+                display: block;
+                width: 100%;
+                overflow: visible;
+            }
+        </style>
+
+        <input id="tab1" name="tab-control" type="radio" checked>
+        <input id="tab2" name="tab-control" type="radio">
+        <input id="tab3" name="tab-control" type="radio">
+        <input id="tab4" name="tab-control" type="radio">
+        <input id="tab5" name="tab-control" type="radio">
+
+        <label for="tab1">View-model</label>
+        <label for="tab2">Patches</label>
+        <label for="tab3">Imports</label>
+        <label for="tab4">Settings</label>
+        <label for="tab5">Help</label>
+
+        <div class="tab-content">
+            <puppet-js-view-model-tree></puppet-js-view-model-tree>
+        </div>
+
+        <div class="tab-content">
+            <puppet-js-patches></puppet-js-patches>
+        </div>
+
+        <div class="tab-content">
+            <html-imports-list></html-imports-list>
+        </div>
+
+        <div class="tab-content">
+            <puppet-js-settings></puppet-js-settings>
+        </div>
+
+        <div class="tab-content">
+            <div>
+                <h1>Starcounter Debug Aid</h1>
+
+                <p>
+                    Suggestions and bug reports welcome at <a href="https://github.com/StarcounterSamples/starcounter-debug-aid">
+                        GitHub
+                        Issues
+                    </a>.
+                </p>
+            </div>
+
+            <!-- uncomment with a nice tabbed UI and no errors in Launcher
+            <juicy-error-dialog id="errorDialog" on-error-catched="{{openDialog}}">
+              <template>
+                <fast-json-patch-error-reporter></fast-json-patch-error-reporter>
+                <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
+              </template>
+            </juicy-error-dialog>-->
+        </div>
+
+        <content></content>
+    </template>
+    <script>
+        Polymer({
+            is: "starcounter-debug-aid-ui",
+            properties: {
+
+            },
+            ready: function () {
+
+            }
+        });
+    </script>
+</dom-module>
