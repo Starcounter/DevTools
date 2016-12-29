@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         bump: {
             options: {
-                files: ['src/starcounter-debug-aid.html'],
+                files: ['src/starcounter-debug-aid.html', 'bower.json'],
                 commit: true,
                 commitMessage: '%VERSION%',
                 commitFiles: ['src/*'],
