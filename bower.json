@@ -1,6 +1,6 @@
 {
   "name": "starcounter-debug-aid",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Polymer Elements for debugging Starcounter Puppet web apps",
   "license": "MIT",
   "main": "src/starcounter-debug-aid.html",
