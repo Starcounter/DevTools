@@ -83,10 +83,7 @@ version: 2.0.9
             },
             openDialog: function () {
                 if (!Polymer.isInstance(this.$.ui)) {
-                    var fileName = "starcounter-debug-aid.html";
-                    var link = document.querySelector('link[href$="' + fileName + '"]');
-                    var baseUrl = link.href.replace(fileName, '');
-                    Polymer.Base.importHref(baseUrl + "starcounter-debug-aid-ui.html");
+                    this.importHref(this.resolveUrl("starcounter-debug-aid-ui.html"));
                 }
                 this.set("visible", true);
             }
