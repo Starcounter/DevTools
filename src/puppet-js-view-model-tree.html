@@ -91,6 +91,10 @@
       var puppet = listener.getPuppetClient();
       if (puppet) {
         clone.querySelector('juicy-jsoneditor').json = puppet.obj;
+        // passover changes to Puppet
+        clone.querySelector('juicy-jsoneditor').addEventListener('change', function(e) {
+          puppet.puppet.handleLocalChange(e.detail.patches);
+        });
         clone.querySelector("#plain").textContent = JSON.stringify(puppet.obj, null, 2);
       }
 
