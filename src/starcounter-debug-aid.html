@@ -9,6 +9,7 @@ version: 2.0.11
 <!--<link rel="import" href="juicy-error-dialog.html">-->
 <link rel="import" href="../../polymer/polymer.html" />
 <link rel="import" href="puppet-js-patches.html" />
+<script src="dom-check.js"></script>
 
 <dom-module id="starcounter-debug-aid">
     <template>
@@ -70,7 +71,22 @@ version: 2.0.11
                         }
                     }
                 });
+
+                this.observer = new MutationObserver (function() {
+                    starcounterDebugAidDomCheck(document.body);
+                });
+                    
                 //window.addEventListener("error", this.openDialog.bind(this));
+            },
+            attached: function() {
+                this.observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                    }
+                );
+            },
+            detached: function() {
+                this.observer.disconnect();
             },
             onClickOverlay: function (ev) {
                 if (ev.target === Polymer.dom(this.root).querySelector('#overlay') || ev.target === Polymer.dom(this.root).querySelector('#dialog')) {
