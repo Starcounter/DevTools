@@ -1,6 +1,6 @@
 function starcounterDebugAidDomCheck(container) {
     var out = "\n";
-    container.querySelectorAll("[slot]").forEach((elem) => {
+    Array.prototype.forEach.call(container.querySelectorAll("[slot]"), function (elem) {
         if (elem.skip) return;
 
         var name = elem.getAttribute("slot");
@@ -10,14 +10,17 @@ function starcounterDebugAidDomCheck(container) {
             return;
         }
 
-        var matching = elem.parentNode.shadowRoot.querySelector(`slot[name='${name}']`);
-        if (!matching) {
+        if (elem.assignedSlot === null) { //standards compliant browser
+            out += `        <slot name="${name}"></slot>\n`;
+            elem.skip = true;
+        }
+        else if (elem.offsetParent === null) { //other browsers guesswork
             out += `        <slot name="${name}"></slot>\n`;
             elem.skip = true;
         }
     });
 
     if (out.length > 2) {
-        console.warn("Seems that you forgot the following slot elements in your declarative-shadow-dom", out);
+        console.warn("Some elements cannot be matched to a slot element. Consider adding the following elements in declarative-shadow-dom", out);
     }
 }
