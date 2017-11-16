@@ -1,6 +1,6 @@
 <link rel="import" href="../../polymer/polymer.html"/>
 <link rel="import" href="../../juicy-jsoneditor/juicy-jsoneditor.html"/>
-<script type="text/javascript" src="puppet-js-listener.js"></script>
+<script type="text/javascript" src="palindrom-js-listener.js"></script>
 
 <template>
   <style>
@@ -62,7 +62,7 @@
 
 <script>
   (function (window, document) {
-    var listener = window.PuppetListener;
+    var listener = window.PalindromListener;
 
     var thatDoc = document;
 
@@ -88,20 +88,20 @@
 
       var clone = thatDoc.importNode(template, true);
 
-      var puppet = listener.getPuppetClient();
-      if (puppet) {
-        clone.querySelector('juicy-jsoneditor').json = puppet.obj;
-        // passover changes to Puppet
+      var palindrom = listener.getPalindromClient();
+      if (palindrom) {
+        clone.querySelector('juicy-jsoneditor').json = palindrom.obj;
+        // passover changes to Palindrom
         clone.querySelector('juicy-jsoneditor').addEventListener('change', function(e) {
-          puppet.puppet.handleLocalChange(e.detail.patches);
+          palindrom.palindrom.handleLocalChange(e.detail.patches);
         });
-        clone.querySelector("#plain").textContent = JSON.stringify(puppet.obj, null, 2);
+        clone.querySelector("#plain").textContent = JSON.stringify(palindrom.obj, null, 2);
       }
 
       clone.querySelector('#dumpButton').addEventListener('click', function () {
-        var puppet = listener.getPuppetClient();
-        if (puppet) {
-          console.log(puppet.obj);
+        var palindrom = listener.getPalindromClient();
+        if (palindrom) {
+          console.log(palindrom.obj);
         }
       });
 
@@ -122,7 +122,7 @@
       this.shadowRoot.appendChild(clone);
     };
 
-    document.registerElement('puppet-js-view-model-tree', {
+    document.registerElement('palindrom-js-view-model-tree', {
       prototype: element
     });
   }(window, document));

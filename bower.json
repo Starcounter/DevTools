@@ -1,7 +1,7 @@
 {
   "name": "starcounter-debug-aid",
   "version": "2.0.11",
-  "description": "Polymer Elements for debugging Starcounter Puppet web apps",
+  "description": "Polymer Elements for debugging Starcounter Palindrom web apps",
   "license": "MIT",
   "main": "src/starcounter-debug-aid.html",
   "keywords": [
@@ -14,10 +14,10 @@
     "demo"
   ],
   "dependencies": {
-    "juicy-jsoneditor": ">=1.1.0",
-    "polymer": ">=1.6.0"
+    "juicy-jsoneditor": "^1.1.0",
+    "polymer": "^1.6.0"
   },
   "devDependencies": {
-    "puppet-polymer-client": "PuppetJs/puppet-polymer-client#^3.0.0"
+    "palindrom-polymer-client": "Palindrom/palindrom-polymer-client#^4.0.0"
   }
 }

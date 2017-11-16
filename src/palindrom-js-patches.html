@@ -1,8 +1,8 @@
 <link rel="import" href="../../polymer/polymer.html" />
 <link rel="import" href="../../juicy-jsoneditor/juicy-jsoneditor.html" />
-<script src="puppet-js-listener.js"></script>
+<script src="palindrom-js-listener.js"></script>
 
-<dom-module id="puppet-js-patches">
+<dom-module id="palindrom-js-patches">
     <template>
         <style>
             :host { width: 100%; overflow: auto; background-color: white; color: #333333; }
@@ -41,7 +41,7 @@
         <template is="dom-if" if="{{!editorVisible}}">
             <div class="actions">
                 <span class="pull-right">
-                    <button type="button" class="btn" on-click="refreshRows" title="Relaod log entries from PuppetListener">Refresh</button>
+                    <button type="button" class="btn" on-click="refreshRows" title="Relaod log entries from PalindromListener">Refresh</button>
                     <button type="button" class="btn" on-click="clearRows" title="Remove all log entries">Clear log</button>
                 </span>
                 <select value="{{filterMethod::change}}" class="form-control">
@@ -109,7 +109,7 @@
     </template>
     <script>
         (function (gloabl) {
-            var listener = gloabl.PuppetListener;
+            var listener = gloabl.PalindromListener;
             window.rows = listener.rows;
             window.addEventListener("WebComponentsReady", function (e) {
                 listener.startListen();
@@ -143,7 +143,7 @@
             }
 
             Polymer({
-                is: "puppet-js-patches",
+                is: "palindrom-js-patches",
                 properties: {
                     rows: { type: Array, value: null },
                     filterMethod: { type: String, value: "all", observer: "applyFilter" },
