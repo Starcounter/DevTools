@@ -1,6 +1,6 @@
 {
   "name": "starcounter-debug-aid",
-  "version": "2.0.11",
+  "version": "2.1.0",
   "description": "Polymer Elements for debugging Starcounter Palindrom web apps",
   "license": "MIT",
   "main": "src/starcounter-debug-aid.html",
