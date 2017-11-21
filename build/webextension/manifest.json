@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Starcounter Debug",
+  "version": "0.0.0",
+  "description": "Helps you debug Starcounter Apps with ease.",
+  "icons": {
+    "32": "icons/dark/32.png",
+    "48": "icons/dark/48.png",
+    "128": "icons/dark/128.png",
+    "256": "icons/dark/256.png"
+  },
+  "author": "Omar Alshaker",
+  "background": {
+    "scripts": ["bg_script.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "page_action": {
+    "default_icon": "icons/dark/32.png",
+    "default_title": "Starcounter Debug",
+    "default_popup": "popup/index.html"
+  },
+  "permissions": ["tabs"],
+  "web_accessible_resources": ["content_script.js", "ui-popup-build.js"]
+}

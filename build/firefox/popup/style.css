@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    width: 350px;
+    padding: 5px;
+}
+body * {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;    
+}
+#sc-debug-aid-popup button {
+    margin: 2px;
+    font-size: 12pt!important;
+    background: #fff;
+    padding: 0.3em 0.5em;
+    color: #f47e20;
+    border: 2px solid #ccc;
+}
+#sc-debug-aid-popup button:hover {
+    background: #eee;
+}
+#sc-debug-aid-popup button:active {
+    background: #ccc;
+}
+#popup-container {
+    text-align: center;
+    color: #333;    
+}
+#popup-container h1 {
+    font-size: 2em  
+}
