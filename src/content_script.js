@@ -2,8 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import { debug } from 'util';
 
-/* this files inject starcounter-debug-aid's logic inside the page, 
-most probably you'll neither need to understand nor TO modify it. */
+/* this file injects starcounter-debug-aid's logic inside the page, 
+most probably you'll neither need to understand nor to modify it. */
 
 if (typeof chrome !== 'undefined' && typeof browser === 'undefined') {
   var browser = chrome;
@@ -55,17 +55,30 @@ export default function wholeApp(type, popupUrl, usedKeyComb) {
       '_blank',
       'width=1000,height=500, toolbar=0,location=0,menubar=0'
     );
+    popup.document.head.innerHTML = `<meta charset="utf-8"><title>Starcounter - Debug</title>`;
     popup.document.body.innerHTML = `<div id="app"></div>`;
     popup.title = 'Starcounter Debug';
     const script = document.createElement('script');
     script.src = popupUrl;
     popup.document.body.appendChild(script);
+
+    window.addEventListener('beforeunload', () => {
+      popup && popup.close();
+    });
   }
 }
 
 if (typeof browser !== 'undefined' && browser.extension) {
   /*/ we need to import the built script instead of just running it. 
   This gives up access to JS variables */
+
+  // inject palindrom-listener
+  const palindromListenerScriptURL = browser.extension.getURL(
+    'palindrom-js-listener.js'
+  );
+  const palindromListenerScript = document.createElement('script');
+  palindromListenerScript.src = palindromListenerScriptURL;
+  document.body.appendChild(palindromListenerScript);
 
   const popupIndexScriptUrl = browser.extension.getURL('ui-popup-build.js');
   const url = browser.extension.getURL('content_script.js');

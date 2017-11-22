@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import Listener from '../utils/palindrom-js-listener.js';
-
 const settingName = {
   ws: 'starcounter-debug-aid-palindrom-js-useWebSocket',
   morph: 'starcounter-debug-aid-palindrom-js-morphUrls',
@@ -56,6 +54,13 @@ export default {
   name: 'palindrom-js-settings',
   props: ['overlay'],
   methods: {
+    getCurrentWindow() {
+      let currentWindow = window;
+      if (!this.overlay) {
+        currentWindow = window.opener;
+      }
+      return currentWindow;
+    },
     applyWebSocketValue(value) {
       const palindromClient = this.listener.getPalindromClient();
 
@@ -63,19 +68,10 @@ export default {
         palindromClient.palindrom.useWebSocket = value;
       }
 
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      currentWindow.localStorage.setItem(settingName.ws, value);
+      this.getCurrentWindow().localStorage.setItem(settingName.ws, value);
     },
-    getSettingValue(name, def=true) {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-
-      return parseBool(currentWindow.localStorage.getItem(name), def);
+    getSettingValue(name, def = true) {
+      return parseBool(this.getCurrentWindow().localStorage.getItem(name), def);
     },
     applyMorphUrlValue(value) {
       const palindromClient = this.listener.getPalindromClient();
@@ -88,11 +84,7 @@ export default {
           palindrom.unlisten();
         }
       }
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      currentWindow.localStorage.setItem(settingName.morph, value);
+      this.getCurrentWindow().localStorage.setItem(settingName.morph, value);
     },
     useSocketChanged(ev) {
       this.applyWebSocketValue(ev.target.checked);
@@ -101,11 +93,7 @@ export default {
       this.applyMorphUrlValue(ev.target.checked);
     },
     preserveChanged(ev) {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      currentWindow.localStorage.setItem(
+      this.getCurrentWindow().localStorage.setItem(
         settingName.preserve,
         ev.target.checked
       );
@@ -118,11 +106,8 @@ export default {
       useMorphUrl: false
     };
   },
-  unmounted() {
-    this.listener.stopListen();
-  },
   mounted() {
-    this.listener = new Listener();
+    this.listener = this.getCurrentWindow().starcounterDebugAidListener;
     const preserve = this.getSettingValue(settingName.preserve, false);
 
     setTimeout(() => {

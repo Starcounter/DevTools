@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import Listener from '../utils/palindrom-js-listener.js';
 import JSONEditor from 'jsoneditor';
 import '../assets/jsoneditor.css';
 import jsonpatch from 'fast-json-patch';
@@ -34,19 +33,36 @@ export default {
   },
   props: ['overlay'],
   methods: {
+    getCurrentWindow() {
+      let currentWindow = window;
+      if (!this.overlay) {
+        currentWindow = window.opener;
+      }
+      return currentWindow;
+    },
     dumbToConsole() {
       const cloneToRemoveProxification = JSON.parse(
         JSON.stringify(this.palindromClient.obj)
       );
-      if (this.overlay) {
-        console.info(cloneToRemoveProxification);
-      } else {
-        window.opener.console.info(cloneToRemoveProxification);
+      this.getCurrentWindow().console.info(cloneToRemoveProxification);
+    },
+    updateListener() {
+      if (
+        this.palindromClient &&
+        this.palindromClient.palindrom &&
+        this.palindromClient.palindrom.obj
+      ) {
+        this.editor.set(
+          (this.json = JSON.parse(JSON.stringify(this.palindromClient.obj)))
+        );
       }
     }
   },
   unmounted() {
-    this.listener.stopListen();
+    const index = this.listener.updateListeners.indexOf(this.updateListener);
+    if (index > -1) {
+      this.listener.updateListeners.splice(index, 1);
+    }
   },
   mounted() {
     const options = {
@@ -57,28 +73,21 @@ export default {
         jsonpatch.applyPatch(this.palindromClient.obj, patches);
       }
     };
+
     this.editor = new JSONEditor(
       document.querySelector('#starcounter-debug-aid-jsoneditor-tree-view'),
       options
     );
-    this.listener = new Listener(() => {
-      if (
-        this.palindromClient &&
-        this.palindromClient.palindrom &&
-        this.palindromClient.palindrom.obj
-      ) {
-        this.editor.set(
-          (this.json = JSON.parse(JSON.stringify(this.palindromClient.obj)))
-        );
-      }
-    });
+
+    this.listener = this.getCurrentWindow().starcounterDebugAidListener;
+    this.listener.updateListeners.push(this.updateListener);
+
     this.editor.set(
       (this.json = JSON.parse(
         JSON.stringify(this.listener.getPalindromClient().obj)
       ))
     );
     this.palindromClient = this.listener.getPalindromClient();
-    this.listener.startListen();
   }
 };
 </script>

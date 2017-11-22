@@ -16,7 +16,8 @@ module.exports = [
       new CopyWebpackPlugin([
         { from: 'icons', to: 'icons' },
         { from: 'popup', to: 'popup' },
-        { from: 'manifest.json' }
+        { from: 'manifest.json' },
+        { from: 'src/palindrom-js-listener.js' }
       ])
     ],
     module: {
