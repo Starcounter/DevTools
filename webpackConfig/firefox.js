@@ -16,8 +16,8 @@ module.exports = [
       new CopyWebpackPlugin([
         { from: 'icons', to: 'icons' },
         { from: 'popup', to: 'popup' },
-        { from: 'manifest.firefox.json' },
-        { from: 'src/palindrom-js-listener.js' }        
+        { from: 'manifest.firefox.json', to: 'manifest.json' },
+        { from: 'src/palindrom-js-listener.js' }
       ])
     ],
     module: {
@@ -121,7 +121,6 @@ module.exports = [
     }
   }
 ];
-
 if (process.env.NODE_ENV === 'production') {
   module.exports.forEach(config => {
     config.devtool = '#source-map';

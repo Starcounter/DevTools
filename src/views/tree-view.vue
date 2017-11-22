@@ -52,9 +52,12 @@ export default {
         this.palindromClient.palindrom &&
         this.palindromClient.palindrom.obj
       ) {
-        this.editor.set(
-          (this.json = JSON.parse(JSON.stringify(this.palindromClient.obj)))
-        );
+        const currentTree = JSON.parse(JSON.stringify(this.json));
+        const nextTree = JSON.parse(JSON.stringify(this.palindromClient.obj));
+
+        if (jsonpatch.compare(currentTree, nextTree).length > 0) {
+          this.editor.set((this.json = nextTree));
+        }
       }
     }
   },

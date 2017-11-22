@@ -55,10 +55,14 @@ export default function wholeApp(type, popupUrl, usedKeyComb) {
       '_blank',
       'width=1000,height=500, toolbar=0,location=0,menubar=0'
     );
-    popup.document.head.innerHTML = `<meta charset="utf-8"><title>Starcounter - Debug</title>`;
+    popup.document.head.innerHTML = `
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+      <meta content="utf-8" http-equiv="encoding">
+      <title>Starcounter - Debug</title>`;
+
     popup.document.body.innerHTML = `<div id="app"></div>`;
     popup.title = 'Starcounter Debug';
-    const script = document.createElement('script');
+    const script = popup.document.createElement('SCRIPT');
     script.src = popupUrl;
     popup.document.body.appendChild(script);
 
@@ -76,19 +80,19 @@ if (typeof browser !== 'undefined' && browser.extension) {
   const palindromListenerScriptURL = browser.extension.getURL(
     'palindrom-js-listener.js'
   );
-  const palindromListenerScript = document.createElement('script');
+  const palindromListenerScript = document.createElement('SCRIPT');
   palindromListenerScript.src = palindromListenerScriptURL;
   document.body.appendChild(palindromListenerScript);
 
   const popupIndexScriptUrl = browser.extension.getURL('ui-popup-build.js');
   const url = browser.extension.getURL('content_script.js');
-  const script = document.createElement('script');
+  const script = document.createElement('SCRIPT');
   script.src = url;
   document.body.appendChild(script);
 
   // ok script is injected, run it
   script.onload = function() {
-    const runScript = document.createElement('script');
+    const runScript = document.createElement('SCRIPT');
 
     runScript.innerHTML = `
     var starcounterDebugCurrentApp;
