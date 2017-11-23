@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
 import './palindrom-js-listener';
-import AlternativeUI from './extensionUIAlternative';
 
 (function() {
   function starcounterDebugAidContainer(type, popupUrl, usedKeyComb) {
@@ -47,6 +46,9 @@ import AlternativeUI from './extensionUIAlternative';
     const popupURL = localStorage.getItem('scDebugPopupIndexScriptUrl');
     starcounterDebugAidContainer('popup', popupURL);
   });
+
+  window.addEventListener('sc-debug-close-overlay', starcounterDebugCloser);
+  
   function starcounterDebugOpenOverlay(usedKeyComb) {
     starcounterDebugCurrentApp = starcounterDebugAidContainer(
       'overlay',
@@ -61,6 +63,7 @@ import AlternativeUI from './extensionUIAlternative';
     const overlay = document.querySelector('.sc-debug-aid-overlay');
     overlay && overlay.remove();
   }
+
   window.removeEventListener('keyup', starcounterDebugEscapeCloser);
   window.removeEventListener('click', starcounterDebugClickOutsideCloser);
 
@@ -71,11 +74,9 @@ import AlternativeUI from './extensionUIAlternative';
     ) {
       //CTRL + back tick
       starcounterDebugOpenOverlay(true);
-    } else if (ev.keyCode === 27) {
-      //Esc
-      starcounterDebugEscapeCloser();
     }
   });
+
   function starcounterDebugEscapeCloser(e) {
     e.keyCode == 27 && starcounterDebugCloser();
   }
@@ -84,14 +85,11 @@ import AlternativeUI from './extensionUIAlternative';
   }
 
   // this is useful if you use the bookmarklet
-  function injectExtensionAlternativeInterface() {
+  function injectRawgitPopupScriptURL() {
     localStorage.setItem('scDebugPopupIndexScriptUrl', 'https://rawgit.com/Starcounter/starcounter-debug-aid/extension/build/webextension/ui-popup-build.js')    
-    const div = document.createElement('div');
-    div.innerHTML = AlternativeUI;
-    document.body.appendChild(div);
   }
 
   if(!document.querySelector('just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed')) {
-    injectExtensionAlternativeInterface();
+    injectRawgitPopupScriptURL();
   }
 })();
