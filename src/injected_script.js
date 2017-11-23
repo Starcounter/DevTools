@@ -85,6 +85,7 @@ import AlternativeUI from './extensionUIAlternative';
 
   // this is useful if you use the bookmarklet
   function injectExtensionAlternativeInterface() {
+    localStorage.setItem('scDebugPopupIndexScriptUrl', 'https://rawgit.com/Starcounter/starcounter-debug-aid/extension/build/webextension/ui-popup-build.js')    
     const div = document.createElement('div');
     div.innerHTML = AlternativeUI;
     document.body.appendChild(div);
