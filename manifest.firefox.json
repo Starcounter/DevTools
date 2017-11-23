@@ -30,5 +30,5 @@
     "default_popup": "popup/index.html"
   },
   "permissions": ["tabs"],
-  "web_accessible_resources": ["content_script.js", "ui-popup-build.js", "palindrom-js-listener.js"]
+  "web_accessible_resources": ["content_script.js", "ui-popup-build.js", "palindrom-js-listener.js", "injected_script.js"]
 }

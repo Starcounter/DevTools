@@ -16,8 +16,7 @@ module.exports = [
       new CopyWebpackPlugin([
         { from: 'icons', to: 'icons' },
         { from: 'popup', to: 'popup' },
-        { from: 'manifest.firefox.json', to: 'manifest.json' },
-        { from: 'src/palindrom-js-listener.js' }
+        { from: 'manifest.firefox.json', to: 'manifest.json' }
       ])
     ],
     module: {
@@ -119,6 +118,41 @@ module.exports = [
       path: path.resolve(__dirname, '../build/firefox/'),
       filename: 'bg_script.js'
     }
+  },
+  {
+    entry: './src/injected_script.js',
+    output: {
+      path: path.resolve(__dirname, '../build/firefox/'),
+      filename: 'injected_script.js'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ['vue-style-loader', 'css-loader']
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+          options: {
+            loaders: {}
+            // other vue-loader options go here
+          }
+        },
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        },
+        {
+          test: /\.(png|jpg|gif|svg)$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]?[hash]'
+          }
+        }
+      ]
+    },
   }
 ];
 if (process.env.NODE_ENV === 'production') {
