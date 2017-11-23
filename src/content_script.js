@@ -35,4 +35,6 @@ if (
   const script = document.createElement('SCRIPT');
   script.src = url;
   document.body.appendChild(script);
+
+  document.body.appendChild(document.createElement('just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed'));
 }

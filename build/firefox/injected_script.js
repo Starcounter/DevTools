@@ -4773,6 +4773,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__palindrom_js_listener__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__palindrom_js_listener___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__palindrom_js_listener__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__extensionUIAlternative__ = __webpack_require__(125);
+
 
 
 
@@ -4843,6 +4845,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   }
   function starcounterDebugClickOutsideCloser(e) {
     e.target.className === 'sc-debug-aid-overlay' && starcounterDebugCloser();
+  }
+
+  // this is useful if you use the bookmarklet
+  function injectExtensionAlternativeInterface() {
+    var div = document.createElement('div');
+    div.innerHTML = __WEBPACK_IMPORTED_MODULE_3__extensionUIAlternative__["a" /* default */];
+    document.body.appendChild(div);
+  }
+
+  if (!document.querySelector('just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed')) {
+    injectExtensionAlternativeInterface();
   }
 })();
 
@@ -13022,7 +13035,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.sc-debug-aid-overlay[data-v-04c2046b] {\n  position: fixed;\n  z-index: 9999;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.6);\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n}\n.sc-debug-aid-top-bar svg[data-v-04c2046b] {\n  margin: 0px 5px;\n}\n\n/* for fun */\n.sc-debug-aid-top-bar svg .sun-shine path[data-v-04c2046b]:hover {\n  fill: #fff;\n}\n.sc-debug-aid-top-bar[data-v-04c2046b] {\n  padding: 5px;\n  display: flex;\n  background-color: #ddd;\n  color: 333;\n  width: 100%;\n  max-width: 1200px;\n}\n.sc-debug-aid-overlay-popup[data-v-04c2046b] {\n  justify-content: center;\n  height: 100vh;\n}\n.starcounter-debug-aid-key-comb-warning[data-v-04c2046b] {\n  font-size: 1em;\n  padding: 0px 5px;\n  color: #333;\n  background-color: #fff;\n}\n#sc-debug-aid #overlay.hidden[data-v-04c2046b] {\n  display: none;\n}\n.sc-debug-aid-in-overlay[data-v-04c2046b] {\n  width: 100%;\n  max-width: 1200px;\n}\n.sc-debug-aid-in-popup[data-v-04c2046b] {\n  width: 100%;\n}\n#sc-debug-aid #dialog[data-v-04c2046b] {\n  width: 90vw;\n  margin-top: 5vh;\n}\n.sc-debug-aid-in-overlay .tab-content[data-v-04c2046b] {\n  background: white;\n  box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);\n  padding: 4px 4px 4px 4px;\n  display: none;\n  max-height: 90vh;\n  overflow-y: scroll;\n}\n.sc-debug-aid-in-popup .tab-content[data-v-04c2046b] {\n  background: white;\n  display: none;\n  overflow-y: scroll;\n}\n.sc-debug-aid-tabbing-radio[data-v-04c2046b] {\n  display: none;\n}\n.sc-debug-aid-in-overlay label[data-v-04c2046b] {\n  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);\n  padding: 10px;\n  display: inline-block;\n  margin: 0px -0.25em 0px 0;\n  width: 20%;\n}\n.sc-debug-aid-in-popup label[data-v-04c2046b] {\n  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);\n  padding: 10px;\n  display: inline-block;\n  margin: 0px -0.25em 0px 0;\n  width: 20%;\n  box-sizing: border-box;\n}\n.sc-debug-aid-tabbing-radio:checked+*+*+*+*+label[data-v-04c2046b] {\n  /* number of asterisks must equal (number_of_tabs - 1) */\n  background: white;\n}\n.sc-debug-aid-tabbing-radio:checked+*+*+*+*+*+*+*+*+*+.tab-content[data-v-04c2046b] {\n  /* number of asterisks must equal (2 * (number_of_tabs - 1)) */\n  display: flex;\n}\n#sc-debug-aid html-imports-list[data-v-04c2046b] {\n  width: 100%;\n}\n#sc-debug-aid tree-view[data-v-04c2046b] {\n  display: block;\n  width: 100%;\n  overflow: visible;\n}\n", ""]);
+exports.push([module.i, "\n.sc-debug-aid-overlay[data-v-04c2046b] {\r\n  position: fixed;\r\n  z-index: 9999;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.6);\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\n}\n.sc-debug-aid-top-bar svg[data-v-04c2046b] {\r\n  margin: 0px 5px;\n}\r\n\r\n/* for fun */\n.sc-debug-aid-top-bar svg .sun-shine path[data-v-04c2046b]:hover {\r\n  fill: #fff;\n}\n.sc-debug-aid-top-bar[data-v-04c2046b] {\r\n  padding: 5px;\r\n  display: flex;\r\n  background-color: #ddd;\r\n  color: 333;\r\n  width: 100%;\r\n  max-width: 1200px;\n}\n.sc-debug-aid-overlay-popup[data-v-04c2046b] {\r\n  justify-content: center;\r\n  height: 100vh;\n}\n.starcounter-debug-aid-key-comb-warning[data-v-04c2046b] {\r\n  font-size: 1em;\r\n  padding: 0px 5px;\r\n  color: #333;\r\n  background-color: #fff;\n}\n#sc-debug-aid #overlay.hidden[data-v-04c2046b] {\r\n  display: none;\n}\n.sc-debug-aid-in-overlay[data-v-04c2046b] {\r\n  width: 100%;\r\n  max-width: 1200px;\n}\n.sc-debug-aid-in-popup[data-v-04c2046b] {\r\n  width: 100%;\n}\n#sc-debug-aid #dialog[data-v-04c2046b] {\r\n  width: 90vw;\r\n  margin-top: 5vh;\n}\n.sc-debug-aid-in-overlay .tab-content[data-v-04c2046b] {\r\n  background: white;\r\n  box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);\r\n  padding: 4px 4px 4px 4px;\r\n  display: none;\r\n  max-height: 90vh;\r\n  overflow-y: scroll;\n}\n.sc-debug-aid-in-popup .tab-content[data-v-04c2046b] {\r\n  background: white;\r\n  display: none;\r\n  overflow-y: scroll;\n}\n.sc-debug-aid-tabbing-radio[data-v-04c2046b] {\r\n  display: none;\n}\n.sc-debug-aid-in-overlay label[data-v-04c2046b] {\r\n  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);\r\n  padding: 10px;\r\n  display: inline-block;\r\n  margin: 0px -0.25em 0px 0;\r\n  width: 20%;\n}\n.sc-debug-aid-in-popup label[data-v-04c2046b] {\r\n  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);\r\n  padding: 10px;\r\n  display: inline-block;\r\n  margin: 0px -0.25em 0px 0;\r\n  width: 20%;\r\n  box-sizing: border-box;\n}\n.sc-debug-aid-tabbing-radio:checked + * + * + * + * + label[data-v-04c2046b] {\r\n  /* number of asterisks must equal (number_of_tabs - 1) */\r\n  background: white;\n}\n.sc-debug-aid-tabbing-radio:checked\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + .tab-content[data-v-04c2046b] {\r\n  /* number of asterisks must equal (2 * (number_of_tabs - 1)) */\r\n  display: flex;\n}\n#sc-debug-aid html-imports-list[data-v-04c2046b] {\r\n  width: 100%;\n}\n#sc-debug-aid tree-view[data-v-04c2046b] {\r\n  display: block;\r\n  width: 100%;\r\n  overflow: visible;\n}\r\n", ""]);
 
 // exports
 
@@ -13069,6 +13082,8 @@ module.exports = function listToStyles (parentId, list) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_palindrom_patches_vue__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_palindrom_js_settings_vue__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_html_imports_vue__ = __webpack_require__(111);
+//
+//
 //
 //
 //
@@ -50000,272 +50015,278 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      class: [
-        _vm.isOverlay ? "sc-debug-aid-overlay" : "sc-debug-aid-overlay-popup"
-      ]
-    },
-    [
-      _vm.isOverlay
-        ? _c("div", { staticClass: "sc-debug-aid-top-bar" }, [
-            _c(
-              "svg",
-              {
-                attrs: {
-                  version: "1.1",
-                  viewBox: "0 0 48 48",
-                  width: "24",
-                  height: "24",
-                  xmlns: "http://www.w3.org/2000/svg"
-                }
-              },
-              [
-                _c("g", { attrs: { fill: "#484848" } }, [
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m3.984 18.594h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605h-6.483c-0.886 0-1.605-0.719-1.605-1.605v-0.277c0-0.886 0.719-1.605 1.605-1.605z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m3.464 15.44l1.917 4.105c0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.146c-0.803 0.375-1.759 0.028-2.134-0.775 0 0-1.916-4.105-1.916-4.105-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.147c0.803-0.375 1.758-0.028 2.133 0.776z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m26.366 5.419v5.896c0 0.488-0.396 0.883-0.883 0.883h-0.152c-0.488 0-0.883-0.395-0.883-0.883v-5.896c0-0.487 0.395-0.883 0.883-0.883h0.152c0.487 0 0.883 0.396 0.883 0.883z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m28.101 5.133l-2.258 1.054c-0.442 0.206-0.967 0.016-1.173-0.426l-0.081-0.173c-0.206-0.442-0.015-0.967 0.426-1.173l2.258-1.054c0.442-0.207 0.967-0.016 1.173 0.426l0.081 0.173c0.206 0.441 0.015 0.967-0.426 1.173z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m20.716 5.419v5.896c0 0.488 0.396 0.883 0.883 0.883h0.152c0.488 0 0.883-0.395 0.883-0.883v-5.896c0-0.487-0.395-0.883-0.883-0.883h-0.152c-0.487 0-0.883 0.396-0.883 0.883z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m18.981 5.133l2.258 1.054c0.442 0.206 0.967 0.016 1.173-0.426l0.081-0.173c0.206-0.442 0.015-0.967-0.427-1.173l-2.257-1.054c-0.442-0.207-0.967-0.016-1.174 0.426l-0.08 0.173c-0.206 0.441-0.015 0.967 0.426 1.173z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m44.016 18.594h-6.483c-0.886 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.719 1.605 1.605 1.605h6.483c0.887 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.718-1.605-1.605-1.605z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m44.536 15.44l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.146c0.803 0.375 1.759 0.028 2.134-0.775 0 0 1.916-4.105 1.916-4.105 0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.147c-0.803-0.375-1.758-0.028-2.133 0.776z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m5.397 35.659h6.483c0.886 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.719-1.605-1.605-1.605h-6.483c-0.887 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.718 1.605 1.605 1.605z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m4.877 38.813s1.916-4.105 1.916-4.105c0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.146c-0.803-0.375-1.758-0.028-2.133 0.775l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.147c0.803 0.375 1.759 0.027 2.134-0.776z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m42.589 35.659h-6.483c-0.886 0-1.604-0.719-1.604-1.605v-0.277c0-0.886 0.718-1.605 1.604-1.605h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605z"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m43.109 38.813l-1.917-4.105c-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.146c0.804-0.375 1.759-0.028 2.134 0.775 0 0 1.916 4.105 1.916 4.105 0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.147c-0.803 0.375-1.758 0.027-2.133-0.776z"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("path", {
+  return _c("div", [
+    _c(
+      "div",
+      {
+        class: [
+          _vm.isOverlay ? "sc-debug-aid-overlay" : "sc-debug-aid-overlay-popup"
+        ]
+      },
+      [
+        _vm.isOverlay
+          ? _c("div", { staticClass: "sc-debug-aid-top-bar" }, [
+              _c(
+                "svg",
+                {
                   attrs: {
-                    d:
-                      "m24 9.965c9.341 0 16.913 7.5 16.913 16.751s-7.572 16.751-16.913 16.751c-9.34 0-16.912-7.5-16.912-16.751s7.572-16.751 16.912-16.751z",
-                    fill: "#484848"
+                    version: "1.1",
+                    viewBox: "0 0 48 48",
+                    width: "24",
+                    height: "24",
+                    xmlns: "http://www.w3.org/2000/svg"
                   }
-                }),
-                _vm._v(" "),
-                _c("g", { staticClass: "sun-shine" }, [
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "m8.101 27.638c0-3.038-0.741-2.581 7.981-5.162 6.541-1.914 10.942-2.499 10.942-1.499 0 1.165-2.55 4.287-8.556 10.45-3.332 3.373-6.171 6.12-6.337 6.12-0.163 0-0.698-0.583-1.191-1.29-1.688-2.456-2.839-5.829-2.839-8.619z",
-                      fill: "#FAB914"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("g", { attrs: { fill: "#F47E20" } }, [
+                },
+                [
+                  _c("g", { attrs: { fill: "#484848" } }, [
                     _c("path", {
                       attrs: {
                         d:
-                          "m13.573 38.922c-0.048-0.15 0.243-0.441 0.321-0.537 0.303-0.378 0.635-0.732 0.97-1.084 1.076-1.136 2.203-2.229 3.334-3.31 2.593-2.475 5.234-4.916 8-7.193 1.228-1.011 2.53-2.027 3.975-2.697 0.423-0.197 1.069-0.452 1.29 0.135 0.181 0.482 0.089 1.108 7e-3 1.601-0.257 1.565-0.871 3.082-1.463 4.541-1.06 2.609-2.259 5.159-3.472 7.696-0.484 1.011-0.963 2.03-1.49 3.019-0.258 0.479-0.52 0.997-0.893 1.397-0.638 0.683-1.702 0.411-2.514 0.312-0.623-0.074-1.244-0.166-1.853-0.3-1.852-0.417 0.946 0.207 0 0-1.852-0.417-5.966-2.791-6.212-3.58z"
+                          "m3.984 18.594h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605h-6.483c-0.886 0-1.605-0.719-1.605-1.605v-0.277c0-0.886 0.719-1.605 1.605-1.605z"
                       }
                     }),
                     _vm._v(" "),
                     _c("path", {
                       attrs: {
                         d:
-                          "m33.943 27.626c0.346-0.486 0.768-1.156 1.324-1.425 0.568-0.277 0.633 0.414 0.703 0.835 0.385 2.362 0.395 4.793 0.508 7.182 0.026 0.548 0.053 1.095 0.079 1.644 0.015 0.306 0.097 0.691 0.048 0.994-0.033 0.207-0.204 0.289-0.375 0.438-0.383 0.335-0.766 0.67-1.146 1.002-1.081 0.946-2.256 1.733-3.508 2.426-1.463 0.812-3.038 1.601-4.673 1.984-1.153 0.294-1.112 0.171 2.343-6.7 3.662-7.285-3.455 6.871 0 0 1.427-2.843 2.853-5.782 4.697-8.38z"
+                          "m3.464 15.44l1.917 4.105c0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.146c-0.803 0.375-1.759 0.028-2.134-0.775 0 0-1.916-4.105-1.916-4.105-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.147c0.803-0.375 1.758-0.028 2.133 0.776z"
                       }
                     }),
                     _vm._v(" "),
                     _c("path", {
                       attrs: {
                         d:
-                          "m39.612 26.93c0.289 1.209-0.411 4.996-1.109 6.038-0.289 0.457-0.371-0.335-0.248-2.831 0.166-3.664-0.123 2.496 0 0 0.163-3.664 0.823-5.246 1.357-3.207z"
+                          "m26.366 5.419v5.896c0 0.488-0.396 0.883-0.883 0.883h-0.152c-0.488 0-0.883-0.395-0.883-0.883v-5.896c0-0.487 0.395-0.883 0.883-0.883h0.152c0.487 0 0.883 0.396 0.883 0.883z"
                       }
                     }),
                     _vm._v(" "),
                     _c("path", {
                       attrs: {
                         d:
-                          "m8.951 21.051c0.313-0.765 0.705-1.497 1.129-2.203 0.872-1.449 1.895-2.869 3.135-4.02 0.399-0.371 0.837-0.686 1.273-1.014 0.253-0.19 0.455-0.452 0.766-0.426 1.095 0.097 2.203 0.388 3.286 0.578 1.497 0.262 2.997 0.515 4.468 0.908 0.653 0.175 1.312 0.366 1.926 0.652 0.26 0.12 0.751 0.325 0.838 0.648 0.142 0.537-1.112 1.081-1.437 1.259-1.476 0.806-3.046 1.451-4.606 2.073-2.479 0.987-5 1.853-7.526 2.715-0.91 0.311-1.82 0.621-2.734 0.922-0.207 0.07-0.455 0.195-0.674 0.217-0.294 0.029-0.282-0.32-0.282-0.592 0-0.588 0.221-1.182 0.438-1.717z"
+                          "m28.101 5.133l-2.258 1.054c-0.442 0.206-0.967 0.016-1.173-0.426l-0.081-0.173c-0.206-0.442-0.015-0.967 0.426-1.173l2.258-1.054c0.442-0.207 0.967-0.016 1.173 0.426l0.081 0.173c0.206 0.441 0.015 0.967-0.426 1.173z"
                       }
                     }),
                     _vm._v(" "),
                     _c("path", {
                       attrs: {
                         d:
-                          "m18.386 11.775c1.331-0.775 3.178-0.842 4.67-0.828 0.749 7e-3 1.519 0.053 2.244 0.25 0.294 0.08 0.568 0.191 0.816 0.369 0.202 0.147 0.898 0.669 0.703 1.001-0.289 0.458-3.414 0.458-7.198 0.041-2.181-0.25 3.784 0.417 0 0-2.181-0.25-2.222-0.25-1.235-0.833z"
+                          "m20.716 5.419v5.896c0 0.488 0.396 0.883 0.883 0.883h0.152c0.488 0 0.883-0.395 0.883-0.883v-5.896c0-0.487-0.395-0.883-0.883-0.883h-0.152c-0.487 0-0.883 0.396-0.883 0.883z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m18.981 5.133l2.258 1.054c0.442 0.206 0.967 0.016 1.173-0.426l0.081-0.173c0.206-0.442 0.015-0.967-0.427-1.173l-2.257-1.054c-0.442-0.207-0.967-0.016-1.174 0.426l-0.08 0.173c-0.206 0.441-0.015 0.967 0.426 1.173z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m44.016 18.594h-6.483c-0.886 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.719 1.605 1.605 1.605h6.483c0.887 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.718-1.605-1.605-1.605z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m44.536 15.44l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.146c0.803 0.375 1.759 0.028 2.134-0.775 0 0 1.916-4.105 1.916-4.105 0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.147c-0.803-0.375-1.758-0.028-2.133 0.776z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m5.397 35.659h6.483c0.886 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.719-1.605-1.605-1.605h-6.483c-0.887 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.718 1.605 1.605 1.605z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m4.877 38.813s1.916-4.105 1.916-4.105c0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.146c-0.803-0.375-1.758-0.028-2.133 0.775l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.147c0.803 0.375 1.759 0.027 2.134-0.776z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m42.589 35.659h-6.483c-0.886 0-1.604-0.719-1.604-1.605v-0.277c0-0.886 0.718-1.605 1.604-1.605h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m43.109 38.813l-1.917-4.105c-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.146c0.804-0.375 1.759-0.028 2.134 0.775 0 0 1.916 4.105 1.916 4.105 0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.147c-0.803 0.375-1.758 0.027-2.133-0.776z"
                       }
                     })
-                  ])
-                ])
-              ]
-            ),
-            _vm._v("\n\n    Starcounter Debug Aid\n  ")
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          class: [
-            _vm.isOverlay ? "sc-debug-aid-in-overlay" : "sc-debug-aid-in-popup"
-          ],
-          attrs: { id: "sc-debug-aid" }
-        },
-        [
-          _c("input", {
-            staticClass: "sc-debug-aid-tabbing-radio",
-            attrs: {
-              id: "tab1",
-              name: "tab-control",
-              type: "radio",
-              checked: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "sc-debug-aid-tabbing-radio",
-            attrs: { id: "tab2", name: "tab-control", type: "radio" }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "sc-debug-aid-tabbing-radio",
-            attrs: { id: "tab3", name: "tab-control", type: "radio" }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "sc-debug-aid-tabbing-radio",
-            attrs: { id: "tab4", name: "tab-control", type: "radio" }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "sc-debug-aid-tabbing-radio",
-            attrs: { id: "tab5", name: "tab-control", type: "radio" }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "tab1" } }, [_vm._v("View-model")]),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "tab2" } }, [_vm._v("Patches")]),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "tab3" } }, [_vm._v("Imports")]),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "tab4" } }, [_vm._v("Settings")]),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "tab5" } }, [_vm._v("Help")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "tab-content" },
-            [_c("tree-view", { attrs: { overlay: _vm.isOverlay } })],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "tab-content" },
-            [_c("palindrom-patches", { attrs: { overlay: _vm.isOverlay } })],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "tab-content" },
-            [_c("html-imports", { attrs: { overlay: _vm.isOverlay } })],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "tab-content" },
-            [
-              _c("palindrom-js-settings", { attrs: { overlay: _vm.isOverlay } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm._m(0, false, false),
-          _vm._v(" "),
-          _vm.usedKeyComb
-            ? _c(
-                "div",
-                { staticClass: "starcounter-debug-aid-key-comb-warning" },
-                [
-                  _c("p", [
-                    _vm._v(
-                      "⚠️ You've opened Starcounter Debug Aid using the key combination, this shortcut is deprecated in favour of the browser\n        action button in the top right corner of your browser window."
-                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "m24 9.965c9.341 0 16.913 7.5 16.913 16.751s-7.572 16.751-16.913 16.751c-9.34 0-16.912-7.5-16.912-16.751s7.572-16.751 16.912-16.751z",
+                      fill: "#484848"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("g", { staticClass: "sun-shine" }, [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m8.101 27.638c0-3.038-0.741-2.581 7.981-5.162 6.541-1.914 10.942-2.499 10.942-1.499 0 1.165-2.55 4.287-8.556 10.45-3.332 3.373-6.171 6.12-6.337 6.12-0.163 0-0.698-0.583-1.191-1.29-1.688-2.456-2.839-5.829-2.839-8.619z",
+                        fill: "#FAB914"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("g", { attrs: { fill: "#F47E20" } }, [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "m13.573 38.922c-0.048-0.15 0.243-0.441 0.321-0.537 0.303-0.378 0.635-0.732 0.97-1.084 1.076-1.136 2.203-2.229 3.334-3.31 2.593-2.475 5.234-4.916 8-7.193 1.228-1.011 2.53-2.027 3.975-2.697 0.423-0.197 1.069-0.452 1.29 0.135 0.181 0.482 0.089 1.108 7e-3 1.601-0.257 1.565-0.871 3.082-1.463 4.541-1.06 2.609-2.259 5.159-3.472 7.696-0.484 1.011-0.963 2.03-1.49 3.019-0.258 0.479-0.52 0.997-0.893 1.397-0.638 0.683-1.702 0.411-2.514 0.312-0.623-0.074-1.244-0.166-1.853-0.3-1.852-0.417 0.946 0.207 0 0-1.852-0.417-5.966-2.791-6.212-3.58z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "m33.943 27.626c0.346-0.486 0.768-1.156 1.324-1.425 0.568-0.277 0.633 0.414 0.703 0.835 0.385 2.362 0.395 4.793 0.508 7.182 0.026 0.548 0.053 1.095 0.079 1.644 0.015 0.306 0.097 0.691 0.048 0.994-0.033 0.207-0.204 0.289-0.375 0.438-0.383 0.335-0.766 0.67-1.146 1.002-1.081 0.946-2.256 1.733-3.508 2.426-1.463 0.812-3.038 1.601-4.673 1.984-1.153 0.294-1.112 0.171 2.343-6.7 3.662-7.285-3.455 6.871 0 0 1.427-2.843 2.853-5.782 4.697-8.38z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "m39.612 26.93c0.289 1.209-0.411 4.996-1.109 6.038-0.289 0.457-0.371-0.335-0.248-2.831 0.166-3.664-0.123 2.496 0 0 0.163-3.664 0.823-5.246 1.357-3.207z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "m8.951 21.051c0.313-0.765 0.705-1.497 1.129-2.203 0.872-1.449 1.895-2.869 3.135-4.02 0.399-0.371 0.837-0.686 1.273-1.014 0.253-0.19 0.455-0.452 0.766-0.426 1.095 0.097 2.203 0.388 3.286 0.578 1.497 0.262 2.997 0.515 4.468 0.908 0.653 0.175 1.312 0.366 1.926 0.652 0.26 0.12 0.751 0.325 0.838 0.648 0.142 0.537-1.112 1.081-1.437 1.259-1.476 0.806-3.046 1.451-4.606 2.073-2.479 0.987-5 1.853-7.526 2.715-0.91 0.311-1.82 0.621-2.734 0.922-0.207 0.07-0.455 0.195-0.674 0.217-0.294 0.029-0.282-0.32-0.282-0.592 0-0.588 0.221-1.182 0.438-1.717z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "m18.386 11.775c1.331-0.775 3.178-0.842 4.67-0.828 0.749 7e-3 1.519 0.053 2.244 0.25 0.294 0.08 0.568 0.191 0.816 0.369 0.202 0.147 0.898 0.669 0.703 1.001-0.289 0.458-3.414 0.458-7.198 0.041-2.181-0.25 3.784 0.417 0 0-2.181-0.25-2.222-0.25-1.235-0.833z"
+                        }
+                      })
+                    ])
                   ])
                 ]
-              )
-            : _vm._e()
-        ]
-      )
-    ]
-  )
+              ),
+              _vm._v("\r\n\r\n      Starcounter Debug Aid\r\n    ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            class: [
+              _vm.isOverlay
+                ? "sc-debug-aid-in-overlay"
+                : "sc-debug-aid-in-popup"
+            ],
+            attrs: { id: "sc-debug-aid" }
+          },
+          [
+            _c("input", {
+              staticClass: "sc-debug-aid-tabbing-radio",
+              attrs: {
+                id: "tab1",
+                name: "tab-control",
+                type: "radio",
+                checked: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "sc-debug-aid-tabbing-radio",
+              attrs: { id: "tab2", name: "tab-control", type: "radio" }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "sc-debug-aid-tabbing-radio",
+              attrs: { id: "tab3", name: "tab-control", type: "radio" }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "sc-debug-aid-tabbing-radio",
+              attrs: { id: "tab4", name: "tab-control", type: "radio" }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "sc-debug-aid-tabbing-radio",
+              attrs: { id: "tab5", name: "tab-control", type: "radio" }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "tab1" } }, [_vm._v("View-model")]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "tab2" } }, [_vm._v("Patches")]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "tab3" } }, [_vm._v("Imports")]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "tab4" } }, [_vm._v("Settings")]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "tab5" } }, [_vm._v("Help")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tab-content" },
+              [_c("tree-view", { attrs: { overlay: _vm.isOverlay } })],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tab-content" },
+              [_c("palindrom-patches", { attrs: { overlay: _vm.isOverlay } })],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tab-content" },
+              [_c("html-imports", { attrs: { overlay: _vm.isOverlay } })],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tab-content" },
+              [
+                _c("palindrom-js-settings", {
+                  attrs: { overlay: _vm.isOverlay }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(0, false, false),
+            _vm._v(" "),
+            _vm.usedKeyComb
+              ? _c(
+                  "div",
+                  { staticClass: "starcounter-debug-aid-key-comb-warning" },
+                  [
+                    _c("p", [
+                      _vm._v(
+                        "⚠️ You've opened Starcounter Debug Aid using the key combination, this shortcut is deprecated in favour of the browser\r\n          action button in the top right corner of your browser window."
+                      )
+                    ])
+                  ]
+                )
+              : _vm._e()
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -50278,7 +50299,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("p", [
           _vm._v(
-            "\n          Suggestions and bug reports welcome at\n          "
+            "\r\n            Suggestions and bug reports welcome at\r\n            "
           ),
           _c(
             "a",
@@ -50289,7 +50310,7 @@ var staticRenderFns = [
                   "https://github.com/StarcounterSamples/starcounter-debug-aid"
               }
             },
-            [_vm._v("\n            GitHub Issues.\n          ")]
+            [_vm._v("\r\n              GitHub Issues.\r\n            ")]
           )
         ])
       ])
@@ -50503,6 +50524,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   global.starcounterDebugAidListener = new Listener();
   global.starcounterDebugAidListener.startListen();
 })(window);
+
+/***/ }),
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("<style>\n    .starcounter-debug-alternative-ui {\n        position: fixed;\n        top: 10px;\n        right: 10px;\n        background-color: rgba(230, 230, 230, 0.6);\n        opacity: 0.3;\n        text-align: center;\n        padding: 10px 10px 0px;\n        border: 1px solid #aaa;\n        transition: opacity 0.5s ease-in-out\n    }\n    .starcounter-debug-alternative-ui:hover {\n        opacity: 1\n    }\n</style>\n<div class=\"starcounter-debug-alternative-ui\">\n    <p>\n        <svg version=\"1.1\" viewBox=\"0 0 48 48\" width=\"30\" height=\"30\" xmlns=\"http://www.w3.org/2000/svg\">\n            <g class=\"whole-insect\">\n                <g fill=\"#484848\">\n                    <g class=\"leg top left\">\n                        <path d=\"m3.984 18.594h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605h-6.483c-0.886 0-1.605-0.719-1.605-1.605v-0.277c0-0.886 0.719-1.605 1.605-1.605z\"\n                        />\n                        <path d=\"m3.464 15.44l1.917 4.105c0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.146c-0.803 0.375-1.759 0.028-2.134-0.775 0 0-1.916-4.105-1.916-4.105-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.147c0.803-0.375 1.758-0.028 2.133 0.776z\"\n                        />\n                    </g>\n                    <g class=\"antenna antenna-right\">\n                        <path d=\"m26.366 5.419v5.896c0 0.488-0.396 0.883-0.883 0.883h-0.152c-0.488 0-0.883-0.395-0.883-0.883v-5.896c0-0.487 0.395-0.883 0.883-0.883h0.152c0.487 0 0.883 0.396 0.883 0.883z\"\n                        />\n                        <path d=\"m28.101 5.133l-2.258 1.054c-0.442 0.206-0.967 0.016-1.173-0.426l-0.081-0.173c-0.206-0.442-0.015-0.967 0.426-1.173l2.258-1.054c0.442-0.207 0.967-0.016 1.173 0.426l0.081 0.173c0.206 0.441 0.015 0.967-0.426 1.173z\"\n                        />\n                    </g>\n                    <g class=\"antenna antenna-left\">\n                        <path d=\"m20.716 5.419v5.896c0 0.488 0.396 0.883 0.883 0.883h0.152c0.488 0 0.883-0.395 0.883-0.883v-5.896c0-0.487-0.395-0.883-0.883-0.883h-0.152c-0.487 0-0.883 0.396-0.883 0.883z\"\n                        />\n                        <path d=\"m18.981 5.133l2.258 1.054c0.442 0.206 0.967 0.016 1.173-0.426l0.081-0.173c0.206-0.442 0.015-0.967-0.427-1.173l-2.257-1.054c-0.442-0.207-0.967-0.016-1.174 0.426l-0.08 0.173c-0.206 0.441-0.015 0.967 0.426 1.173z\"\n                        />\n                    </g>\n                    <g class=\"leg top right\">\n                        <path d=\"m44.016 18.594h-6.483c-0.886 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.719 1.605 1.605 1.605h6.483c0.887 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.718-1.605-1.605-1.605z\"\n                        />\n                        <path d=\"m44.536 15.44l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.146c0.803 0.375 1.759 0.028 2.134-0.775 0 0 1.916-4.105 1.916-4.105 0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.147c-0.803-0.375-1.758-0.028-2.133 0.776z\"\n                        />\n                    </g>\n                    <g class=\"leg bottom left\">\n                        <path d=\"m5.397 35.659h6.483c0.886 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.719-1.605-1.605-1.605h-6.483c-0.887 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.718 1.605 1.605 1.605z\"\n                        />\n                        <path d=\"m4.877 38.813s1.916-4.105 1.916-4.105c0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.146c-0.803-0.375-1.758-0.028-2.133 0.775l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.147c0.803 0.375 1.759 0.027 2.134-0.776z\"\n                        />\n                    </g>\n                    <g class=\"leg bottom right\">\n                        <path d=\"m42.589 35.659h-6.483c-0.886 0-1.604-0.719-1.604-1.605v-0.277c0-0.886 0.718-1.605 1.604-1.605h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605z\"\n                        />\n                        <path d=\"m43.109 38.813l-1.917-4.105c-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.146c0.804-0.375 1.759-0.028 2.134 0.775 0 0 1.916 4.105 1.916 4.105 0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.147c-0.803 0.375-1.758 0.027-2.133-0.776z\"\n                        />\n                    </g>\n                </g>\n                <path d=\"m24 9.965c9.341 0 16.913 7.5 16.913 16.751s-7.572 16.751-16.913 16.751c-9.34 0-16.912-7.5-16.912-16.751s7.572-16.751 16.912-16.751z\"\n                    fill=\"#484848\" />\n                <g class=\"sun-shine\">\n                    <path d=\"m8.101 27.638c0-3.038-0.741-2.581 7.981-5.162 6.541-1.914 10.942-2.499 10.942-1.499 0 1.165-2.55 4.287-8.556 10.45-3.332 3.373-6.171 6.12-6.337 6.12-0.163 0-0.698-0.583-1.191-1.29-1.688-2.456-2.839-5.829-2.839-8.619z\"\n                        fill=\"#FAB914\" />\n                    <g fill=\"#F47E20\">\n                        <path d=\"m13.573 38.922c-0.048-0.15 0.243-0.441 0.321-0.537 0.303-0.378 0.635-0.732 0.97-1.084 1.076-1.136 2.203-2.229 3.334-3.31 2.593-2.475 5.234-4.916 8-7.193 1.228-1.011 2.53-2.027 3.975-2.697 0.423-0.197 1.069-0.452 1.29 0.135 0.181 0.482 0.089 1.108 7e-3 1.601-0.257 1.565-0.871 3.082-1.463 4.541-1.06 2.609-2.259 5.159-3.472 7.696-0.484 1.011-0.963 2.03-1.49 3.019-0.258 0.479-0.52 0.997-0.893 1.397-0.638 0.683-1.702 0.411-2.514 0.312-0.623-0.074-1.244-0.166-1.853-0.3-1.852-0.417 0.946 0.207 0 0-1.852-0.417-5.966-2.791-6.212-3.58z\"\n                        />\n                        <path d=\"m33.943 27.626c0.346-0.486 0.768-1.156 1.324-1.425 0.568-0.277 0.633 0.414 0.703 0.835 0.385 2.362 0.395 4.793 0.508 7.182 0.026 0.548 0.053 1.095 0.079 1.644 0.015 0.306 0.097 0.691 0.048 0.994-0.033 0.207-0.204 0.289-0.375 0.438-0.383 0.335-0.766 0.67-1.146 1.002-1.081 0.946-2.256 1.733-3.508 2.426-1.463 0.812-3.038 1.601-4.673 1.984-1.153 0.294-1.112 0.171 2.343-6.7 3.662-7.285-3.455 6.871 0 0 1.427-2.843 2.853-5.782 4.697-8.38z\"\n                        />\n                        <path d=\"m39.612 26.93c0.289 1.209-0.411 4.996-1.109 6.038-0.289 0.457-0.371-0.335-0.248-2.831 0.166-3.664-0.123 2.496 0 0 0.163-3.664 0.823-5.246 1.357-3.207z\"\n                        />\n                        <path d=\"m8.951 21.051c0.313-0.765 0.705-1.497 1.129-2.203 0.872-1.449 1.895-2.869 3.135-4.02 0.399-0.371 0.837-0.686 1.273-1.014 0.253-0.19 0.455-0.452 0.766-0.426 1.095 0.097 2.203 0.388 3.286 0.578 1.497 0.262 2.997 0.515 4.468 0.908 0.653 0.175 1.312 0.366 1.926 0.652 0.26 0.12 0.751 0.325 0.838 0.648 0.142 0.537-1.112 1.081-1.437 1.259-1.476 0.806-3.046 1.451-4.606 2.073-2.479 0.987-5 1.853-7.526 2.715-0.91 0.311-1.82 0.621-2.734 0.922-0.207 0.07-0.455 0.195-0.674 0.217-0.294 0.029-0.282-0.32-0.282-0.592 0-0.588 0.221-1.182 0.438-1.717z\"\n                        />\n                        <path d=\"m18.386 11.775c1.331-0.775 3.178-0.842 4.67-0.828 0.749 7e-3 1.519 0.053 2.244 0.25 0.294 0.08 0.568 0.191 0.816 0.369 0.202 0.147 0.898 0.669 0.703 1.001-0.289 0.458-3.414 0.458-7.198 0.041-2.181-0.25 3.784 0.417 0 0-2.181-0.25-2.222-0.25-1.235-0.833z\"\n                        />\n                    </g>\n                </g>\n            </g>\n        </svg>\n    </p>\n    <p>\n    <button onclick=\"window.dispatchEvent(new CustomEvent('sc-debug-show-overlay'))\" title=\"Show overlay\">\uD83D\uDD1B</button>\n    <button onclick=\"window.dispatchEvent(new CustomEvent('sc-debug-show-popup'))\"title=\"Open popup\">\uD83D\uDD1D</button>\n    </p>\n    <p>    \n</div>");
 
 /***/ })
 /******/ ]);

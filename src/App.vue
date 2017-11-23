@@ -1,5 +1,6 @@
 <template>
-  <div v-bind:class="[isOverlay ? 'sc-debug-aid-overlay' : 'sc-debug-aid-overlay-popup']">
+<div>
+  <div v-bind:class="[isOverlay ? 'sc-debug-aid-overlay' : 'sc-debug-aid-overlay-popup']">    
     <div v-if="isOverlay" class="sc-debug-aid-top-bar">
       <svg version="1.1" viewBox="0 0 48 48" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
         <g fill="#484848">
@@ -89,147 +90,158 @@
 
     </div>
   </div>
+  </div>
 </template>
 
 <script>
-  import treeView from './views/tree-view.vue';
-  import palindromPatches from './views/palindrom-patches.vue';
-  import palindromJsSettings from './views/palindrom-js-settings.vue';
+import treeView from './views/tree-view.vue';
+import palindromPatches from './views/palindrom-patches.vue';
+import palindromJsSettings from './views/palindrom-js-settings.vue';
 
-  import htmlImports from './views/html-imports.vue';
+import htmlImports from './views/html-imports.vue';
 
-  const App = {
-    components: { treeView, palindromPatches, htmlImports, palindromJsSettings },
-    name: 'app',
-    data() {
-      return {
-        msg: 'Welcome to Your Vue.js App',
-        isOverlay: App.isOverlay,
-        // to warn about key combination deprecation
-        usedKeyComb: App.usedKeyComb === true
-      };
-    }
-  };
-  export default App;
+const App = {
+  components: { treeView, palindromPatches, htmlImports, palindromJsSettings },
+  name: 'app',
+  data() {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      isOverlay: App.isOverlay,
+      // to warn about key combination deprecation
+      usedKeyComb: App.usedKeyComb === true
+    };
+  }
+};
+export default App;
 </script>
 
 <style scoped>
-  .sc-debug-aid-overlay {
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
+.sc-debug-aid-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .sc-debug-aid-top-bar svg {
-    margin: 0px 5px;
-  }
+.sc-debug-aid-top-bar svg {
+  margin: 0px 5px;
+}
 
-  /* for fun */
+/* for fun */
 
-  .sc-debug-aid-top-bar svg .sun-shine path:hover {
-    fill: #fff;
-  }
+.sc-debug-aid-top-bar svg .sun-shine path:hover {
+  fill: #fff;
+}
 
-  .sc-debug-aid-top-bar {
-    padding: 5px;
-    display: flex;
-    background-color: #ddd;
-    color: 333;
-    width: 100%;
-    max-width: 1200px;
-  }
+.sc-debug-aid-top-bar {
+  padding: 5px;
+  display: flex;
+  background-color: #ddd;
+  color: 333;
+  width: 100%;
+  max-width: 1200px;
+}
 
-  .sc-debug-aid-overlay-popup {
-    justify-content: center;
-    height: 100vh;
-  }
+.sc-debug-aid-overlay-popup {
+  justify-content: center;
+  height: 100vh;
+}
 
-  .starcounter-debug-aid-key-comb-warning {
-    font-size: 1em;
-    padding: 0px 5px;
-    color: #333;
-    background-color: #fff;
-  }
+.starcounter-debug-aid-key-comb-warning {
+  font-size: 1em;
+  padding: 0px 5px;
+  color: #333;
+  background-color: #fff;
+}
 
-  #sc-debug-aid #overlay.hidden {
-    display: none;
-  }
+#sc-debug-aid #overlay.hidden {
+  display: none;
+}
 
-  .sc-debug-aid-in-overlay {
-    width: 100%;
-    max-width: 1200px;
-  }
+.sc-debug-aid-in-overlay {
+  width: 100%;
+  max-width: 1200px;
+}
 
-  .sc-debug-aid-in-popup {
-    width: 100%;
-  }
+.sc-debug-aid-in-popup {
+  width: 100%;
+}
 
-  #sc-debug-aid #dialog {
-    width: 90vw;
-    margin-top: 5vh;
-  }
+#sc-debug-aid #dialog {
+  width: 90vw;
+  margin-top: 5vh;
+}
 
-  .sc-debug-aid-in-overlay .tab-content {
-    background: white;
-    box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);
-    padding: 4px 4px 4px 4px;
-    display: none;
-    max-height: 90vh;
-    overflow-y: scroll;
-  }
+.sc-debug-aid-in-overlay .tab-content {
+  background: white;
+  box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+  padding: 4px 4px 4px 4px;
+  display: none;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
 
-  .sc-debug-aid-in-popup .tab-content {
-    background: white;
-    display: none;
-    overflow-y: scroll;
-  }
+.sc-debug-aid-in-popup .tab-content {
+  background: white;
+  display: none;
+  overflow-y: scroll;
+}
 
-  .sc-debug-aid-tabbing-radio {
-    display: none;
-  }
+.sc-debug-aid-tabbing-radio {
+  display: none;
+}
 
-  .sc-debug-aid-in-overlay label {
-    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
-    padding: 10px;
-    display: inline-block;
-    margin: 0px -0.25em 0px 0;
-    width: 20%;
-  }
+.sc-debug-aid-in-overlay label {
+  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+  padding: 10px;
+  display: inline-block;
+  margin: 0px -0.25em 0px 0;
+  width: 20%;
+}
 
-  .sc-debug-aid-in-popup label {
-    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
-    padding: 10px;
-    display: inline-block;
-    margin: 0px -0.25em 0px 0;
-    width: 20%;
-    box-sizing: border-box;
-  }
+.sc-debug-aid-in-popup label {
+  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+  padding: 10px;
+  display: inline-block;
+  margin: 0px -0.25em 0px 0;
+  width: 20%;
+  box-sizing: border-box;
+}
 
-  .sc-debug-aid-tabbing-radio:checked+*+*+*+*+label {
-    /* number of asterisks must equal (number_of_tabs - 1) */
-    background: white;
-  }
+.sc-debug-aid-tabbing-radio:checked + * + * + * + * + label {
+  /* number of asterisks must equal (number_of_tabs - 1) */
+  background: white;
+}
 
-  .sc-debug-aid-tabbing-radio:checked+*+*+*+*+*+*+*+*+*+.tab-content {
-    /* number of asterisks must equal (2 * (number_of_tabs - 1)) */
-    display: flex;
-  }
+.sc-debug-aid-tabbing-radio:checked
+  + *
+  + *
+  + *
+  + *
+  + *
+  + *
+  + *
+  + *
+  + *
+  + .tab-content {
+  /* number of asterisks must equal (2 * (number_of_tabs - 1)) */
+  display: flex;
+}
 
-  #sc-debug-aid html-imports-list {
-    width: 100%;
-  }
+#sc-debug-aid html-imports-list {
+  width: 100%;
+}
 
-  #sc-debug-aid tree-view {
-    display: block;
-    width: 100%;
-    overflow: visible;
-  }
+#sc-debug-aid tree-view {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
 </style>

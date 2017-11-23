@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import './palindrom-js-listener';
+import AlternativeUI from './extensionUIAlternative';
 
 (function() {
   function starcounterDebugAidContainer(type, popupUrl, usedKeyComb) {
@@ -80,5 +81,16 @@ import './palindrom-js-listener';
   }
   function starcounterDebugClickOutsideCloser(e) {
     e.target.className === 'sc-debug-aid-overlay' && starcounterDebugCloser();
+  }
+
+  // this is useful if you use the bookmarklet
+  function injectExtensionAlternativeInterface() {
+    const div = document.createElement('div');
+    div.innerHTML = AlternativeUI;
+    document.body.appendChild(div);
+  }
+
+  if(!document.querySelector('just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed')) {
+    injectExtensionAlternativeInterface();
   }
 })();
