@@ -5,6 +5,8 @@ npm-debug.log
 yarn-error.log
 # build/
 
+bower_components
+
 # Editor directories and files
 .idea
 *.suo
