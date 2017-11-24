@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Starcounter Debug",
+  "name": "Starcounter DevTools",
   "version": "0.0.1",
   "description": "Helps you debug Starcounter Apps with ease.",
   "icons": {
@@ -26,7 +26,7 @@
   },
   "page_action": {
     "default_icon": "icons/dark/32.png",
-    "default_title": "Starcounter Debug",
+    "default_title": "Starcounter DevTools",
     "default_popup": "popup/index.html"
   },
   "permissions": ["tabs"],
