@@ -2,6 +2,18 @@
 
 > A browser extension that helps you debug Starcounter apps with ease
 
+## Installing
+
+You can install it from [Chrome](https://chrome.google.com/webstore/detail/starcounter-devtools/mpchkilmmalfopikamgellgdgoidhmnh) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/starcounter-devtools/).
+
+## Using the Bookmarklet
+
+In case you're not interested in installing the extension, or want to use it in an unsupported browser, you can use the bookmarklet:
+
+```js
+javascript:(function(){var script = document.createElement('script');script.src = 'https://rawgit.com/Starcounter/starcounter-debug-aid/extension/build/webextension/injected_script.js';document.body.appendChild(script);script.onload=()=>window.dispatchEvent(new CustomEvent('sc-debug-show-overlay'))})()
+```
+
 ## Build Setup
 
 ``` bash
