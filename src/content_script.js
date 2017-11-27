@@ -29,12 +29,22 @@ if (
      This gives up access to JS variables */
 
   const popupIndexScriptUrl = browser.extension.getURL('ui-popup-build.js');
-  localStorage.setItem('scDebugPopupIndexScriptUrl', popupIndexScriptUrl)
+  localStorage.setItem('scDebugPopupIndexScriptUrl', popupIndexScriptUrl);
 
   const url = browser.extension.getURL('injected_script.js');
   const script = document.createElement('SCRIPT');
   script.src = url;
+  script.onload = function() {
+    /* check if a popup is already open and reconnect to it */
+    if (window.localStorage.getItem('starcounterDebug-popup-open') && window.localStorage.getItem('starcounterDebug-popup-open') !== "false") {
+      window.dispatchEvent(new CustomEvent('sc-debug-show-popup'));
+    }
+  };
   document.body.appendChild(script);
 
-  document.body.appendChild(document.createElement('just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed'));
+  document.body.appendChild(
+    document.createElement(
+      'just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed'
+    )
+  );
 }

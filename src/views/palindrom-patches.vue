@@ -54,7 +54,7 @@
             <td class="td td-duration">{{row.duration}}</td>
             <td class="td td-data">
               <div>
-                <textarea readonly="readonly" v-on:click="currentPatch = row.json; editorVisible=true" v-model="row.data" title="Double click me to enter JSON viewer"
+                <textarea readonly="readonly" v-on:click="changeCurrentPatch(row.json); editorVisible=true" v-model="row.data" title="Double click me to enter JSON viewer"
                   json="row.data"></textarea>
                   <em class='hover-note'>You can click this field for a better patch view</em>
               </div>
@@ -95,7 +95,7 @@ export default {
   mounted() {
     this.editor = new JSONEditor(
       document.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
-      {}
+      { history: false }
     );
     this.listener = this.getCurrentWindow().starcounterDebugAidListener;
     this.listener.updateListeners.push(this.refreshRows);
@@ -106,6 +106,9 @@ export default {
     this.editor.set(this.currentPatch);
   },
   methods: {
+    changeCurrentPatch(p) {
+      this.currentPatch = JSON.parse(JSON.stringify(p));
+    },
     getCurrentWindow() {
       let currentWindow = window;
       if (!this.overlay) {

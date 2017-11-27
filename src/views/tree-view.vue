@@ -54,8 +54,9 @@ export default {
       ) {
         const currentTree = JSON.parse(JSON.stringify(this.json));
         const nextTree = JSON.parse(JSON.stringify(this.palindromClient.obj));
+        const diff = jsonpatch.compare(currentTree, nextTree);
 
-        if (jsonpatch.compare(currentTree, nextTree).length > 0) {
+        if (diff.length > 0) {
           this.editor.set((this.json = nextTree));
         }
       }
@@ -69,6 +70,7 @@ export default {
   },
   mounted() {
     const options = {
+      history: false,
       onChange: () => {
         const currentState = this.json;
         const newState = this.editor.get();
