@@ -18,6 +18,7 @@ module.exports = function generateConfig(type) {
         new CopyWebpackPlugin([
           { from: 'icons', to: 'icons' },
           { from: 'popup', to: 'popup' },
+          { from: 'options', to: 'options' },
           {
             from:
               type === 'firefox' ? 'manifest.firefox.json' : 'manifest.json',

@@ -36,7 +36,10 @@ if (
   script.src = url;
   script.onload = function() {
     /* check if a popup is already open and reconnect to it */
-    if (window.localStorage.getItem('starcounterDebug-popup-open') && window.localStorage.getItem('starcounterDebug-popup-open') !== "false") {
+    if (
+      window.localStorage.getItem('starcounterDebug-popup-open') &&
+      window.localStorage.getItem('starcounterDebug-popup-open') !== 'false'
+    ) {
       window.dispatchEvent(new CustomEvent('sc-debug-show-popup'));
     }
   };
@@ -47,4 +50,6 @@ if (
       'just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed'
     )
   );
+
+ 
 }

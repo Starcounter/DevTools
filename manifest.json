@@ -9,6 +9,7 @@
     "128": "icons/dark/128.png",
     "256": "icons/dark/256.png"
   },
+  "options_page": "options/index.html",
   "author": "Omar Alshaker",
   "background": {
     "scripts": ["bg_script.js"],
@@ -23,9 +24,8 @@
   ],
   "page_action": {
     "default_icon": "icons/dark/32.png",
-    "default_title": "Starcounter DevTools",
-    "default_popup": "popup/index.html"
+    "default_title": "Starcounter DevTools"
   },
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "storage"],
   "web_accessible_resources": ["content_script.js", "ui-popup-build.js", "palindrom-js-listener.js", "injected_script.js"]
 }

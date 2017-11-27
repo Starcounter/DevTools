@@ -15,6 +15,16 @@ body * {
   color: #f47e20;
   border: 2px solid #ccc;
 }
+.remember {
+  margin-top: 10px;
+}
+.remember span {
+  display: none;
+}
+#rememberCheckbox:checked ~ span {
+  display: block;
+}
+
 #sc-debug-aid-popup button:hover {
   background: #eee;
 }
@@ -32,81 +42,81 @@ body * {
   fill: #fff;
 }
 svg .whole-insect {
-    transition: transform 5s ease-in;
+  transition: transform 5s ease-in;
 }
 .walking {
-    transform: translate(0, -100px)
+  transform: translate(0, -100px);
 }
 .walking .leg.top.left {
-    transform-origin: 90% 90%;
-    animation: walk-left 1.2s infinite
+  transform-origin: 90% 90%;
+  animation: walk-left 1.2s infinite;
 }
 .walking .leg.bottom.left {
-    transform-origin: 90% 90%;
-    animation: walk-left 1s infinite
+  transform-origin: 90% 90%;
+  animation: walk-left 1s infinite;
 }
 .walking .leg.top.right {
-    transform-origin: 0% 50%;
-    animation: walk-right 1.2s infinite
+  transform-origin: 0% 50%;
+  animation: walk-right 1.2s infinite;
 }
 .walking .leg.bottom.right {
-    transform-origin: 0% 50%;
-    animation: walk-right 1s infinite
+  transform-origin: 0% 50%;
+  animation: walk-right 1s infinite;
 }
 
 .walking .antenna.antenna-left {
-    transform-origin: 50% 100%;
-    animation: left-antanna 0.5s infinite
+  transform-origin: 50% 100%;
+  animation: left-antanna 0.5s infinite;
 }
 .walking .antenna.antenna-right {
-    transform-origin: 50% 100%;
-    animation: right-antanna 0.5s infinite
+  transform-origin: 50% 100%;
+  animation: right-antanna 0.5s infinite;
 }
 
 @keyframes walk-right {
-    0% {
-        transform: rotate(0deg)
-    }
-    50% {
-        transform: rotate(-10deg)
-    }
-    100% {
-        transform: rotate(0deg)
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes walk-left {
-    0% {
-        transform: rotate(0deg)
-    }
-    50% {
-        transform: rotate(10deg)
-    }
-    100% {
-        transform: rotate(0deg)
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes left-antanna {
-    0% {
-        transform: rotate(0deg)
-    }
-    50% {
-        transform: rotate(-3deg)
-    }
-    100% {
-        transform: rotate(0deg)
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes right-antanna {
-    0% {
-        transform: rotate(0deg)
-    }
-    50% {
-        transform: rotate(3deg)
-    }
-    100% {
-        transform: rotate(0deg)
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
