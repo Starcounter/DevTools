@@ -73,7 +73,6 @@
 
     createRow(direction, data, url, method, index, duration) {
       let json = null;
-
       if(data == null) {
         data = 'Nothing was sent';
       }

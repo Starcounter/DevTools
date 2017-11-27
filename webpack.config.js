@@ -1,9 +1,8 @@
 var webpack = require('webpack');
 
-const WebExtensionBuildConfig = require('./webpackConfig/webExtension');
-const FirefoxExtensionBuildConfig = require('./webpackConfig/firefox');
+const webpackConfigGenerator = require('./webpackConfigGenerator');
 
 module.exports = [
-   ...WebExtensionBuildConfig,
-   ...FirefoxExtensionBuildConfig
+   ...webpackConfigGenerator('webextension'),
+   ...webpackConfigGenerator('firefox')
 ];

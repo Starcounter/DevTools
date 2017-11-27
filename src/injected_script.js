@@ -5,9 +5,9 @@ import './palindrom-js-listener';
 (function() {
   function starcounterDebugAidContainer(type, popupUrl, usedKeyComb) {
     if (type === 'overlay') {
-      const div = document.querySelector('#sc-debug-aid');
+      let div = document.querySelector('#sc-debug-aid');
       if (!div) {
-        var div = document.createElement('div');
+        div = document.createElement('div');
         div.id = 'sc-debug-aid';
         document.body.appendChild(div);
         App.isOverlay = true;
@@ -34,8 +34,9 @@ import './palindrom-js-listener';
       script.src = popupUrl;
       popup.document.body.appendChild(script);
 
-      window.addEventListener('beforeunload', () => {
+      window.addEventListener('beforeunload', function onNavigateAway() {
         popup && popup.close();
+        window.removeEventListener('beforeunload', onNavigateAway);
       });
     }
   }
