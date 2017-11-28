@@ -206,7 +206,7 @@ div.table div.td {
 table th,
 div.table div.th {
   border-bottom-width: 2px;
-  font-size: 110%;
+  font-weight: 400
 }
 
 table td.td-index,
@@ -274,6 +274,7 @@ div.table div.td.td-data textarea {
   box-sizing: border-box;
   border: 1px solid transparent;
   resize: none;
+  font-family: monospace;
 }
 
 table tr.status-500 td,

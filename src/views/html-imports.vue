@@ -123,6 +123,9 @@ export default {
   margin-bottom: 4px;
   flex: 0 0 auto;
 }
+#toolbar label {
+  display: inline-flex;
+}
 
 #view {
   flex: 1 1 auto;
@@ -187,6 +190,7 @@ table.sda-imports tr.level-8 td:first-child {
 }
 
 table.sda-imports .file {
+  font-size: 80%;
 }
 
 table.sda-imports .path {

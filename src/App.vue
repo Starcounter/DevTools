@@ -3,37 +3,9 @@
   <div v-bind:class="[isOverlay ? 'sc-debug-aid-overlay' : 'sc-debug-aid-overlay-popup']">    
     <div id="sc-debug-aid" v-bind:class="[isOverlay ? 'sc-debug-aid-in-overlay' : 'sc-debug-aid-in-popup']">
       <div v-if="isOverlay" class="sc-debug-aid-top-bar">
-        <div>
-          <svg version="1.1" viewBox="0 0 48 48" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-            <g fill="#484848">
-              <path d="m3.984 18.594h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605h-6.483c-0.886 0-1.605-0.719-1.605-1.605v-0.277c0-0.886 0.719-1.605 1.605-1.605z"/>
-              <path d="m3.464 15.44l1.917 4.105c0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.146c-0.803 0.375-1.759 0.028-2.134-0.775 0 0-1.916-4.105-1.916-4.105-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.147c0.803-0.375 1.758-0.028 2.133 0.776z"/>
-              <path d="m26.366 5.419v5.896c0 0.488-0.396 0.883-0.883 0.883h-0.152c-0.488 0-0.883-0.395-0.883-0.883v-5.896c0-0.487 0.395-0.883 0.883-0.883h0.152c0.487 0 0.883 0.396 0.883 0.883z"/>
-              <path d="m28.101 5.133l-2.258 1.054c-0.442 0.206-0.967 0.016-1.173-0.426l-0.081-0.173c-0.206-0.442-0.015-0.967 0.426-1.173l2.258-1.054c0.442-0.207 0.967-0.016 1.173 0.426l0.081 0.173c0.206 0.441 0.015 0.967-0.426 1.173z"/>
-              <path d="m20.716 5.419v5.896c0 0.488 0.396 0.883 0.883 0.883h0.152c0.488 0 0.883-0.395 0.883-0.883v-5.896c0-0.487-0.395-0.883-0.883-0.883h-0.152c-0.487 0-0.883 0.396-0.883 0.883z"/>
-              <path d="m18.981 5.133l2.258 1.054c0.442 0.206 0.967 0.016 1.173-0.426l0.081-0.173c0.206-0.442 0.015-0.967-0.427-1.173l-2.257-1.054c-0.442-0.207-0.967-0.016-1.174 0.426l-0.08 0.173c-0.206 0.441-0.015 0.967 0.426 1.173z"/>
-              <path d="m44.016 18.594h-6.483c-0.886 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.719 1.605 1.605 1.605h6.483c0.887 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.718-1.605-1.605-1.605z"/>
-              <path d="m44.536 15.44l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.146c0.803 0.375 1.759 0.028 2.134-0.775 0 0 1.916-4.105 1.916-4.105 0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.147c-0.803-0.375-1.758-0.028-2.133 0.776z"/>
-              <path d="m5.397 35.659h6.483c0.886 0 1.605-0.719 1.605-1.605v-0.277c0-0.886-0.719-1.605-1.605-1.605h-6.483c-0.887 0-1.605 0.719-1.605 1.605v0.277c0 0.886 0.718 1.605 1.605 1.605z"/>
-              <path d="m4.877 38.813s1.916-4.105 1.916-4.105c0.375-0.803 0.028-1.758-0.775-2.133l-0.314-0.146c-0.803-0.375-1.758-0.028-2.133 0.775l-1.917 4.105c-0.375 0.803-0.028 1.758 0.775 2.133l0.314 0.147c0.803 0.375 1.759 0.027 2.134-0.776z"/>
-              <path d="m42.589 35.659h-6.483c-0.886 0-1.604-0.719-1.604-1.605v-0.277c0-0.886 0.718-1.605 1.604-1.605h6.483c0.887 0 1.605 0.719 1.605 1.605v0.277c0 0.886-0.718 1.605-1.605 1.605z"/>
-              <path d="m43.109 38.813l-1.917-4.105c-0.375-0.803-0.028-1.758 0.775-2.133l0.314-0.146c0.804-0.375 1.759-0.028 2.134 0.775 0 0 1.916 4.105 1.916 4.105 0.375 0.803 0.028 1.758-0.775 2.133l-0.314 0.147c-0.803 0.375-1.758 0.027-2.133-0.776z"/>
-            </g>
-            <path d="m24 9.965c9.341 0 16.913 7.5 16.913 16.751s-7.572 16.751-16.913 16.751c-9.34 0-16.912-7.5-16.912-16.751s7.572-16.751 16.912-16.751z"
-              fill="#484848" />
-            <g class="sun-shine">
-              <path d="m8.101 27.638c0-3.038-0.741-2.581 7.981-5.162 6.541-1.914 10.942-2.499 10.942-1.499 0 1.165-2.55 4.287-8.556 10.45-3.332 3.373-6.171 6.12-6.337 6.12-0.163 0-0.698-0.583-1.191-1.29-1.688-2.456-2.839-5.829-2.839-8.619z"
-                fill="#FAB914" />
-              <g fill="#F47E20">
-                <path d="m13.573 38.922c-0.048-0.15 0.243-0.441 0.321-0.537 0.303-0.378 0.635-0.732 0.97-1.084 1.076-1.136 2.203-2.229 3.334-3.31 2.593-2.475 5.234-4.916 8-7.193 1.228-1.011 2.53-2.027 3.975-2.697 0.423-0.197 1.069-0.452 1.29 0.135 0.181 0.482 0.089 1.108 7e-3 1.601-0.257 1.565-0.871 3.082-1.463 4.541-1.06 2.609-2.259 5.159-3.472 7.696-0.484 1.011-0.963 2.03-1.49 3.019-0.258 0.479-0.52 0.997-0.893 1.397-0.638 0.683-1.702 0.411-2.514 0.312-0.623-0.074-1.244-0.166-1.853-0.3-1.852-0.417 0.946 0.207 0 0-1.852-0.417-5.966-2.791-6.212-3.58z"/>
-                <path d="m33.943 27.626c0.346-0.486 0.768-1.156 1.324-1.425 0.568-0.277 0.633 0.414 0.703 0.835 0.385 2.362 0.395 4.793 0.508 7.182 0.026 0.548 0.053 1.095 0.079 1.644 0.015 0.306 0.097 0.691 0.048 0.994-0.033 0.207-0.204 0.289-0.375 0.438-0.383 0.335-0.766 0.67-1.146 1.002-1.081 0.946-2.256 1.733-3.508 2.426-1.463 0.812-3.038 1.601-4.673 1.984-1.153 0.294-1.112 0.171 2.343-6.7 3.662-7.285-3.455 6.871 0 0 1.427-2.843 2.853-5.782 4.697-8.38z"/>
-                <path d="m39.612 26.93c0.289 1.209-0.411 4.996-1.109 6.038-0.289 0.457-0.371-0.335-0.248-2.831 0.166-3.664-0.123 2.496 0 0 0.163-3.664 0.823-5.246 1.357-3.207z"/>
-                <path d="m8.951 21.051c0.313-0.765 0.705-1.497 1.129-2.203 0.872-1.449 1.895-2.869 3.135-4.02 0.399-0.371 0.837-0.686 1.273-1.014 0.253-0.19 0.455-0.452 0.766-0.426 1.095 0.097 2.203 0.388 3.286 0.578 1.497 0.262 2.997 0.515 4.468 0.908 0.653 0.175 1.312 0.366 1.926 0.652 0.26 0.12 0.751 0.325 0.838 0.648 0.142 0.537-1.112 1.081-1.437 1.259-1.476 0.806-3.046 1.451-4.606 2.073-2.479 0.987-5 1.853-7.526 2.715-0.91 0.311-1.82 0.621-2.734 0.922-0.207 0.07-0.455 0.195-0.674 0.217-0.294 0.029-0.282-0.32-0.282-0.592 0-0.588 0.221-1.182 0.438-1.717z"/>
-                <path d="m18.386 11.775c1.331-0.775 3.178-0.842 4.67-0.828 0.749 7e-3 1.519 0.053 2.244 0.25 0.294 0.08 0.568 0.191 0.816 0.369 0.202 0.147 0.898 0.669 0.703 1.001-0.289 0.458-3.414 0.458-7.198 0.041-2.181-0.25 3.784 0.417 0 0-2.181-0.25-2.222-0.25-1.235-0.833z"/>
-              </g>
-            </g>
-          </svg>
-          Starcounter Debug Aid
+        <div class="top-bar-left-side">
+          <img src="data:image/png;base64,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" /> 
+          <span>Starcounter Debug Aid</span>
         </div>
       <div class='pop-up-tool'>
         <button onclick="window.dispatchEvent(new CustomEvent('sc-debug-close-overlay')); window.dispatchEvent(new CustomEvent('sc-debug-show-popup'))">Pop me outside ↗️</button>
@@ -70,7 +42,6 @@
       <div class="tab-content">
         <div>
           <h1>Starcounter Debug Aid</h1>
-
           <p>
             Suggestions and bug reports welcome at
             <a target="_blank" href="https://github.com/StarcounterSamples/starcounter-debug-aid">
@@ -120,13 +91,32 @@ export default App;
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 #sc-debug-aid {
   background: #fff;
   z-index: 9999;
 }
-.sc-debug-aid-overlay label {
-  all: unset; /* to avoid inheriting styles from the page */
+
+.sc-debug-aid-overlay * {
+  all: initial; /* to avoid inheriting styles from the page */
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.pop-up-tool button {
+  border: 1px solid #999;
+  background: linear-gradient(
+    to bottom,
+    rgba(252, 252, 252, 1) 0%,
+    rgba(229, 229, 229, 1) 100%
+  );
+  padding: 5px;
+  font-weight: 300;
+  font-size: 0.9em;
+}
+.pop-up-tool button:hover {
+  background: #eee;
+}
+
 .sc-debug-aid-overlay {
   position: fixed;
   top: 0;
@@ -140,9 +130,15 @@ export default App;
   align-items: center;
 }
 
-.sc-debug-aid-top-bar svg {
+.sc-debug-aid-top-bar img {
   margin: 0px 5px;
 }
+
+.sc-debug-aid-top-bar .top-bar-left-side {
+  display: flex;
+  align-items: center;
+}
+
 
 /* for fun */
 
@@ -158,7 +154,10 @@ export default App;
   background-color: #ddd;
   color: 333;
   width: 100%;
-  max-width: 1200px;
+  font-size: 0.8em;
+}
+.sc-debug-aid-top-bar span {
+  font-size: 0.8em;
 }
 
 .sc-debug-aid-top-bar div {
@@ -171,12 +170,14 @@ export default App;
 }
 
 .starcounter-debug-aid-key-comb-warning {
-  font-size: 1em;
-  padding: 0px 5px;
+  padding: 5px;
   color: #333;
+  display: block;
   background-color: #fff;
 }
-
+.starcounter-debug-aid-key-comb-warning p {
+  font-size: 0.8em;
+}
 #sc-debug-aid #overlay.hidden {
   display: none;
 }
@@ -224,6 +225,7 @@ export default App;
   margin: 0px -0.3em 0px 0;
   width: 20%;
   cursor: pointer;
+  font-weight: 300;
 }
 .sc-debug-aid-in-overlay label:hover,
 .sc-debug-aid-in-popup label:hover {
@@ -248,6 +250,8 @@ export default App;
   + .tab-content {
   /* number of asterisks must equal (2 * (number_of_tabs - 1)) */
   display: flex;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 #sc-debug-aid html-imports-list {
