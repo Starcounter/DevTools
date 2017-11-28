@@ -1,13 +1,21 @@
+if (typeof chrome !== 'undefined' && typeof browser === 'undefined') {
+  var browser = chrome;
+}
+
 const handler = function(ev) {
-  const remember = document.querySelector('input[type="checkbox"]').checked;
+  const remember = document.getElementById('rememberCheckbox').checked;
   const type = ev.target.id;
   if (remember) {
-    chrome.storage.sync.set({
+    browser.storage.sync.set({
       openMode: type
     });
   }
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.sendMessage(
+
+  browser.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    if (remember && type !== 'userSelect') {
+      browser.pageAction.setPopup({ tabId: tabs[0].id, popup: '' });
+    }
+    browser.tabs.sendMessage(
       tabs[0].id,
       { content: 'showDebugAid', type },
       function(response) {}

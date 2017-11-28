@@ -19,6 +19,7 @@ body * {
   margin-top: 10px;
 }
 .remember span {
+  margin-top: 5px;
   display: none;
 }
 #rememberCheckbox:checked ~ span {

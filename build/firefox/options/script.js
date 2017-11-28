@@ -11,10 +11,10 @@ function save_options() {
     },
     function() {
       // Update status to let user know options were saved.
-      messageView.textContent = 'Options saved.';
+      messageView.textContent = 'Options saved';
       setTimeout(function() {
         messageView.textContent = '';
-      }, 500);
+      }, 1000);
     }
   );
 }

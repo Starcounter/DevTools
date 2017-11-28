@@ -4,6 +4,7 @@ most probably you'll neither need to understand nor to modify it. */
 if (typeof chrome !== 'undefined' && typeof browser === 'undefined') {
   var browser = chrome;
 }
+
 if (
   typeof browser !== 'undefined' &&
   browser.runtime &&

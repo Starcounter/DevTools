@@ -9,6 +9,9 @@
     "128": "icons/dark/128.png",
     "256": "icons/dark/256.png"
   },
+  "options_ui": {
+    "page": "options/index.html"
+  },
   "background": {
     "scripts": ["bg_script.js"]
   },

@@ -7,9 +7,8 @@ if (typeof chrome !== 'undefined' && typeof browser === 'undefined') {
 function checkForValidUrl(tabId, changeInfo, tab) {
   // only show pop-up when no preference is set
   browser.storage.sync.get({ openMode: 'userSelect' }, function(items) {
-    debugger
     if (!items || items.openMode === 'userSelect') {
-      browser.pageAction.setPopup({tabId, popup: 'popup/index.html'});
+      browser.pageAction.setPopup({ tabId, popup: 'popup/index.html' });
     }
   });
 
@@ -30,14 +29,13 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 browser.tabs.onUpdated.addListener(checkForValidUrl);
 
 const sendMessageToTab = function(tab, type) {
-  chrome.tabs.sendMessage(tab.id, { content: 'showDebugAid', type }, function(
+  browser.tabs.sendMessage(tab.id, { content: 'showDebugAid', type }, function(
     response
   ) {});
-  window.close();
 };
 
 browser.pageAction.onClicked.addListener(function(tab) {
-  chrome.storage.sync.get({ openMode: 'userSelect' }, function(items) {
+  browser.storage.sync.get({ openMode: 'userSelect' }, function(items) {
     if (items && items.openMode !== 'userSelect') {
       sendMessageToTab(tab, items.openMode);
     }
