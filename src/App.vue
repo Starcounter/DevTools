@@ -101,7 +101,6 @@ export default App;
 
 #sc-debug-aid {
   background: #fff;
-  z-index: 9999;
 }
 
 .sc-debug-aid-overlay * {
@@ -134,6 +133,7 @@ export default App;
   justify-content: top;
   flex-direction: column;
   align-items: center;
+  z-index: 2147483647;
 }
 
 .sc-debug-aid-top-bar img {
