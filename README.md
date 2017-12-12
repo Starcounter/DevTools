@@ -1,6 +1,26 @@
-# sc-debug-aid-extension
+<h1 align="center">
+  <br>
+  <a href="https://chrome.google.com/webstore/detail/starcounter-devtools/mpchkilmmalfopikamgellgdgoidhmnh">
+    <img src="https://rawgit.com/Starcounter/starcounter-debug-aid/master/icons/logo.svg" alt="Starcounter DevTools logo" width="200">
+  </a>
+  <br>
+  Starcounter DevTools
+  <br>
+</h1>
 
-> A browser extension that helps you debug Starcounter apps with ease
+<h4 align="center">A browser extension that helps you debug Starcounter apps with ease</h4>
+
+<p align="center">
+  <a href="https://chrome.google.com/webstore/detail/starcounter-devtools/mpchkilmmalfopikamgellgdgoidhmnh">
+    <img src="https://img.shields.io/chrome-web-store/v/mpchkilmmalfopikamgellgdgoidhmnh.svg"
+         alt="Chrome Web Store">
+  </a>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/starcounter-devtools/">
+    <img src="https://img.shields.io/amo/v/starcounter-devtools.svg">
+    </a>
+</p>
+
+![screenshot](https://user-images.githubusercontent.com/17054134/33885495-d0ed5d3c-df43-11e7-8d3a-459257ded28f.png)
 
 ## Installing
 
@@ -11,7 +31,7 @@ You can install it for [Chrome](https://chrome.google.com/webstore/detail/starco
 In case you're not interested in installing the extension, or want to use it in an unsupported browser, you can use the bookmarklet:
 
 ```js
-javascript:(function(){var script = document.createElement('script');script.src = 'https://rawgit.com/Starcounter/starcounter-debug-aid/extension/build/webextension/injected_script.js';document.body.appendChild(script);script.onload=()=>window.dispatchEvent(new CustomEvent('sc-debug-show-overlay'))})()
+javascript:(function(){var script = document.createElement('script');script.src = 'https://rawgit.com/Starcounter/starcounter-debug-aid/master/build/webextension/injected_script.js';document.body.appendChild(script);script.onload=()=>window.dispatchEvent(new CustomEvent('sc-debug-show-overlay'))})()
 ```
 
 ## Build Setup
