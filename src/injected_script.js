@@ -47,11 +47,11 @@ import { setTimeout } from 'timers';
         window.localStorage.setItem('starcounterDebug-popup-open', false);
       };
       
-      // close pop-up iff no one used it later in 1500ms
+      // close pop-up iff no one used it later in 2500ms
       popup.closeLater = function() {
         popup.closeTimeout = setTimeout(() => {
           popup.close();
-        }, 1500);
+        }, 2500);
       }
       
       window.addEventListener('beforeunload', function onNavigateAway() {
