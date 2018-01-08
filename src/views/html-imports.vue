@@ -1,9 +1,12 @@
 <template>
   <div class="html-imports-view">
     <div id="toolbar">
+      <!-- it's extremely inefficient to keep track of dupes (20K imports happen easy) 
+
       <label title="Show imports that are dependency of more than one import">
         <input type="checkbox" v-model="showDuplicated"> Show duplicates
       </label>
+      -->
       <label title="Show installed versions, as reported by .bower.json">
         <input type="checkbox" v-model="showBowerVersions"> Show Bower versions
       </label>
@@ -19,13 +22,13 @@
             </th>
           </tr>
         </thead>
-        <tbody v-bind:class="[showDuplicated ? '': 'duplicatesHidden']">
+        <tbody>
           <tr v-bind:class="[imp.classes]" v-for="imp in imports" v-bind:key="imp.href">
             <td>
               <span class="file"> {{imp.file}}</span>
             </td>
             <td>
-              <a class="path" :href="imp.href">{{imp.href}}</a>
+              <a class="path" :href="imp.href">{{imp.path}}</a>
               <span class="error" v-if="imp.error">{{imp.error}}</span>
             </td>
             <td class="bowerCell">
@@ -40,11 +43,11 @@
   </div>
 </template>
 <script>
-import htmlImportBowerInfo from './html-import-bower-info.vue';
+import htmlImportBowerInfo from "./html-import-bower-info.vue";
 export default {
   components: { htmlImportBowerInfo },
-  name: 'html-imports',
-  props: ['overlay'],
+  name: "html-imports",
+  props: ["overlay"],
   data() {
     return {
       imports: [],
@@ -56,7 +59,7 @@ export default {
     findImports(doc, found, level) {
       var found = found || [];
       var level = level || 0;
-      const links = doc.querySelectorAll('link[rel=import');
+      const links = doc.querySelectorAll("link[rel=import");
       for (let i = 0; i < links.length; i++) {
         found.push(links[i]);
         this.levels.push(level);
@@ -77,36 +80,43 @@ export default {
     const imports = this.findImports(document);
     const processedImports = [];
     const seenHrefs = {};
+
     for (let i = 0; i < imports.length; i++) {
       const processedImport = {};
       processedImport.classes = [`level-${this.levels[i]}`];
 
-      if (imports[i].href) {
-        //IE11 sees it as null sometimes
-        const url = new URL(imports[i].href);
-        const lastSlash = url.href.lastIndexOf('/');
+      const href = imports[i].href;
+
+      if (href) {
+        if (seenHrefs[href]) {
+          continue; // don't list duplicates
+        } else {
+          seenHrefs[href] = true;
+        }
+
+        const url = new URL(href);
+        const lastSlash = url.href.lastIndexOf("/");
         processedImport.path = url.href.replace(
           `${url.protocol}//${url.host}`,
-          ''
+          ""
         );
-        processedImport.href = url.href;
-        processedImport.file = url.href.substring(
-          lastSlash + 1,
-          url.href.length
-        );
-        if (seenHrefs[url.href]) {
-          // row.querySelector("TR").classList.add("duplicate");
-          processedImport.classes.push('duplicate');
-        } else {
-          seenHrefs[url.href] = true;
+        processedImport.href = href;
+        processedImport.file = href.substring(lastSlash + 1);
+
+        if (processedImport.path.length > 70) {
+          processedImport.path = processedImport.path.substring(0, 70) + "...";
+        }
+
+        if (processedImport.file.length > 50) {
+          processedImport.file = processedImport.file.substring(0, 50) + "...";
         }
 
         if (!imports[i].import) {
-          processedImport.error = 'Import failed';
+          processedImport.error = "Import failed";
         }
       } else {
-        processedImport.errro = 'href attribute missing';
-        processedImport.file = '???';
+        processedImport.errro = "href attribute missing";
+        processedImport.file = "???";
       }
       processedImports.push(processedImport);
     }
@@ -133,6 +143,14 @@ export default {
   width: 100%;
 }
 
+table td {
+  padding: 7px;
+  overflow-x: auto;
+}
+table tr {
+  width: 100%;
+}
+
 table.sda-imports {
   border-spacing: 0;
   width: 100%;
@@ -145,48 +163,44 @@ table.sda-imports th {
   font-weight: normal;
 }
 
-table.sda-imports td {
-  padding: 6px 4px;
-}
-
 table.sda-imports td:first-child::before {
-  content: '└';
+  content: "└";
 }
 
 table.sda-imports tr.level-0 td:first-child::before {
-  content: '';
+  content: "";
 }
 
 table.sda-imports tr.level-1 td:first-child {
-  padding-left: calc(1 * 1em);
+  padding-left: calc(1em);
 }
 
 table.sda-imports tr.level-2 td:first-child {
-  padding-left: calc(1 * 2em + 1em);
+  padding-left: calc(2 * 1em);
 }
 
 table.sda-imports tr.level-3 td:first-child {
-  padding-left: calc(2 * 2em + 1em);
+  padding-left: calc(3 * 1em);
 }
 
 table.sda-imports tr.level-4 td:first-child {
-  padding-left: calc(3 * 2em + 1em);
+  padding-left: calc(4 * 1em);
 }
 
 table.sda-imports tr.level-5 td:first-child {
-  padding-left: calc(4 * 2em + 1em);
+  padding-left: calc(5 * 1em);
 }
 
 table.sda-imports tr.level-6 td:first-child {
-  padding-left: calc(5 * 2em + 1em);
+  padding-left: calc(6 * 1em);
 }
 
 table.sda-imports tr.level-7 td:first-child {
-  padding-left: calc(6 * 2em + 1em);
+  padding-left: calc(7 * 1em);
 }
 
 table.sda-imports tr.level-8 td:first-child {
-  padding-left: calc(7 * 2em + 1em);
+  padding-left: calc(8 * 1em);
 }
 
 table.sda-imports .file {
@@ -215,13 +229,5 @@ table.sda-imports html-import-bower-info /deep/ a:hover {
 
 table.sda-imports tr:hover td {
   background: #f0f0f0;
-}
-
-table.sda-imports .duplicate {
-  opacity: 0.5;
-}
-
-table.sda-imports .duplicatesHidden .duplicate {
-  display: none;
 }
 </style>

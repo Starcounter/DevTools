@@ -19,19 +19,19 @@
 </template>
 
 <script>
-import JSONEditor from 'jsoneditor';
-import '../assets/jsoneditor.css';
-import jsonpatch from 'fast-json-patch';
+import JSONEditor from "jsoneditor";
+import "../assets/jsoneditor.css";
+import jsonpatch from "fast-json-patch";
 
 export default {
-  name: 'tree-view',
+  name: "tree-view",
   data() {
     return {
       json: {},
-      treeOrPlain: 'tree'
+      treeOrPlain: "tree"
     };
   },
-  props: ['overlay'],
+  props: ["overlay"],
   methods: {
     getCurrentWindow() {
       let currentWindow = window;
@@ -69,7 +69,6 @@ export default {
     }
   },
   mounted() {
-
     const options = {
       history: false,
       onChange: () => {
@@ -81,19 +80,16 @@ export default {
     };
 
     this.editor = new JSONEditor(
-      document.querySelector('#starcounter-debug-aid-jsoneditor-tree-view'),
+      document.querySelector("#starcounter-debug-aid-jsoneditor-tree-view"),
       options
     );
 
     this.listener = this.getCurrentWindow().starcounterDebugAidListener;
     this.listener.updateListeners.push(this.updateListener);
-
-    this.editor.set(
-      (this.json = JSON.parse(
-        JSON.stringify(this.listener.getPalindromClient().obj)
-      ))
-    );
     this.palindromClient = this.listener.getPalindromClient();
+    this.json = JSON.parse(JSON.stringify(this.palindromClient.obj));
+
+    this.editor.set(this.json);
   }
 };
 </script>
@@ -128,6 +124,6 @@ export default {
   background: #f7f7f7;
   border-radius: 3px;
   white-space: pre-wrap;
-  font: 12px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 </style>
