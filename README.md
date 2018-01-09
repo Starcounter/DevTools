@@ -57,8 +57,8 @@ After you build, you'll have a `build` directory with two sub-directories `webex
 
 You can run 
 ``` bash
-npm install -g webback
-webpack -w
+npm install
+npm run watch
 ```
 This will watch for file changes and compile again after every file modification you make. Then in the browser, you'll need to "Reload extension" after each modification. Each modification will take you ~2 seconds to see live. Easy enough.
 
