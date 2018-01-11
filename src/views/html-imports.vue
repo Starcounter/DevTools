@@ -1,14 +1,11 @@
 <template>
   <div class="html-imports-view">
     <div id="toolbar">
-      <!-- it's extremely inefficient to keep track of dupes (20K imports happen easy) 
-
       <label title="Show imports that are dependency of more than one import">
-        <input type="checkbox" v-model="showDuplicated"> Show duplicates
+        <button v-on:click="toggleShowDupes">{{this.showDuplicates ? 'Hide' : 'Show'}} duplicates</button>
       </label>
-      -->
       <label title="Show installed versions, as reported by .bower.json">
-        <input type="checkbox" v-model="showBowerVersions"> Show Bower versions
+        <button v-on:click="getBowerVersions">Get Bower versions</button>
       </label>
     </div>
     <div id="view">
@@ -22,44 +19,93 @@
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-bind:class="[imp.classes]" v-for="imp in imports" v-bind:key="imp.href">
-            <td>
-              <span class="file"> {{imp.file}}</span>
-            </td>
-            <td>
-              <a class="path" :href="imp.href">{{imp.path}}</a>
-              <span class="error" v-if="imp.error">{{imp.error}}</span>
-            </td>
-            <td class="bowerCell">
-              <span class="version" v-if="showBowerVersions">
-                <html-import-bower-info :overlay="overlay" :href="imp.href"></html-import-bower-info>
-              </span>
-            </td>
-          </tr>
+        <tbody v-bind:class="[showDuplicates ? '' : 'duplicatesHidden']" v-html="this.importsHTML">          
         </tbody>
       </table>
     </div>
   </div>
 </template>
 <script>
-import htmlImportBowerInfo from "./html-import-bower-info.vue";
+
+import BowerVersionGetter from '../utils/bower-version-getter';
+
+function constructSingleImportHTML(
+  { classes, path, href, file, error, bowerJSONPath },
+  showBowerVersions,
+  overlayOpen
+) {
+  const duplicate = classes.includes('duplicate');
+  return `<tr class="${classes.join(' ')}">
+      <td>
+        <span> ${file}</span>
+      </td>
+      <td>
+        <a class="path" href="${href}">${path}</a>
+        ${error ? `<span class="error" >${error}</span>` : ''}
+      </td>
+      <td class="bowerCell" data-bower-json-path='${bowerJSONPath}'></td>
+    </tr>`;
+}
+function constructAllImportsHTML(imports, showBowerVersions, overlayOpen) {
+  return imports.reduce(
+    (html, imp) =>
+      (html += constructSingleImportHTML(imp, showBowerVersions, overlayOpen)),
+    ''
+  );
+}
+var currentImports = [];
+
 export default {
-  components: { htmlImportBowerInfo },
-  name: "html-imports",
-  props: ["overlay"],
+  name: 'html-imports',
+  props: ['overlay'],
   data() {
     return {
-      imports: [],
+      /* this is just a number the we use inside importsHTML computed property. To trigger its compution on demand,
+      we don't want our big array to be reactive (adding it as a Vue data proerty make it reactive i.e: very slow) */
+      updatedImports: 1,
       showBowerVersions: false,
-      showDuplicated: false
+      showDuplicates: false
     };
   },
+  created() {
+    this.bowerVersionGetter = new BowerVersionGetter(this.getCurrentWindow());
+  },
+  computed: {
+    importsHTML: function() {
+      return constructAllImportsHTML(
+        currentImports,
+        this.showBowerVersions,
+        this.overlay,
+        this.updatedImports
+      );
+    }
+  },
   methods: {
+    toggleShowDupes() {
+      if(!this.showDuplicates && currentImports.length > 100) {
+        const result = confirm(`You seem to have a lot of imports (${currentImports.length}), showing duplicates can slow things up, still do it?`);
+        if(!result) return;
+      }
+      this.showDuplicates = !this.showDuplicates;
+    },
+    getCurrentWindow() {
+      let currentWindow = window;
+      if (!this.overlay) {
+        currentWindow = window.opener;
+      }
+      return currentWindow;
+    },
+    async getBowerVersions() {
+      const elements = document.querySelectorAll('.bowerCell');
+      for(const el of elements) {
+        const version = await this.bowerVersionGetter.getBowerInfo(el.getAttribute('data-bower-json-path'));
+        el.innerHTML = version && version.bowerInfo || '-';
+      }
+    },
     findImports(doc, found, level) {
       var found = found || [];
       var level = level || 0;
-      const links = doc.querySelectorAll("link[rel=import");
+      const links = doc.querySelectorAll('link[rel=import');
       for (let i = 0; i < links.length; i++) {
         found.push(links[i]);
         this.levels.push(level);
@@ -89,42 +135,51 @@ export default {
 
       if (href) {
         if (seenHrefs[href]) {
-          continue; // don't list duplicates
+          processedImport.classes.push('duplicate');
         } else {
           seenHrefs[href] = true;
         }
 
         const url = new URL(href);
-        const lastSlash = url.href.lastIndexOf("/");
+        const lastSlash = url.href.lastIndexOf('/');
         processedImport.path = url.href.replace(
           `${url.protocol}//${url.host}`,
-          ""
+          ''
         );
+        let packagePath = url.href.match(/.+\/sys\/([\w|-]+)\//);
+        
+        if(packagePath) {
+          processedImport.bowerJSONPath = packagePath[0] + '.bower.json';
+        }
         processedImport.href = href;
         processedImport.file = href.substring(lastSlash + 1);
 
-        if (processedImport.path.length > 70) {
-          processedImport.path = processedImport.path.substring(0, 70) + "...";
+        if (processedImport.path.length > 50) {
+          processedImport.path = processedImport.path.substring(0, 50) + '...';
         }
 
         if (processedImport.file.length > 50) {
-          processedImport.file = processedImport.file.substring(0, 50) + "...";
+          processedImport.file = processedImport.file.substring(0, 50) + '...';
         }
 
         if (!imports[i].import) {
-          processedImport.error = "Import failed";
+          processedImport.error = 'Import failed';
         }
       } else {
-        processedImport.errro = "href attribute missing";
-        processedImport.file = "???";
+        processedImport.error = 'href attribute missing';
+        processedImport.file = '???';
       }
       processedImports.push(processedImport);
     }
-    this.imports = processedImports;
+    // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
+    currentImports = processedImports;
+    
+    // bump compution of importsHTML computed property
+    this.updatedImports++;
   }
 };
 </script>
-<style scoped>
+<style>
 .html-imports-view {
   width: 100%;
 }
@@ -164,11 +219,11 @@ table.sda-imports th {
 }
 
 table.sda-imports td:first-child::before {
-  content: "└";
+  content: '└';
 }
 
 table.sda-imports tr.level-0 td:first-child::before {
-  content: "";
+  content: '';
 }
 
 table.sda-imports tr.level-1 td:first-child {
@@ -230,4 +285,16 @@ table.sda-imports html-import-bower-info /deep/ a:hover {
 table.sda-imports tr:hover td {
   background: #f0f0f0;
 }
+
+table.sda-imports .duplicate {
+  opacity: 0.5;
+}
+table.sda-imports .duplicatesHidden .duplicate {
+  display: none;
+}
+
+table.sda-imports td {
+  font-size: 0.9em
+}
+
 </style>

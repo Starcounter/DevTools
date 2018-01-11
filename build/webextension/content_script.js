@@ -1,1 +1,138 @@
-var starcounterDebugAid=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='/sys/jsoneditor/dist/img/',b(b.s=0)}([function(){if(document.querySelector('puppet-client, palindrom-client')){if('undefined'!=typeof chrome&&'undefined'==typeof a)var a=chrome;if('undefined'!=typeof a&&a.runtime&&a.runtime.onMessage){a.runtime.onMessage.addListener((a,b,c)=>{if(a&&a.content)switch(a.content){case'Hey! Are you a Starcounter app?':c(document.querySelector('puppet-client, palindrom-client')?'Yup!':'Nope!');break;case'showDebugAid':window.dispatchEvent(new CustomEvent('sc-debug-show-'+a.type));}});const b=a.extension.getURL('ui-popup-build.js');localStorage.setItem('scDebugPopupIndexScriptUrl',b);const c=a.extension.getURL('injected_script.js'),d=document.createElement('SCRIPT');d.src=c,d.onload=function(){if(window.localStorage.getItem('starcounterDebug-popup-open')&&'false'!==window.localStorage.getItem('starcounterDebug-popup-open')){function a(){setTimeout(()=>window.dispatchEvent(new CustomEvent('sc-debug-show-popup')),500),window.removeEventListener('load',a)}window.addEventListener('load',a)}},document.body.appendChild(d),document.body.appendChild(document.createElement('just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed'))}}}]);
+var starcounterDebugAid =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/sys/jsoneditor/dist/img/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+/* this file injects starcounter-debug-aid's logic inside the page, 
+most probably you'll neither need to understand nor to modify it. */
+if (document.querySelector("puppet-client, palindrom-client")) {
+  if (typeof chrome !== "undefined" && typeof browser === "undefined") {
+    var browser = chrome;
+  }
+
+  if (
+    typeof browser !== "undefined" &&
+    browser.runtime &&
+    browser.runtime.onMessage
+  ) {
+    browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      if (!message || !message.content) return;
+      switch (message.content) {
+        case "Hey! Are you a Starcounter app?":
+          sendResponse(
+            document.querySelector("puppet-client, palindrom-client")
+              ? "Yup!"
+              : "Nope!"
+          );
+          break;
+        case "showDebugAid":
+          window.dispatchEvent(
+            new CustomEvent("sc-debug-show-" + message.type)
+          );
+          break;
+      }
+    });
+    /* We need to import the built script instead of just running it. 
+     This gives up access to JS variables */
+
+    const popupIndexScriptUrl = browser.extension.getURL("ui-popup-build.js");
+    localStorage.setItem("scDebugPopupIndexScriptUrl", popupIndexScriptUrl);
+
+    const url = browser.extension.getURL("injected_script.js");
+    const script = document.createElement("SCRIPT");
+    script.src = url;
+    script.onload = function() {
+      /* check if a popup is already open and reconnect to it */
+      if (
+        window.localStorage.getItem("starcounterDebug-popup-open") &&
+        window.localStorage.getItem("starcounterDebug-popup-open") !== "false"
+      ) {
+        function handleReload() {
+          // wait for the view model to be populated
+          setTimeout(
+            () => window.dispatchEvent(new CustomEvent("sc-debug-show-popup")),
+            500
+          );
+          window.removeEventListener("load", handleReload);
+        }
+        window.addEventListener("load", handleReload);
+      }
+    };
+    document.body.appendChild(script);
+
+    document.body.appendChild(
+      document.createElement(
+        "just-an-arbitrary-element-to-tell-sc-debug-aid-extension-was-installed"
+      )
+    );
+  }
+}
+
+
+/***/ })
+/******/ ]);
