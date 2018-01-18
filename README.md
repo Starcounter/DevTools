@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="https://chrome.google.com/webstore/detail/starcounter-devtools/mpchkilmmalfopikamgellgdgoidhmnh">
-    <img src="https://rawgit.com/Starcounter/starcounter-debug-aid/master/icons/logo.svg" alt="Starcounter DevTools logo" width="200">
+    <img src="https://rawgit.com/Starcounter/DevTools/master/icons/logo.svg" alt="Starcounter DevTools logo" width="200">
   </a>
   <br>
   Starcounter DevTools
@@ -31,7 +31,7 @@ You can install it for [Chrome](https://chrome.google.com/webstore/detail/starco
 In case you're not interested in installing the extension, or want to use it in an unsupported browser, you can use the bookmarklet:
 
 ```js
-javascript:(function(){var script = document.createElement('script');script.src = 'https://rawgit.com/Starcounter/starcounter-debug-aid/master/build/webextension/injected_script.js';document.body.appendChild(script);script.onload=()=>window.dispatchEvent(new CustomEvent('sc-debug-show-overlay'))})()
+javascript:(function(){var script = document.createElement('script');script.src = 'https://rawgit.com/Starcounter/DevTools/master/build/webextension/injected_script.js';document.body.appendChild(script);script.onload=()=>window.dispatchEvent(new CustomEvent('sc-debug-show-overlay'))})()
 ```
 
 ## Build Setup
