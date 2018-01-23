@@ -4559,7 +4559,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       <title>Starcounter - Debug</title>`;
 
       popup.document.body.innerHTML = `<div id="app"></div>`;
-      popup.title = 'Starcounter Debug';
+      popup.title = 'Starcounter DevTools';
       const script = popup.document.createElement('SCRIPT');
       script.src = popupUrl;
       popup.document.body.appendChild(script);
@@ -13324,7 +13324,7 @@ exports.push([module.i, "/* reset styling (prevent conflicts with bootstrap, mat
       }
     }
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.updateListener);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);
@@ -48654,7 +48654,7 @@ if (false) {(function () {
       currentPatch: ''
     };
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.refreshRows);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);
@@ -49415,7 +49415,7 @@ var currentImports = [];
   props: ['overlay'],
   data() {
     return {
-      compatible: this.getCurrentWindow().Polymer && this.getCurrentWindow().Polymer.version.startsWith('2'), // only works with Polymer 2
+      compatible: this.getCurrentWindow().Polymer && this.getCurrentWindow().Polymer.Element, // only works with Polymer 2
       customElementsHealth: []
     };
   },

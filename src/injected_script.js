@@ -52,7 +52,7 @@ import { setTimeout } from 'timers';
       <title>Starcounter - Debug</title>`;
 
       popup.document.body.innerHTML = `<div id="app"></div>`;
-      popup.title = 'Starcounter Debug';
+      popup.title = 'Starcounter DevTools';
       const script = popup.document.createElement('SCRIPT');
       script.src = popupUrl;
       popup.document.body.appendChild(script);

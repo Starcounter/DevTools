@@ -2,7 +2,7 @@
     <div class="tab">
         <div v-if="compatible">
             <h1>Health checks</h1>
-            <p>This is a baby tab. Currently it only checks if all the Custom Elements you're using are imported. Soon we'll add more health checks you can use for your apps.
+            <p>This tab is a beta feature. Currently it only checks if all the Custom Elements you're using are imported. Soon we'll add more checks you can use for your apps conveniently.
             <p><button v-on:click="checkElementsHealth">Run checks</button></p>
             <hr />
             <table>
@@ -34,7 +34,7 @@ export default {
     return {
       compatible:
         this.getCurrentWindow().Polymer &&
-        this.getCurrentWindow().Polymer.version.startsWith('2'), // only works with Polymer 2
+        this.getCurrentWindow().Polymer.Element, // only works with Polymer 2
       customElementsHealth: []
     };
   },

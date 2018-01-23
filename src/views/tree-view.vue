@@ -61,7 +61,7 @@ export default {
       }
     }
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.updateListener);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);

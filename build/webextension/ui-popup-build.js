@@ -4765,12 +4765,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-window.scDebugPopUpShown = true; 
-
-new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
+const appInstance = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app', 
   render: h => h(__WEBPACK_IMPORTED_MODULE_1__App_vue__["a" /* default */])
 });
+
+window.addEventListener('beforeunload', () => {
+   appInstance.$destroy()
+});
+
 
 
 /***/ }),
@@ -16099,7 +16102,7 @@ exports.push([module.i, "\n#starcounter-debug-aid-tree-view[data-v-7f345870] {\r
       }
     }
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.updateListener);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);
@@ -51463,7 +51466,7 @@ exports.push([module.i, "\n#host[data-v-47d52491] {\r\n  width: 100%;\n}\ntable[
       currentPatch: ''
     };
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.refreshRows);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);
@@ -52292,7 +52295,7 @@ var currentImports = [];
   props: ['overlay'],
   data() {
     return {
-      compatible: this.getCurrentWindow().Polymer && this.getCurrentWindow().Polymer.version.startsWith('2'), // only works with Polymer 2
+      compatible: this.getCurrentWindow().Polymer && this.getCurrentWindow().Polymer.Element, // only works with Polymer 2
       customElementsHealth: []
     };
   },

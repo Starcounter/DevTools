@@ -86,7 +86,7 @@ export default {
       currentPatch: ''
     };
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.refreshRows);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);
