@@ -20,7 +20,6 @@
 
 <script>
 import JSONEditor from "jsoneditor";
-import "../assets/jsoneditor.css";
 import jsonpatch from "fast-json-patch";
 
 export default {
@@ -80,7 +79,7 @@ export default {
     };
 
     this.editor = new JSONEditor(
-      document.querySelector("#starcounter-debug-aid-jsoneditor-tree-view"),
+      this.$el.querySelector("#starcounter-debug-aid-jsoneditor-tree-view"),
       options
     );
 
@@ -95,6 +94,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../assets/jsoneditor.css';
+
 #starcounter-debug-aid-tree-view {
   width: 100%;
 }

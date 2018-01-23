@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     this.editor = new JSONEditor(
-      document.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
+      this.$el.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
       { history: false }
     );
     this.listener = this.getCurrentWindow().starcounterDebugAidListener;

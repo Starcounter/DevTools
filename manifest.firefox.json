@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Starcounter DevTools",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Helps you debug Starcounter Apps with ease.",
   "icons": {
     "32": "icons/dark/32.png",
@@ -32,5 +32,5 @@
     "default_title": "Starcounter DevTools"
   },
   "permissions": ["tabs", "storage"],
-  "web_accessible_resources": ["content_script.js", "ui-popup-build.js", "palindrom-js-listener.js", "injected_script.js"]
+  "web_accessible_resources": ["content_script.js", "ui-popup-build.js", "palindrom-js-listener.js", "injected_script.js", "style.css"]
 }

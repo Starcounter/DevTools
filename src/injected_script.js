@@ -4,17 +4,33 @@ import './palindrom-js-listener';
 import { setTimeout } from 'timers';
 
 (function() {
+  var starcounterDebugCurrentApp;
+  let currentDiv;
   function starcounterDebugAidContainer(type, popupUrl, usedKeyComb) {
     if (type === 'overlay') {
-      let div = document.querySelector('#sc-debug-aid');
-      if (!div) {
-        div = document.createElement('div');
-        div.id = 'sc-debug-aid';
-        document.body.appendChild(div);
+      if (currentDiv) {
+        currentDiv.remove();
+        currentDiv = undefined;
+        return starcounterDebugCurrentApp;
+      } else {
+        currentDiv = document.createElement('div');
+
+        const shadowRoot = currentDiv.attachShadow({ mode: 'open' });
+        const cssURL = new URL('style.css', popupUrl).href;
+        const style = document.createElement('style');
+        style.innerHTML = `@import '${cssURL}'`;
+        shadowRoot.appendChild(style);
+
+        let innerDiv = document.createElement('div');
+
+        shadowRoot.appendChild(innerDiv);
+
+        document.body.appendChild(currentDiv);
+
         App.isOverlay = true;
         App.usedKeyComb = usedKeyComb;
         return new Vue({
-          el: div,
+          el: innerDiv,
           render: h => h(App)
         });
       }
@@ -26,7 +42,7 @@ import { setTimeout } from 'timers';
       );
 
       // if we're reusing the pop-up, tell it to not close itself
-      if(popup.closeTimeout) {
+      if (popup.closeTimeout) {
         clearTimeout(popup.closeTimeout);
       }
 
@@ -46,14 +62,14 @@ import { setTimeout } from 'timers';
       popup.onbeforeunload = () => {
         window.localStorage.setItem('starcounterDebug-popup-open', false);
       };
-      
+
       // close pop-up iff no one used it later in 2500ms
       popup.closeLater = function() {
         popup.closeTimeout = setTimeout(() => {
           popup.close();
         }, 2500);
-      }
-      
+      };
+
       window.addEventListener('beforeunload', function onNavigateAway() {
         popup && popup.closeLater();
         window.removeEventListener('beforeunload', onNavigateAway);
@@ -61,7 +77,6 @@ import { setTimeout } from 'timers';
     }
   }
 
-  var starcounterDebugCurrentApp;
   window.addEventListener('sc-debug-show-overlay', starcounterDebugOpenOverlay);
   window.addEventListener('sc-debug-show-popup', () => {
     const popupURL = localStorage.getItem('scDebugPopupIndexScriptUrl');
@@ -71,18 +86,21 @@ import { setTimeout } from 'timers';
   window.addEventListener('sc-debug-close-overlay', starcounterDebugCloser);
 
   function starcounterDebugOpenOverlay(usedKeyComb) {
+    const popupURL = localStorage.getItem('scDebugPopupIndexScriptUrl');
+
     starcounterDebugCurrentApp = starcounterDebugAidContainer(
       'overlay',
-      undefined,
+      popupURL,
       usedKeyComb
     );
     window.addEventListener('keyup', starcounterDebugEscapeCloser);
     window.addEventListener('click', starcounterDebugClickOutsideCloser);
   }
+
   function starcounterDebugCloser() {
     starcounterDebugCurrentApp && starcounterDebugCurrentApp.$destroy();
-    const overlay = document.querySelector('.sc-debug-aid-overlay');
-    overlay && overlay.remove();
+    currentDiv && currentDiv.remove();
+    currentDiv = undefined;
   }
 
   window.removeEventListener('keyup', starcounterDebugEscapeCloser);
@@ -102,7 +120,9 @@ import { setTimeout } from 'timers';
     e.keyCode == 27 && starcounterDebugCloser();
   }
   function starcounterDebugClickOutsideCloser(e) {
-    e.target.className === 'sc-debug-aid-overlay' && starcounterDebugCloser();
+    if (e.path[0].className === 'sc-debug-aid-overlay') {
+      starcounterDebugCloser();
+    }
   }
 
   // this is useful if you use the bookmarklet
