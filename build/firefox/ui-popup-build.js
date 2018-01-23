@@ -52345,7 +52345,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "This is a baby tab. Currently it only checks if all the Custom Elements you're using are imported. Soon we'll add more health checks you can use for your apps.\n        "
+              "This tab is a beta feature. Currently it only checks if all the Custom Elements you're using are imported. Soon we'll add more checks you can use for your apps conveniently.\n        "
             )
           ]),
           _c("p", [
