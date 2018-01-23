@@ -52597,7 +52597,6 @@ var currentImports = [];
       return currentWindow;
     },
     async getBowerVersions() {
-      debugger;
       const elements = this.$el.querySelectorAll('.bowerCell');
       for (const el of elements) {
         const version = await this.bowerVersionGetter.getBowerInfo(el.getAttribute('data-bower-json-path'));

@@ -120,7 +120,8 @@ import { setTimeout } from 'timers';
     e.keyCode == 27 && starcounterDebugCloser();
   }
   function starcounterDebugClickOutsideCloser(e) {
-    if (e.path[0].className === 'sc-debug-aid-overlay') {
+    const path = e.composedPath();
+    if (path[0].className === 'sc-debug-aid-overlay') {
       starcounterDebugCloser();
     }
   }

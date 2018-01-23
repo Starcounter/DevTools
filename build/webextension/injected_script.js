@@ -4627,7 +4627,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     e.keyCode == 27 && starcounterDebugCloser();
   }
   function starcounterDebugClickOutsideCloser(e) {
-    if (e.path[0].className === 'sc-debug-aid-overlay') {
+    const path = e.composedPath();
+    if (path[0].className === 'sc-debug-aid-overlay') {
       starcounterDebugCloser();
     }
   }
@@ -49685,7 +49686,6 @@ var currentImports = [];
       return currentWindow;
     },
     async getBowerVersions() {
-      debugger;
       const elements = this.$el.querySelectorAll('.bowerCell');
       for (const el of elements) {
         const version = await this.bowerVersionGetter.getBowerInfo(el.getAttribute('data-bower-json-path'));

@@ -1,7 +1,7 @@
 {
   "name": "sc-debug-aid-extension",
   "description": "A browser extension that helps you debug Starcounter apps with ease",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "author": "Omar Alshaker <omar@omaralshaker.com>",
   "license": "MIT",
   "private": true,
