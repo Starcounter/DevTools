@@ -52942,7 +52942,7 @@ var render = function() {
                   [
                     _c("p", [
                       _vm._v(
-                        "⚠️ You've opened Starcounter Debug Aid using the key combination, this shortcut is deprecated in favour of the browser\r\n          action button in the top right corner of your browser window."
+                        "⚠️ You've opened Starcounter DevTools using the key combination, this shortcut is deprecated in favour of the browser\r\n          action button in the top right corner of your browser window."
                       )
                     ])
                   ]
@@ -52967,7 +52967,7 @@ var staticRenderFns = [
         }
       }),
       _vm._v(" "),
-      _c("span", [_vm._v("Starcounter Debug Aid")])
+      _c("span", [_vm._v("Starcounter DevTools")])
     ])
   },
   function() {
@@ -52993,7 +52993,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "tab-content" }, [
       _c("div", [
-        _c("h1", [_vm._v("Starcounter Debug Aid")]),
+        _c("h1", [_vm._v("Starcounter DevTools")]),
         _vm._v(" "),
         _c("p", [
           _vm._v(
@@ -53004,8 +53004,7 @@ var staticRenderFns = [
             {
               attrs: {
                 target: "_blank",
-                href:
-                  "https://github.com/StarcounterSamples/starcounter-debug-aid"
+                href: "https://github.com/Starcounter/DevTools"
               }
             },
             [_vm._v("\r\n              GitHub Issues.\r\n            ")]
