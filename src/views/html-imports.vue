@@ -96,7 +96,7 @@ export default {
       return currentWindow;
     },
     async getBowerVersions() {
-      const elements = document.querySelectorAll('.bowerCell');
+      const elements = this.$el.querySelectorAll('.bowerCell');
       for(const el of elements) {
         const version = await this.bowerVersionGetter.getBowerInfo(el.getAttribute('data-bower-json-path'));
         el.innerHTML = version && version.bowerInfo || '-';
@@ -199,7 +199,6 @@ export default {
 }
 
 table td {
-  padding: 7px;
   overflow-x: auto;
 }
 table tr {
@@ -214,7 +213,7 @@ table.sda-imports {
 table.sda-imports th {
   text-align: left;
   border-bottom: 1px solid #777;
-  padding: 8px 4px;
+  padding: 2px 4px;
   font-weight: normal;
 }
 
@@ -258,20 +257,6 @@ table.sda-imports tr.level-8 td:first-child {
   padding-left: calc(8 * 1em);
 }
 
-table.sda-imports .file {
-  font-size: 80%;
-}
-
-table.sda-imports .path {
-  font-size: 80%;
-  color: #000;
-}
-
-table.sda-imports .error {
-  color: red;
-  font-size: 80%;
-}
-
 table.sda-imports a,
 table.sda-imports html-import-bower-info /deep/ a {
   text-decoration: none;
@@ -293,8 +278,5 @@ table.sda-imports .duplicatesHidden .duplicate {
   display: none;
 }
 
-table.sda-imports td {
-  font-size: 0.9em
-}
 
 </style>

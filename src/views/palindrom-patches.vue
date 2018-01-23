@@ -86,7 +86,7 @@ export default {
       currentPatch: ''
     };
   },
-  unmounted() {
+  destroyed() {
     const index = this.listener.updateListeners.indexOf(this.refreshRows);
     if (index > -1) {
       this.listener.updateListeners.splice(index, 1);
@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     this.editor = new JSONEditor(
-      document.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
+      this.$el.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
       { history: false }
     );
     this.listener = this.getCurrentWindow().starcounterDebugAidListener;

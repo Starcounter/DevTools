@@ -2,9 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BabiliPlugin = require('babili-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function generateConfig(type) {
-  const configurations =  [
+  const configurations = [
     {
       entry: './src/content_script.js',
       output: {
@@ -132,6 +133,7 @@ module.exports = function generateConfig(type) {
             test: /\.vue$/,
             loader: 'vue-loader',
             options: {
+              extractCSS: true,              
               loaders: {}
               // other vue-loader options go here
             }
@@ -144,7 +146,8 @@ module.exports = function generateConfig(type) {
             }
           }
         ]
-      }
+      },
+      plugins: [new ExtractTextPlugin('style.css')]
     }
   ];
   if (process.env.NODE_ENV === 'production') {
