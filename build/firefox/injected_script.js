@@ -49635,6 +49635,8 @@ if (false) {(function () {
 //
 //
 //
+//
+//
 
 
 
@@ -49742,8 +49744,7 @@ var currentImports = [];
 
       if (href) {
         if (seenHrefs[href]) {
-          if (!this.showDuplicates) return;
-          processedImport.classes.push('duplicate');
+          return false;
         } else {
           seenHrefs[href] = true;
         }
@@ -49880,24 +49881,6 @@ var render = function() {
     _vm.importsLoaded
       ? _c("div", [
           _c("div", { attrs: { id: "toolbar" } }, [
-            _c(
-              "label",
-              {
-                attrs: {
-                  title:
-                    "Show imports that are dependency of more than one import"
-                }
-              },
-              [
-                _c("button", { on: { click: _vm.toggleShowDupes } }, [
-                  _vm._v(
-                    _vm._s(this.showDuplicates ? "Hide" : "Show") +
-                      " duplicates"
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
             _c(
               "label",
               {

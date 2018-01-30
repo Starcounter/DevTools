@@ -8,9 +8,11 @@
     </div>
     <div v-if="importsLoaded">
       <div id="toolbar">
+        <!--
         <label title="Show imports that are dependency of more than one import">
           <button v-on:click="toggleShowDupes">{{this.showDuplicates ? 'Hide' : 'Show'}} duplicates</button>
         </label>
+        -->
         <label title="Show installed versions, as reported by .bower.json">
           <button v-on:click="getBowerVersions">Get Bower versions</button>
         </label>
@@ -163,8 +165,7 @@ export default {
 
       if (href) {
         if (seenHrefs[href]) {
-          if(!this.showDuplicates) return;
-          processedImport.classes.push('duplicate');
+          return false;
         } else {
           seenHrefs[href] = true;
         }
