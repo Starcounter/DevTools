@@ -52656,6 +52656,7 @@ var currentImports = [];
 
       if (href) {
         if (seenHrefs[href]) {
+          if (!this.showDuplicates) return;
           processedImport.classes.push('duplicate');
         } else {
           seenHrefs[href] = true;
