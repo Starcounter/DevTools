@@ -13161,7 +13161,6 @@ module.exports = function listToStyles (parentId, list) {
 //
 //
 //
-//
 
 
 
@@ -49628,12 +49627,18 @@ if (false) {(function () {
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 function constructSingleImportHTML({ classes, path, href, file, error, bowerJSONPath }, showBowerVersions, overlayOpen) {
-  const duplicate = classes.includes('duplicate');
   return `<tr class="${classes.join(' ')}">
       <td>
         <span> ${file}</span>
@@ -49658,6 +49663,8 @@ var currentImports = [];
       /* this is just a number the we use inside importsHTML computed property. To trigger its compution on demand,
       we don't want our big array to be reactive (adding it as a Vue data proerty make it reactive i.e: very slow) */
       updatedImports: 1,
+      progress: 0,
+      importsLoaded: false,
       showBowerVersions: false,
       showDuplicates: false
     };
@@ -49692,36 +49699,46 @@ var currentImports = [];
         el.innerHTML = version && version.bowerInfo || '-';
       }
     },
-    findImports(doc, found, level) {
-      var found = found || [];
+    findImports(doc, imports, level, levels = []) {
+      var imports = imports || [];
       var level = level || 0;
       const links = doc.querySelectorAll('link[rel=import');
       for (let i = 0; i < links.length; i++) {
-        found.push(links[i]);
-        this.levels.push(level);
+        imports.push(links[i]);
+        levels.push(level);
         if (links[i].import) {
-          this.findImports(links[i].import, found, level + 1);
+          this.findImports(links[i].import, imports, level + 1, levels);
         }
       }
-      return found;
-    }
-  },
-  mounted() {
-    this.levels = [];
-    let document = window.document;
+      return { imports, levels };
+    },
+    updateProgress(progress) {
+      this.progress = progress * 100;
+      if (progress >= 1) {
+        this.importsLoaded = true;
+      }
+    },
+    async processImportsAsync() {
+      let document = window.document;
 
-    if (window.scDebugPopUpShown) {
-      document = window.opener.document;
-    }
-    const imports = this.findImports(document);
-    const processedImports = [];
-    const seenHrefs = {};
+      if (window.scDebugPopUpShown) {
+        document = window.opener.document;
+      }
 
-    for (let i = 0; i < imports.length; i++) {
+      const { imports, levels } = this.findImports(document, null, null, []);
+
+      const processedImports = await this.processImportsInChunks(imports, this.updateProgress.bind(this), levels);
+
+      // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
+      currentImports = processedImports;
+
+      // bump compution of importsHTML computed property
+      this.updatedImports++;
+    },
+    processSingleImport(importee, seenHrefs, level) {
       const processedImport = {};
-      processedImport.classes = [`level-${this.levels[i]}`];
-
-      const href = imports[i].href;
+      processedImport.classes = [`level-${level}`];
+      const href = importee.href;
 
       if (href) {
         if (seenHrefs[href]) {
@@ -49749,20 +49766,41 @@ var currentImports = [];
           processedImport.file = processedImport.file.substring(0, 50) + '...';
         }
 
-        if (!imports[i].import) {
+        if (!importee.import) {
           processedImport.error = 'Import failed';
         }
       } else {
         processedImport.error = 'href attribute missing';
         processedImport.file = '???';
       }
-      processedImports.push(processedImport);
-    }
-    // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
-    currentImports = processedImports;
+      return processedImport;
+    },
+    processChunk(imports, start, end, seenHrefs, levels, processedImports, self) {
+      return new Promise(resolve => {
+        for (let j = start; j < end; j++) {
+          const processedImport = self.processSingleImport(imports[j], seenHrefs, levels[j]);
+          processedImport && processedImports.push(processedImport);
+          setTimeout(resolve);
+        }
+      });
+    },
+    processImportsInChunks(imports, progress, levels) {
+      const processedImports = [];
+      const seenHrefs = {};
+      const chunkSize = 500;
+      const chunksCount = Math.floor(imports.length / chunkSize);
+      const self = this;
 
-    // bump compution of importsHTML computed property
-    this.updatedImports++;
+      return new Promise(async function (resolve) {
+        for (let i = 0; i <= chunksCount; i++) {
+          const start = i * chunkSize;
+          const end = Math.min(start + chunkSize, imports.length);
+          await self.processChunk(imports, start, end, seenHrefs, levels, processedImports, self);
+          progress(i / chunksCount);
+        }
+        resolve(processedImports);
+      });
+    }
   }
 });
 
@@ -49819,48 +49857,73 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "html-imports-view" }, [
-    _c("div", { attrs: { id: "toolbar" } }, [
-      _c(
-        "label",
-        {
-          attrs: {
-            title: "Show imports that are dependency of more than one import"
-          }
-        },
-        [
-          _c("button", { on: { click: _vm.toggleShowDupes } }, [
-            _vm._v(
-              _vm._s(this.showDuplicates ? "Hide" : "Show") + " duplicates"
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "label",
-        {
-          attrs: {
-            title: "Show installed versions, as reported by .bower.json"
-          }
-        },
-        [
-          _c("button", { on: { click: _vm.getBowerVersions } }, [
-            _vm._v("Get Bower versions")
-          ])
-        ]
-      )
-    ]),
+    !_vm.importsLoaded
+      ? _c("div", [
+          _c("div", [
+            _c("button", { on: { click: _vm.processImportsAsync } }, [
+              _vm._v("Load imports")
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.progress < 100
+            ? _c("div", [
+                _c("progress", {
+                  attrs: { max: "100" },
+                  domProps: { value: _vm.progress }
+                })
+              ])
+            : _vm._e()
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { attrs: { id: "view" } }, [
-      _c("table", { staticClass: "sda-imports" }, [
-        _vm._m(0, false, false),
-        _vm._v(" "),
-        _c("tbody", {
-          class: [_vm.showDuplicates ? "" : "duplicatesHidden"],
-          domProps: { innerHTML: _vm._s(this.importsHTML) }
-        })
-      ])
-    ])
+    _vm.importsLoaded
+      ? _c("div", [
+          _c("div", { attrs: { id: "toolbar" } }, [
+            _c(
+              "label",
+              {
+                attrs: {
+                  title:
+                    "Show imports that are dependency of more than one import"
+                }
+              },
+              [
+                _c("button", { on: { click: _vm.toggleShowDupes } }, [
+                  _vm._v(
+                    _vm._s(this.showDuplicates ? "Hide" : "Show") +
+                      " duplicates"
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                attrs: {
+                  title: "Show installed versions, as reported by .bower.json"
+                }
+              },
+              [
+                _c("button", { on: { click: _vm.getBowerVersions } }, [
+                  _vm._v("Get Bower versions")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "view" } }, [
+            _c("table", { staticClass: "sda-imports" }, [
+              _vm._m(0, false, false),
+              _vm._v(" "),
+              _c("tbody", {
+                class: [_vm.showDuplicates ? "" : "duplicatesHidden"],
+                domProps: { innerHTML: _vm._s(this.importsHTML) }
+              })
+            ])
+          ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -49883,7 +49946,7 @@ var staticRenderFns = [
                 'Information from ".bower.json" file. Available only for packages installed using Bower.'
             }
           },
-          [_vm._v("\n            Bower version\n          ")]
+          [_vm._v("\n              Bower version\n            ")]
         )
       ])
     ])

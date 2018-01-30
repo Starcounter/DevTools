@@ -18,7 +18,6 @@
       <input class="sc-debug-aid-tabbing-radio" id="tab5" name="tab-control" type="radio">
       <input class="sc-debug-aid-tabbing-radio" id="tab6" name="tab-control" type="radio">
 
-
       <label for="tab1">View-model</label>
       <label for="tab2">Patches</label>
       <label for="tab3">Imports</label>
@@ -105,6 +104,7 @@ h1,h2,h3,h4 {
 
 #sc-debug-aid {
   background: #fff;
+  
 }
 
 .sc-debug-aid-overlay * {
@@ -180,8 +180,10 @@ h1,h2,h3,h4 {
 .sc-debug-aid-in-overlay {
   width: 100%;
   max-width: 1200px;
-  margin-top: 50px;
-  max-height: calc(100vh - 200px);
+  margin-top: 40px;
+  max-height: calc(100vh - 80px);
+  min-height: 150px;
+  overflow-y: auto;
 }
 
 .sc-debug-aid-in-popup {
@@ -197,7 +199,7 @@ h1,h2,h3,h4 {
   background: white;
   padding: 4px 4px 4px 4px;
   display: none;
-  max-height: 90vh;
+  max-height: calc(100vh - 250px);
   overflow-y: scroll;
 }
 
