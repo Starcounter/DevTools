@@ -49631,12 +49631,6 @@ if (false) {(function () {
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -49667,8 +49661,7 @@ var currentImports = [];
       updatedImports: 1,
       progress: 0,
       importsLoaded: false,
-      showBowerVersions: false,
-      showDuplicates: false
+      showBowerVersions: false
     };
   },
   created() {
@@ -49680,13 +49673,6 @@ var currentImports = [];
     }
   },
   methods: {
-    toggleShowDupes() {
-      if (!this.showDuplicates && currentImports.length > 100) {
-        const result = confirm(`You seem to have a lot of imports (${currentImports.length}), showing duplicates can slow things up, still do it?`);
-        if (!result) return;
-      }
-      this.showDuplicates = !this.showDuplicates;
-    },
     getCurrentWindow() {
       let currentWindow = window;
       if (!this.overlay) {
@@ -49782,14 +49768,14 @@ var currentImports = [];
         for (let j = start; j < end; j++) {
           const processedImport = self.processSingleImport(imports[j], seenHrefs, levels[j]);
           processedImport && processedImports.push(processedImport);
-          setTimeout(resolve);
         }
+        setTimeout(resolve);
       });
     },
     processImportsInChunks(imports, progress, levels) {
       const processedImports = [];
       const seenHrefs = {};
-      const chunkSize = 500;
+      const chunkSize = Math.min(500, imports.length);
       const chunksCount = Math.floor(imports.length / chunkSize);
       const self = this;
 
@@ -49900,10 +49886,7 @@ var render = function() {
             _c("table", { staticClass: "sda-imports" }, [
               _vm._m(0, false, false),
               _vm._v(" "),
-              _c("tbody", {
-                class: [_vm.showDuplicates ? "" : "duplicatesHidden"],
-                domProps: { innerHTML: _vm._s(this.importsHTML) }
-              })
+              _c("tbody", { domProps: { innerHTML: _vm._s(this.importsHTML) } })
             ])
           ])
         ])

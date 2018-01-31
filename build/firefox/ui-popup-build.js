@@ -52503,7 +52503,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n.html-imports-view {\r\n  width: 100%;\n}\nprogress {\r\n  width: 100%;\n}\n#toolbar {\r\n  margin-bottom: 4px;\r\n  flex: 0 0 auto;\n}\n#toolbar label {\r\n  display: inline-flex;\n}\n#view {\r\n  flex: 1 1 auto;\r\n  overflow: auto;\r\n  width: 100%;\n}\ntable td {\r\n  overflow-x: auto;\n}\ntable tr {\r\n  width: 100%;\n}\ntable.sda-imports {\r\n  border-spacing: 0;\r\n  width: 100%;\n}\ntable.sda-imports th {\r\n  text-align: left;\r\n  border-bottom: 1px solid #777;\r\n  padding: 2px 4px;\r\n  font-weight: normal;\n}\ntable.sda-imports td:first-child::before {\r\n  content: '\\2514';\n}\ntable.sda-imports tr.level-0 td:first-child::before {\r\n  content: '';\n}\ntable.sda-imports tr.level-1 td:first-child {\r\n  padding-left: calc(1em);\n}\ntable.sda-imports tr.level-2 td:first-child {\r\n  padding-left: calc(2 * 1em);\n}\ntable.sda-imports tr.level-3 td:first-child {\r\n  padding-left: calc(3 * 1em);\n}\ntable.sda-imports tr.level-4 td:first-child {\r\n  padding-left: calc(4 * 1em);\n}\ntable.sda-imports tr.level-5 td:first-child {\r\n  padding-left: calc(5 * 1em);\n}\ntable.sda-imports tr.level-6 td:first-child {\r\n  padding-left: calc(6 * 1em);\n}\ntable.sda-imports tr.level-7 td:first-child {\r\n  padding-left: calc(7 * 1em);\n}\ntable.sda-imports tr.level-8 td:first-child {\r\n  padding-left: calc(8 * 1em);\n}\ntable.sda-imports a,\r\ntable.sda-imports html-import-bower-info /deep/ a {\r\n  text-decoration: none;\n}\ntable.sda-imports a:hover,\r\ntable.sda-imports html-import-bower-info /deep/ a:hover {\r\n  text-decoration: underline;\n}\ntable.sda-imports tr:hover td {\r\n  background: #f0f0f0;\n}\ntable.sda-imports .duplicate {\r\n  opacity: 0.5;\n}\ntable.sda-imports .duplicatesHidden .duplicate {\r\n  display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.html-imports-view {\r\n  width: 100%;\n}\nprogress {\r\n  width: 100%;\n}\n#toolbar {\r\n  margin-bottom: 4px;\r\n  flex: 0 0 auto;\n}\n#toolbar label {\r\n  display: inline-flex;\n}\n#view {\r\n  flex: 1 1 auto;\r\n  overflow: auto;\r\n  width: 100%;\n}\ntable td {\r\n  overflow-x: auto;\n}\ntable tr {\r\n  width: 100%;\n}\ntable.sda-imports {\r\n  border-spacing: 0;\r\n  width: 100%;\n}\ntable.sda-imports th {\r\n  text-align: left;\r\n  border-bottom: 1px solid #777;\r\n  padding: 2px 4px;\r\n  font-weight: normal;\n}\ntable.sda-imports td:first-child::before {\r\n  content: '\\2514';\n}\ntable.sda-imports tr.level-0 td:first-child::before {\r\n  content: '';\n}\ntable.sda-imports tr.level-1 td:first-child {\r\n  padding-left: calc(1em);\n}\ntable.sda-imports tr.level-2 td:first-child {\r\n  padding-left: calc(2 * 1em);\n}\ntable.sda-imports tr.level-3 td:first-child {\r\n  padding-left: calc(3 * 1em);\n}\ntable.sda-imports tr.level-4 td:first-child {\r\n  padding-left: calc(4 * 1em);\n}\ntable.sda-imports tr.level-5 td:first-child {\r\n  padding-left: calc(5 * 1em);\n}\ntable.sda-imports tr.level-6 td:first-child {\r\n  padding-left: calc(6 * 1em);\n}\ntable.sda-imports tr.level-7 td:first-child {\r\n  padding-left: calc(7 * 1em);\n}\ntable.sda-imports tr.level-8 td:first-child {\r\n  padding-left: calc(8 * 1em);\n}\ntable.sda-imports a,\r\ntable.sda-imports html-import-bower-info /deep/ a {\r\n  text-decoration: none;\n}\ntable.sda-imports a:hover,\r\ntable.sda-imports html-import-bower-info /deep/ a:hover {\r\n  text-decoration: underline;\n}\ntable.sda-imports tr:hover td {\r\n  background: #f0f0f0;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -52514,12 +52514,6 @@ exports.push([module.i, "\n.html-imports-view {\r\n  width: 100%;\n}\nprogress {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_bower_version_getter__ = __webpack_require__(121);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -52581,8 +52575,7 @@ var currentImports = [];
       updatedImports: 1,
       progress: 0,
       importsLoaded: false,
-      showBowerVersions: false,
-      showDuplicates: false
+      showBowerVersions: false
     };
   },
   created() {
@@ -52594,13 +52587,6 @@ var currentImports = [];
     }
   },
   methods: {
-    toggleShowDupes() {
-      if (!this.showDuplicates && currentImports.length > 100) {
-        const result = confirm(`You seem to have a lot of imports (${currentImports.length}), showing duplicates can slow things up, still do it?`);
-        if (!result) return;
-      }
-      this.showDuplicates = !this.showDuplicates;
-    },
     getCurrentWindow() {
       let currentWindow = window;
       if (!this.overlay) {
@@ -52696,14 +52682,14 @@ var currentImports = [];
         for (let j = start; j < end; j++) {
           const processedImport = self.processSingleImport(imports[j], seenHrefs, levels[j]);
           processedImport && processedImports.push(processedImport);
-          setTimeout(resolve);
         }
+        setTimeout(resolve);
       });
     },
     processImportsInChunks(imports, progress, levels) {
       const processedImports = [];
       const seenHrefs = {};
-      const chunkSize = 500;
+      const chunkSize = Math.min(500, imports.length);
       const chunksCount = Math.floor(imports.length / chunkSize);
       const self = this;
 
@@ -52814,10 +52800,7 @@ var render = function() {
             _c("table", { staticClass: "sda-imports" }, [
               _vm._m(0, false, false),
               _vm._v(" "),
-              _c("tbody", {
-                class: [_vm.showDuplicates ? "" : "duplicatesHidden"],
-                domProps: { innerHTML: _vm._s(this.importsHTML) }
-              })
+              _c("tbody", { domProps: { innerHTML: _vm._s(this.importsHTML) } })
             ])
           ])
         ])

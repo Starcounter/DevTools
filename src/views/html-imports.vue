@@ -8,11 +8,6 @@
     </div>
     <div v-if="importsLoaded">
       <div id="toolbar">
-        <!--
-        <label title="Show imports that are dependency of more than one import">
-          <button v-on:click="toggleShowDupes">{{this.showDuplicates ? 'Hide' : 'Show'}} duplicates</button>
-        </label>
-        -->
         <label title="Show installed versions, as reported by .bower.json">
           <button v-on:click="getBowerVersions">Get Bower versions</button>
         </label>
@@ -28,8 +23,7 @@
               </th>
             </tr>
           </thead>
-          <tbody v-bind:class="[showDuplicates ? '' : 'duplicatesHidden']" v-html="this.importsHTML">          
-          </tbody>
+          <tbody v-html="this.importsHTML"></tbody>
         </table>
       </div>
     </div>
@@ -73,8 +67,7 @@ export default {
       updatedImports: 1,
       progress: 0,
       importsLoaded: false,
-      showBowerVersions: false,
-      showDuplicates: false
+      showBowerVersions: false
     };
   },
   created() {
@@ -90,18 +83,7 @@ export default {
       );
     }
   },
-  methods: {
-    toggleShowDupes() {
-      if (!this.showDuplicates && currentImports.length > 100) {
-        const result = confirm(
-          `You seem to have a lot of imports (${
-            currentImports.length
-          }), showing duplicates can slow things up, still do it?`
-        );
-        if (!result) return;
-      }
-      this.showDuplicates = !this.showDuplicates;
-    },
+  methods: {    
     getCurrentWindow() {
       let currentWindow = window;
       if (!this.overlay) {
@@ -218,14 +200,14 @@ export default {
             levels[j]
           );
           processedImport && processedImports.push(processedImport);
-          setTimeout(resolve);
         }
+        setTimeout(resolve);
       });
     },
     processImportsInChunks(imports, progress, levels) {
       const processedImports = [];
       const seenHrefs = {};
-      const chunkSize = 500;
+      const chunkSize = Math.min(500, imports.length);
       const chunksCount = Math.floor(imports.length / chunkSize);
       const self = this;
 
@@ -346,10 +328,4 @@ table.sda-imports tr:hover td {
   background: #f0f0f0;
 }
 
-table.sda-imports .duplicate {
-  opacity: 0.5;
-}
-table.sda-imports .duplicatesHidden .duplicate {
-  display: none;
-}
 </style>

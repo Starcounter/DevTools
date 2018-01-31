@@ -1577,9 +1577,4 @@ table.sda-imports html-import-bower-info /deep/ a:hover {
 table.sda-imports tr:hover td {
   background: #f0f0f0;
 }
-table.sda-imports .duplicate {
-  opacity: 0.5;
-}
-table.sda-imports .duplicatesHidden .duplicate {
-  display: none;
-}
+
