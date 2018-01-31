@@ -15795,7 +15795,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\nh1[data-v-04c2046b],h2[data-v-04c2046b],h3[data-v-04c2046b],h4[data-v-04c2046b] {\r\n  margin: 0px;\n}\n#sc-debug-aid[data-v-04c2046b] {\r\n  background: #fff;\n}\n.sc-debug-aid-overlay *[data-v-04c2046b] {\r\n  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif\n}\n.sc-debug-aid-overlay[data-v-04c2046b] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.6);\r\n  display: flex;\r\n  justify-content: top;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  z-index: 2147483647;\n}\n.sc-debug-aid-top-bar img[data-v-04c2046b] {\r\n  margin: 0px 5px;\n}\n.sc-debug-aid-top-bar .top-bar-left-side[data-v-04c2046b] {\r\n  display: flex;\r\n  align-items: center;\n}\r\n\r\n\r\n/* for fun */\n.sc-debug-aid-top-bar svg .sun-shine path[data-v-04c2046b]:hover {\r\n  fill: #fff;\n}\n.sc-debug-aid-top-bar[data-v-04c2046b] {\r\n  box-sizing: border-box;\r\n  justify-content: space-between;\r\n  padding: 5px;\r\n  display: flex;\r\n  background-color: #ddd;\r\n  color: 333;\r\n  width: 100%;\r\n  font-size: 1em;\n}\n.sc-debug-aid-top-bar span[data-v-04c2046b] {\r\n  font-size: 1em;\n}\n.sc-debug-aid-top-bar div[data-v-04c2046b] {\r\n  display: flex;\n}\n.sc-debug-aid-overlay-popup[data-v-04c2046b] {\r\n  justify-content: center;\r\n  height: 100vh;\n}\n.starcounter-debug-aid-key-comb-warning[data-v-04c2046b] {\r\n  padding: 5px;\r\n  color: #333;\r\n  display: block;\r\n  background-color: #fff;\n}\n.starcounter-debug-aid-key-comb-warning p[data-v-04c2046b] {\r\n  font-size: 1em;\n}\n#sc-debug-aid #overlay.hidden[data-v-04c2046b] {\r\n  display: none;\n}\n.sc-debug-aid-in-overlay[data-v-04c2046b] {\r\n  width: 100%;\r\n  max-width: 1200px;\r\n  margin-top: 50px;\r\n  max-height: calc(100vh - 200px);\n}\n.sc-debug-aid-in-popup[data-v-04c2046b] {\r\n  width: 100%;\n}\n#sc-debug-aid #dialog[data-v-04c2046b] {\r\n  width: 90vw;\r\n  margin-top: 5vh;\n}\n.sc-debug-aid-in-overlay .tab-content[data-v-04c2046b] {\r\n  background: white;\r\n  padding: 4px 4px 4px 4px;\r\n  display: none;\r\n  max-height: 90vh;\r\n  overflow-y: scroll;\n}\n.sc-debug-aid-in-popup .tab-content[data-v-04c2046b] {\r\n  background: white;\r\n  display: none;\r\n  overflow-y: scroll;\n}\n.sc-debug-aid-in-overlay .tab-content h1[data-v-04c2046b] {\r\n  font-size: 1.5em;\r\n  display: block;\n}\n.sc-debug-aid-tabbing-radio[data-v-04c2046b] {\r\n  display: none;\n}\n.sc-debug-aid-in-overlay label[data-v-04c2046b],\r\n.sc-debug-aid-in-popup label[data-v-04c2046b] {\r\n  box-sizing: border-box;\r\n  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);\r\n  padding: 10px;\r\n  display: inline-block;\r\n  margin: 0px -0.3em 0px 0;\r\n  width: 16.66%;\r\n  cursor: pointer;\r\n  font-size: 1.2em\n}\n.sc-debug-aid-in-overlay label[data-v-04c2046b]:hover,\r\n.sc-debug-aid-in-popup label[data-v-04c2046b]:hover {\r\n  background: #ccc;\n}\n.sc-debug-aid-tabbing-radio:checked + * + * + * + * + * + label[data-v-04c2046b] {\r\n  /* number of asterisks must equal (number_of_tabs - 1) */\r\n  background: white;\n}\n.sc-debug-aid-tabbing-radio:checked\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + .tab-content[data-v-04c2046b] {\r\n  /* number of asterisks must equal (2 * (number_of_tabs - 1)) */\r\n  display: flex;\r\n  padding: 10px;\r\n  box-sizing: border-box;\n}\n#sc-debug-aid html-imports-list[data-v-04c2046b] {\r\n  width: 100%;\n}\n#sc-debug-aid tree-view[data-v-04c2046b] {\r\n  display: block;\r\n  width: 100%;\r\n  overflow: visible;\n}\r\n", ""]);
+exports.push([module.i, "\nh1[data-v-04c2046b],h2[data-v-04c2046b],h3[data-v-04c2046b],h4[data-v-04c2046b] {\r\n  margin: 0px;\n}\n#sc-debug-aid[data-v-04c2046b] {\r\n  background: #fff;\n}\n.sc-debug-aid-overlay *[data-v-04c2046b] {\r\n  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif\n}\n.sc-debug-aid-overlay[data-v-04c2046b] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.6);\r\n  display: flex;\r\n  justify-content: top;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  z-index: 2147483647;\n}\n.sc-debug-aid-top-bar img[data-v-04c2046b] {\r\n  margin: 0px 5px;\n}\n.sc-debug-aid-top-bar .top-bar-left-side[data-v-04c2046b] {\r\n  display: flex;\r\n  align-items: center;\n}\r\n\r\n\r\n/* for fun */\n.sc-debug-aid-top-bar svg .sun-shine path[data-v-04c2046b]:hover {\r\n  fill: #fff;\n}\n.sc-debug-aid-top-bar[data-v-04c2046b] {\r\n  box-sizing: border-box;\r\n  justify-content: space-between;\r\n  padding: 5px;\r\n  display: flex;\r\n  background-color: #ddd;\r\n  color: 333;\r\n  width: 100%;\r\n  font-size: 1em;\n}\n.sc-debug-aid-top-bar span[data-v-04c2046b] {\r\n  font-size: 1em;\n}\n.sc-debug-aid-top-bar div[data-v-04c2046b] {\r\n  display: flex;\n}\n.sc-debug-aid-overlay-popup[data-v-04c2046b] {\r\n  justify-content: center;\r\n  height: 100vh;\n}\n.starcounter-debug-aid-key-comb-warning[data-v-04c2046b] {\r\n  padding: 5px;\r\n  color: #333;\r\n  display: block;\r\n  background-color: #fff;\n}\n.starcounter-debug-aid-key-comb-warning p[data-v-04c2046b] {\r\n  font-size: 1em;\n}\n#sc-debug-aid #overlay.hidden[data-v-04c2046b] {\r\n  display: none;\n}\n.sc-debug-aid-in-overlay[data-v-04c2046b] {\r\n  width: 100%;\r\n  max-width: 1200px;\r\n  margin-top: 40px;\r\n  max-height: calc(100vh - 80px);\r\n  min-height: 150px;\r\n  overflow-y: auto;\n}\n.sc-debug-aid-in-popup[data-v-04c2046b] {\r\n  width: 100%;\n}\n#sc-debug-aid #dialog[data-v-04c2046b] {\r\n  width: 90vw;\r\n  margin-top: 5vh;\n}\n.sc-debug-aid-in-overlay .tab-content[data-v-04c2046b] {\r\n  background: white;\r\n  padding: 4px 4px 4px 4px;\r\n  display: none;\r\n  max-height: calc(100vh - 250px);\r\n  overflow-y: scroll;\n}\n.sc-debug-aid-in-popup .tab-content[data-v-04c2046b] {\r\n  background: white;\r\n  display: none;\r\n  overflow-y: scroll;\n}\n.sc-debug-aid-in-overlay .tab-content h1[data-v-04c2046b] {\r\n  font-size: 1.5em;\r\n  display: block;\n}\n.sc-debug-aid-tabbing-radio[data-v-04c2046b] {\r\n  display: none;\n}\n.sc-debug-aid-in-overlay label[data-v-04c2046b],\r\n.sc-debug-aid-in-popup label[data-v-04c2046b] {\r\n  box-sizing: border-box;\r\n  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);\r\n  padding: 10px;\r\n  display: inline-block;\r\n  margin: 0px -0.3em 0px 0;\r\n  width: 16.66%;\r\n  cursor: pointer;\r\n  font-size: 1.2em\n}\n.sc-debug-aid-in-overlay label[data-v-04c2046b]:hover,\r\n.sc-debug-aid-in-popup label[data-v-04c2046b]:hover {\r\n  background: #ccc;\n}\n.sc-debug-aid-tabbing-radio:checked + * + * + * + * + * + label[data-v-04c2046b] {\r\n  /* number of asterisks must equal (number_of_tabs - 1) */\r\n  background: white;\n}\n.sc-debug-aid-tabbing-radio:checked\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + *\r\n  + .tab-content[data-v-04c2046b] {\r\n  /* number of asterisks must equal (2 * (number_of_tabs - 1)) */\r\n  display: flex;\r\n  padding: 10px;\r\n  box-sizing: border-box;\n}\n#sc-debug-aid html-imports-list[data-v-04c2046b] {\r\n  width: 100%;\n}\n#sc-debug-aid tree-view[data-v-04c2046b] {\r\n  display: block;\r\n  width: 100%;\r\n  overflow: visible;\n}\r\n", ""]);
 
 // exports
 
@@ -15843,7 +15843,6 @@ module.exports = function listToStyles (parentId, list) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_palindrom_js_settings_vue__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_health_checks_vue__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_html_imports_vue__ = __webpack_require__(117);
-//
 //
 //
 //
@@ -52504,7 +52503,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n.html-imports-view {\r\n  width: 100%;\n}\n#toolbar {\r\n  margin-bottom: 4px;\r\n  flex: 0 0 auto;\n}\n#toolbar label {\r\n  display: inline-flex;\n}\n#view {\r\n  flex: 1 1 auto;\r\n  overflow: auto;\r\n  width: 100%;\n}\ntable td {\r\n  overflow-x: auto;\n}\ntable tr {\r\n  width: 100%;\n}\ntable.sda-imports {\r\n  border-spacing: 0;\r\n  width: 100%;\n}\ntable.sda-imports th {\r\n  text-align: left;\r\n  border-bottom: 1px solid #777;\r\n  padding: 2px 4px;\r\n  font-weight: normal;\n}\ntable.sda-imports td:first-child::before {\r\n  content: '\\2514';\n}\ntable.sda-imports tr.level-0 td:first-child::before {\r\n  content: '';\n}\ntable.sda-imports tr.level-1 td:first-child {\r\n  padding-left: calc(1em);\n}\ntable.sda-imports tr.level-2 td:first-child {\r\n  padding-left: calc(2 * 1em);\n}\ntable.sda-imports tr.level-3 td:first-child {\r\n  padding-left: calc(3 * 1em);\n}\ntable.sda-imports tr.level-4 td:first-child {\r\n  padding-left: calc(4 * 1em);\n}\ntable.sda-imports tr.level-5 td:first-child {\r\n  padding-left: calc(5 * 1em);\n}\ntable.sda-imports tr.level-6 td:first-child {\r\n  padding-left: calc(6 * 1em);\n}\ntable.sda-imports tr.level-7 td:first-child {\r\n  padding-left: calc(7 * 1em);\n}\ntable.sda-imports tr.level-8 td:first-child {\r\n  padding-left: calc(8 * 1em);\n}\ntable.sda-imports a,\r\ntable.sda-imports html-import-bower-info /deep/ a {\r\n  text-decoration: none;\n}\ntable.sda-imports a:hover,\r\ntable.sda-imports html-import-bower-info /deep/ a:hover {\r\n  text-decoration: underline;\n}\ntable.sda-imports tr:hover td {\r\n  background: #f0f0f0;\n}\ntable.sda-imports .duplicate {\r\n  opacity: 0.5;\n}\ntable.sda-imports .duplicatesHidden .duplicate {\r\n  display: none;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.html-imports-view {\r\n  width: 100%;\n}\nprogress {\r\n  width: 100%;\n}\n#toolbar {\r\n  margin-bottom: 4px;\r\n  flex: 0 0 auto;\n}\n#toolbar label {\r\n  display: inline-flex;\n}\n#view {\r\n  flex: 1 1 auto;\r\n  overflow: auto;\r\n  width: 100%;\n}\ntable td {\r\n  overflow-x: auto;\n}\ntable tr {\r\n  width: 100%;\n}\ntable.sda-imports {\r\n  border-spacing: 0;\r\n  width: 100%;\n}\ntable.sda-imports th {\r\n  text-align: left;\r\n  border-bottom: 1px solid #777;\r\n  padding: 2px 4px;\r\n  font-weight: normal;\n}\ntable.sda-imports td:first-child::before {\r\n  content: '\\2514';\n}\ntable.sda-imports tr.level-0 td:first-child::before {\r\n  content: '';\n}\ntable.sda-imports tr.level-1 td:first-child {\r\n  padding-left: calc(1em);\n}\ntable.sda-imports tr.level-2 td:first-child {\r\n  padding-left: calc(2 * 1em);\n}\ntable.sda-imports tr.level-3 td:first-child {\r\n  padding-left: calc(3 * 1em);\n}\ntable.sda-imports tr.level-4 td:first-child {\r\n  padding-left: calc(4 * 1em);\n}\ntable.sda-imports tr.level-5 td:first-child {\r\n  padding-left: calc(5 * 1em);\n}\ntable.sda-imports tr.level-6 td:first-child {\r\n  padding-left: calc(6 * 1em);\n}\ntable.sda-imports tr.level-7 td:first-child {\r\n  padding-left: calc(7 * 1em);\n}\ntable.sda-imports tr.level-8 td:first-child {\r\n  padding-left: calc(8 * 1em);\n}\ntable.sda-imports a,\r\ntable.sda-imports html-import-bower-info /deep/ a {\r\n  text-decoration: none;\n}\ntable.sda-imports a:hover,\r\ntable.sda-imports html-import-bower-info /deep/ a:hover {\r\n  text-decoration: underline;\n}\ntable.sda-imports tr:hover td {\r\n  background: #f0f0f0;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -52542,12 +52541,14 @@ exports.push([module.i, "\n.html-imports-view {\r\n  width: 100%;\n}\n#toolbar {
 //
 //
 //
-
+//
+//
+//
+//
 
 
 
 function constructSingleImportHTML({ classes, path, href, file, error, bowerJSONPath }, showBowerVersions, overlayOpen) {
-  const duplicate = classes.includes('duplicate');
   return `<tr class="${classes.join(' ')}">
       <td>
         <span> ${file}</span>
@@ -52572,8 +52573,9 @@ var currentImports = [];
       /* this is just a number the we use inside importsHTML computed property. To trigger its compution on demand,
       we don't want our big array to be reactive (adding it as a Vue data proerty make it reactive i.e: very slow) */
       updatedImports: 1,
-      showBowerVersions: false,
-      showDuplicates: false
+      progress: 0,
+      importsLoaded: false,
+      showBowerVersions: false
     };
   },
   created() {
@@ -52585,13 +52587,6 @@ var currentImports = [];
     }
   },
   methods: {
-    toggleShowDupes() {
-      if (!this.showDuplicates && currentImports.length > 100) {
-        const result = confirm(`You seem to have a lot of imports (${currentImports.length}), showing duplicates can slow things up, still do it?`);
-        if (!result) return;
-      }
-      this.showDuplicates = !this.showDuplicates;
-    },
     getCurrentWindow() {
       let currentWindow = window;
       if (!this.overlay) {
@@ -52606,40 +52601,50 @@ var currentImports = [];
         el.innerHTML = version && version.bowerInfo || '-';
       }
     },
-    findImports(doc, found, level) {
-      var found = found || [];
+    findImports(doc, imports, level, levels = []) {
+      var imports = imports || [];
       var level = level || 0;
       const links = doc.querySelectorAll('link[rel=import');
       for (let i = 0; i < links.length; i++) {
-        found.push(links[i]);
-        this.levels.push(level);
+        imports.push(links[i]);
+        levels.push(level);
         if (links[i].import) {
-          this.findImports(links[i].import, found, level + 1);
+          this.findImports(links[i].import, imports, level + 1, levels);
         }
       }
-      return found;
-    }
-  },
-  mounted() {
-    this.levels = [];
-    let document = window.document;
+      return { imports, levels };
+    },
+    updateProgress(progress) {
+      this.progress = progress * 100;
+      if (progress >= 1) {
+        this.importsLoaded = true;
+      }
+    },
+    async processImportsAsync() {
+      let document = window.document;
 
-    if (window.scDebugPopUpShown) {
-      document = window.opener.document;
-    }
-    const imports = this.findImports(document);
-    const processedImports = [];
-    const seenHrefs = {};
+      if (window.scDebugPopUpShown) {
+        document = window.opener.document;
+      }
 
-    for (let i = 0; i < imports.length; i++) {
+      const { imports, levels } = this.findImports(document, null, null, []);
+
+      const processedImports = await this.processImportsInChunks(imports, this.updateProgress.bind(this), levels);
+
+      // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
+      currentImports = processedImports;
+
+      // bump compution of importsHTML computed property
+      this.updatedImports++;
+    },
+    processSingleImport(importee, seenHrefs, level) {
       const processedImport = {};
-      processedImport.classes = [`level-${this.levels[i]}`];
-
-      const href = imports[i].href;
+      processedImport.classes = [`level-${level}`];
+      const href = importee.href;
 
       if (href) {
         if (seenHrefs[href]) {
-          processedImport.classes.push('duplicate');
+          return false;
         } else {
           seenHrefs[href] = true;
         }
@@ -52663,20 +52668,41 @@ var currentImports = [];
           processedImport.file = processedImport.file.substring(0, 50) + '...';
         }
 
-        if (!imports[i].import) {
+        if (!importee.import) {
           processedImport.error = 'Import failed';
         }
       } else {
         processedImport.error = 'href attribute missing';
         processedImport.file = '???';
       }
-      processedImports.push(processedImport);
-    }
-    // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
-    currentImports = processedImports;
+      return processedImport;
+    },
+    processChunk(imports, start, end, seenHrefs, levels, processedImports, self) {
+      return new Promise(resolve => {
+        for (let j = start; j < end; j++) {
+          const processedImport = self.processSingleImport(imports[j], seenHrefs, levels[j]);
+          processedImport && processedImports.push(processedImport);
+        }
+        setTimeout(resolve);
+      });
+    },
+    processImportsInChunks(imports, progress, levels) {
+      const processedImports = [];
+      const seenHrefs = {};
+      const chunkSize = Math.min(500, imports.length);
+      const chunksCount = Math.floor(imports.length / chunkSize);
+      const self = this;
 
-    // bump compution of importsHTML computed property
-    this.updatedImports++;
+      return new Promise(async function (resolve) {
+        for (let i = 0; i <= chunksCount; i++) {
+          const start = i * chunkSize;
+          const end = Math.min(start + chunkSize, imports.length);
+          await self.processChunk(imports, start, end, seenHrefs, levels, processedImports, self);
+          progress(i / chunksCount);
+        }
+        resolve(processedImports);
+      });
+    }
   }
 });
 
@@ -52733,48 +52759,52 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "html-imports-view" }, [
-    _c("div", { attrs: { id: "toolbar" } }, [
-      _c(
-        "label",
-        {
-          attrs: {
-            title: "Show imports that are dependency of more than one import"
-          }
-        },
-        [
-          _c("button", { on: { click: _vm.toggleShowDupes } }, [
-            _vm._v(
-              _vm._s(this.showDuplicates ? "Hide" : "Show") + " duplicates"
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "label",
-        {
-          attrs: {
-            title: "Show installed versions, as reported by .bower.json"
-          }
-        },
-        [
-          _c("button", { on: { click: _vm.getBowerVersions } }, [
-            _vm._v("Get Bower versions")
-          ])
-        ]
-      )
-    ]),
+    !_vm.importsLoaded
+      ? _c("div", [
+          _c("div", [
+            _c("button", { on: { click: _vm.processImportsAsync } }, [
+              _vm._v("Load imports")
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.progress < 100
+            ? _c("div", [
+                _c("progress", {
+                  attrs: { max: "100" },
+                  domProps: { value: _vm.progress }
+                })
+              ])
+            : _vm._e()
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { attrs: { id: "view" } }, [
-      _c("table", { staticClass: "sda-imports" }, [
-        _vm._m(0, false, false),
-        _vm._v(" "),
-        _c("tbody", {
-          class: [_vm.showDuplicates ? "" : "duplicatesHidden"],
-          domProps: { innerHTML: _vm._s(this.importsHTML) }
-        })
-      ])
-    ])
+    _vm.importsLoaded
+      ? _c("div", [
+          _c("div", { attrs: { id: "toolbar" } }, [
+            _c(
+              "label",
+              {
+                attrs: {
+                  title: "Show installed versions, as reported by .bower.json"
+                }
+              },
+              [
+                _c("button", { on: { click: _vm.getBowerVersions } }, [
+                  _vm._v("Get Bower versions")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "view" } }, [
+            _c("table", { staticClass: "sda-imports" }, [
+              _vm._m(0, false, false),
+              _vm._v(" "),
+              _c("tbody", { domProps: { innerHTML: _vm._s(this.importsHTML) } })
+            ])
+          ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -52797,7 +52827,7 @@ var staticRenderFns = [
                 'Information from ".bower.json" file. Available only for packages installed using Bower.'
             }
           },
-          [_vm._v("\n            Bower version\n          ")]
+          [_vm._v("\n              Bower version\n            ")]
         )
       ])
     ])
