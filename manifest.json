@@ -9,11 +9,11 @@
     "128": "icons/dark/128.png",
     "256": "icons/dark/256.png"
   },
-  "options_page": "options/index.html",
-  "author": "Omar Alshaker",
+  "options_ui": {
+    "page": "options/index.html"
+  },
   "background": {
-    "scripts": ["bg_script.js"],
-    "persistent": false
+    "scripts": ["bg_script.js"]
   },
   "content_scripts": [
     {
@@ -22,6 +22,11 @@
       "run_at": "document_idle"
     }
   ],
+  "applications": {
+    "gecko": {
+      "id": "omar.alshaker@starcounter.com"
+    }
+  },
   "page_action": {
     "default_icon": "icons/dark/32.png",
     "default_title": "Starcounter DevTools"
