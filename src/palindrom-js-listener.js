@@ -1,4 +1,5 @@
 (function(global) {
+  const historyLength = Number(localStorage['starcounter-debug-aid-patch-history-length'] || 100);
   class Listener {
     constructor() {
       this.rows = [];
@@ -121,7 +122,12 @@
 
       return client;
     }
-
+    pushRow(row) {
+      this.rows.push(row);
+      if(this.rows.length > historyLength) {
+        this.rows.shift();
+      }
+    }
     onPatchReceived(e) {
       this.lastResponse = new Date();
 
@@ -130,7 +136,7 @@
       if (this.lastResponse && this.lastRequest) {
         duration = this.formatDuration(this.lastResponse - this.lastRequest);
       }
-      this.rows.push(
+      this.pushRow(
         this.createRow(
           'receive',
           e.detail.data,
@@ -144,7 +150,7 @@
 
     onPatchSent(e) {
       this.lastRequest = new Date();
-      this.rows.push(
+      this.pushRow(
         this.createRow(
           'send',
           e.detail.data,
@@ -164,7 +170,7 @@
         reason: e.detail.reason
       };
 
-      this.rows.push(
+      this.pushRow(
         this.createRow('state', data, e.detail.url, 'STATE', this.rows.length)
       );
     }

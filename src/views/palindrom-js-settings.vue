@@ -18,7 +18,7 @@
             <div class="description">
                 When checked PalindromJs performs partial page reload on link clicks and url history changes.
             </div>
-        </div>
+        </div>       
         <div class="item">
             <label>
                 <input type="checkbox" v-on:change="preserveChanged" v-bind:checked="preserveSettings" />
@@ -29,6 +29,15 @@
                 <code>window.localStorage</code> and restored on page load.
             </div>
         </div>
+         <div class="item">
+            <label>
+                <input type="number" style="width: 50px" v-on:change="historyLengthChanged" v-model="historyLength" />
+                <span>Patches</span>
+            </label>
+            <div class="description">
+                How many patches to keep in patches log
+            </div>
+        </div>
     </fieldset>
 </template>
 
@@ -36,7 +45,8 @@
 const settingName = {
   ws: 'starcounter-debug-aid-palindrom-js-useWebSocket',
   morph: 'starcounter-debug-aid-palindrom-js-morphUrls',
-  preserve: 'starcounter-debug-aid-palindrom-js-preserveSettings'
+  preserve: 'starcounter-debug-aid-palindrom-js-preserveSettings',
+  historyLength: 'starcounter-debug-aid-patch-history-length'
 };
 function parseBool(value, def) {
   if (typeof value == 'undefined' || value === null) {
@@ -71,7 +81,14 @@ export default {
       this.getCurrentWindow().localStorage.setItem(settingName.ws, value);
     },
     getSettingValue(name, def = true) {
-      return parseBool(this.getCurrentWindow().localStorage.getItem(name), def);
+      if (typeof def === Boolean) {
+        return parseBool(
+          this.getCurrentWindow().localStorage.getItem(name),
+          def
+        );
+      } else {
+        return Number(this.getCurrentWindow().localStorage.getItem(name), def);
+      }
     },
     applyMorphUrlValue(value) {
       const palindromClient = this.listener.getPalindromClient();
@@ -97,13 +114,20 @@ export default {
         settingName.preserve,
         ev.target.checked
       );
+    },
+    historyLengthChanged(ev) {
+      this.getCurrentWindow().localStorage.setItem(
+        settingName.historyLength,
+        ev.target.value
+      );
     }
   },
   data() {
     return {
       preserveSettings: false,
       useWebSocket: false,
-      useMorphUrl: false
+      useMorphUrl: false,
+      historyLength: 100
     };
   },
   mounted() {
@@ -120,6 +144,7 @@ export default {
       this.preserveSettings = this.getSettingValue(settingName.preserve, false);
       this.useWebSocket = this.getSettingValue(settingName.ws);
       this.useMorphUrl = this.getSettingValue(settingName.morph);
+      this.historyLength = this.getSettingValue(settingName.historyLength, 100);
     });
 
     if (preserve) {
