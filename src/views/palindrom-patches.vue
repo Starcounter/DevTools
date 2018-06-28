@@ -33,9 +33,9 @@
       </tr>
 
       <tbody>
-        <tr v-for="row in filteredRows" v-bind:key="row.$index">
+        <tr v-for="(row, index) in filteredRows" v-bind:key="row.$index">
           <td>
-            <div class="td td-index">{{row.$index}}</div>
+            <div class="td td-index">{{index}}</div>
           </td>
           <td class="td td-date">
             <span :title="row.date">{{row.time}}</span>
@@ -50,7 +50,7 @@
           <td class="td td-url">
             <a title="row.url" href="row.url" target="_blank">{{row.path}}</a>
           </td>
-          <td class="td td-code">{{row.statusCode}}</tddiv>
+          <td class="td td-code">{{row.statusCode}}</td>
             <td class="td td-duration">{{row.duration}}</td>
             <td class="td td-data">
               <div>
@@ -206,7 +206,7 @@ div.table div.td {
 table th,
 div.table div.th {
   border-bottom-width: 2px;
-  font-weight: 400
+  font-weight: 400;
 }
 
 table td.td-index,
