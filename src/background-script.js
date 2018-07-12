@@ -5,13 +5,6 @@ if (typeof chrome !== 'undefined' && typeof browser === 'undefined') {
 }
 
 function checkForValidUrl(tabId, changeInfo, tab) {
-  // only show pop-up when no preference is set
-  browser.storage.sync.get({ openMode: 'userSelect' }, function(items) {
-    if (!items || items.openMode === 'userSelect') {
-      browser.pageAction.setPopup({ tabId, popup: 'popup/index.html' });
-    }
-  });
-
   browser.tabs.sendMessage(
     tabId,
     {
@@ -35,9 +28,5 @@ const sendMessageToTab = function(tab, type) {
 };
 
 browser.pageAction.onClicked.addListener(function(tab) {
-  browser.storage.sync.get({ openMode: 'userSelect' }, function(items) {
-    if (items && items.openMode !== 'userSelect') {
-      sendMessageToTab(tab, items.openMode);
-    }
-  });
+  browser.tabs.sendMessage(tab.id, { content: 'showDebugAid' }, function() {});
 });

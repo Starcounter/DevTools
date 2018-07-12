@@ -76,7 +76,6 @@ import '../assets/jsoneditor.css';
 
 export default {
   name: 'palindrom-patches',
-  props: ['overlay'],
   data() {
     return {
       filteredRows: [],
@@ -97,7 +96,7 @@ export default {
       this.$el.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
       { history: false }
     );
-    this.listener = this.getCurrentWindow().starcounterDebugAidListener;
+    this.listener = window.opener.starcounterDebugAidListener;
     this.listener.updateListeners.push(this.refreshRows);
     this.palindromClient = this.listener.getPalindromClient();
     this.refreshRows();
@@ -108,13 +107,6 @@ export default {
   methods: {
     changeCurrentPatch(p) {
       this.currentPatch = JSON.parse(JSON.stringify(p));
-    },
-    getCurrentWindow() {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      return currentWindow;
     },
     clearRows() {
       this.listener.clear();
