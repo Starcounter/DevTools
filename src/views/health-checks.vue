@@ -29,25 +29,17 @@ var currentImports = [];
 
 export default {
   name: 'health-checks',
-  props: ['overlay'],
   data() {
     return {
       compatible:
-        this.getCurrentWindow().Polymer &&
-        this.getCurrentWindow().Polymer.Element, // only works with Polymer 2
+        window.opener.Polymer &&
+        window.opener.Polymer.Element, // only works with Polymer 2
       customElementsHealth: []
     };
   },
   methods: {
-    getCurrentWindow() {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      return currentWindow;
-    },
     checkElementsHealth() {
-      this.customElementsHealth = findUndefinedElements(this.getCurrentWindow());
+      this.customElementsHealth = findUndefinedElements(window.opener);
     }
   }
 };

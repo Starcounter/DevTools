@@ -22,7 +22,7 @@ if (document.querySelector("puppet-client, palindrom-client")) {
           break;
         case "showDebugAid":
           window.dispatchEvent(
-            new CustomEvent("sc-debug-show-" + message.type)
+            new CustomEvent("sc-debug-show-popup")
           );
           break;
       }

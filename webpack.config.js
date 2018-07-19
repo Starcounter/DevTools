@@ -17,7 +17,6 @@ module.exports = [
     plugins: [
       new CopyWebpackPlugin([
         { from: 'icons', to: 'icons' },
-        { from: 'popup', to: 'popup' },
         { from: 'options', to: 'options' },
         {
           from: 'manifest.json',

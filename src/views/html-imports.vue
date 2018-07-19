@@ -34,8 +34,7 @@ import BowerVersionGetter from '../utils/bower-version-getter';
 
 function constructSingleImportHTML(
   { classes, path, href, file, error, bowerJSONPath },
-  showBowerVersions,
-  overlayOpen
+  showBowerVersions
 ) {
   return `<tr class="${classes.join(' ')}">
       <td>
@@ -48,10 +47,9 @@ function constructSingleImportHTML(
       <td class="bowerCell" data-bower-json-path='${bowerJSONPath}'></td>
     </tr>`;
 }
-function constructAllImportsHTML(imports, showBowerVersions, overlayOpen) {
+function constructAllImportsHTML(imports, showBowerVersions) {
   return imports.reduce(
-    (html, imp) =>
-      (html += constructSingleImportHTML(imp, showBowerVersions, overlayOpen)),
+    (html, imp) => (html += constructSingleImportHTML(imp, showBowerVersions)),
     ''
   );
 }
@@ -59,7 +57,6 @@ var currentImports = [];
 
 export default {
   name: 'html-imports',
-  props: ['overlay'],
   data() {
     return {
       /* this is just a number the we use inside importsHTML computed property. To trigger its compution on demand,
@@ -71,26 +68,18 @@ export default {
     };
   },
   created() {
-    this.bowerVersionGetter = new BowerVersionGetter(this.getCurrentWindow());
+    this.bowerVersionGetter = new BowerVersionGetter(window.opener);
   },
   computed: {
     importsHTML: function() {
       return constructAllImportsHTML(
         currentImports,
         this.showBowerVersions,
-        this.overlay,
         this.updatedImports
       );
     }
   },
-  methods: {    
-    getCurrentWindow() {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      return currentWindow;
-    },
+  methods: {
     async getBowerVersions() {
       const elements = this.$el.querySelectorAll('.bowerCell');
       for (const el of elements) {
@@ -115,17 +104,12 @@ export default {
     },
     updateProgress(progress) {
       this.progress = progress * 100;
-      if(progress >= 1) {
+      if (progress >= 1) {
         this.importsLoaded = true;
       }
     },
     async processImportsAsync() {
-      let document = window.document;
-
-      if (window.scDebugPopUpShown) {
-        document = window.opener.document;
-      }
-
+      let document = window.opener.document;
       const { imports, levels } = this.findImports(document, null, null, []);
 
       const processedImports = await this.processImportsInChunks(
@@ -134,7 +118,7 @@ export default {
         levels
       );
 
-      // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
+// we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
       currentImports = processedImports;
 
       // bump compution of importsHTML computed property
@@ -327,5 +311,4 @@ table.sda-imports html-import-bower-info /deep/ a:hover {
 table.sda-imports tr:hover td {
   background: #f0f0f0;
 }
-
 </style>

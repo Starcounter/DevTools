@@ -1,5 +1,5 @@
 export default class BowerVersionGetter {
-  constructor(currentWindow) {
+  constructor() {
     this.knownRequests = {};
   }
   async getBowerInfo(path) {

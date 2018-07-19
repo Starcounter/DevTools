@@ -62,15 +62,7 @@ function parseBool(value, def) {
 
 export default {
   name: 'palindrom-js-settings',
-  props: ['overlay'],
   methods: {
-    getCurrentWindow() {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      return currentWindow;
-    },
     applyWebSocketValue(value) {
       const palindromClient = this.listener.getPalindromClient();
 
@@ -78,16 +70,16 @@ export default {
         palindromClient.palindrom.useWebSocket = value;
       }
 
-      this.getCurrentWindow().localStorage.setItem(settingName.ws, value);
+      window.opener.localStorage.setItem(settingName.ws, value);
     },
     getSettingValue(name, def = true) {
       if (typeof def === Boolean) {
         return parseBool(
-          this.getCurrentWindow().localStorage.getItem(name),
+          window.opener.localStorage.getItem(name),
           def
         );
       } else {
-        return Number(this.getCurrentWindow().localStorage.getItem(name), def);
+        return Number(window.opener.localStorage.getItem(name), def);
       }
     },
     applyMorphUrlValue(value) {
@@ -101,7 +93,7 @@ export default {
           palindrom.unlisten();
         }
       }
-      this.getCurrentWindow().localStorage.setItem(settingName.morph, value);
+      window.opener.localStorage.setItem(settingName.morph, value);
     },
     useSocketChanged(ev) {
       this.applyWebSocketValue(ev.target.checked);
@@ -110,13 +102,13 @@ export default {
       this.applyMorphUrlValue(ev.target.checked);
     },
     preserveChanged(ev) {
-      this.getCurrentWindow().localStorage.setItem(
+      window.opener.localStorage.setItem(
         settingName.preserve,
         ev.target.checked
       );
     },
     historyLengthChanged(ev) {
-      this.getCurrentWindow().localStorage.setItem(
+      window.opener.localStorage.setItem(
         settingName.historyLength,
         ev.target.value
       );
@@ -131,7 +123,7 @@ export default {
     };
   },
   mounted() {
-    this.listener = this.getCurrentWindow().starcounterDebugAidListener;
+    this.listener = window.opener.starcounterDebugAidListener;
     const preserve = this.getSettingValue(settingName.preserve, false);
 
     setTimeout(() => {

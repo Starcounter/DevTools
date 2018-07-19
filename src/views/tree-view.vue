@@ -30,20 +30,12 @@ export default {
       treeOrPlain: "tree"
     };
   },
-  props: ["overlay"],
   methods: {
-    getCurrentWindow() {
-      let currentWindow = window;
-      if (!this.overlay) {
-        currentWindow = window.opener;
-      }
-      return currentWindow;
-    },
     dumbToConsole() {
       const cloneToRemoveProxification = JSON.parse(
         JSON.stringify(this.palindromClient.obj)
       );
-      this.getCurrentWindow().console.info(cloneToRemoveProxification);
+      window.opener.console.info(cloneToRemoveProxification);
     },
     updateListener() {
       if (
@@ -83,7 +75,7 @@ export default {
       options
     );
 
-    this.listener = this.getCurrentWindow().starcounterDebugAidListener;
+    this.listener = window.opener.starcounterDebugAidListener;
     this.listener.updateListeners.push(this.updateListener);
     this.palindromClient = this.listener.getPalindromClient();
     this.json = JSON.parse(JSON.stringify(this.palindromClient.obj));
