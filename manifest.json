@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Starcounter DevTools",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "Helps you debug Starcounter Apps with ease.",
   "icons": {
     "32": "icons/dark/32.png",
