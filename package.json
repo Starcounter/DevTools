@@ -1,14 +1,15 @@
 {
   "name": "sc-debug-aid-extension",
   "description": "A browser extension that helps you debug Starcounter apps with ease",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "author": "Omar Alshaker <omar@omaralshaker.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
     "watch": "webpack -w",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build-unminified": "webpack"
   },
   "dependencies": {
     "fast-json-patch": "^2.0.6",
