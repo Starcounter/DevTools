@@ -14,7 +14,7 @@ import { setTimeout } from 'timers';
     );
 
     // if we're reusing the pop-up, tell it to not close itself
-    if (popup.closeTimeout) {
+    if (popup && popup.closeTimeout) {
       clearTimeout(popup.closeTimeout);
     }
 
