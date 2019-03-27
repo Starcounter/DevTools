@@ -67,7 +67,9 @@ export default {
         const newState = this.editor.get();
         const patches = jsonpatch.compare(currentState, newState);
         jsonpatch.applyPatch(this.palindromClient.obj, patches);
-      }
+      },
+      enableTransform: false,
+      enableSort: false
     };
 
     this.editor = new JSONEditor(
