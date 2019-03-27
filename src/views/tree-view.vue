@@ -48,7 +48,7 @@ export default {
         const diff = jsonpatch.compare(currentTree, nextTree);
 
         if (diff.length > 0) {
-          this.editor.set((this.json = nextTree));
+          this.editor.update((this.json = nextTree));
         }
       }
     }
