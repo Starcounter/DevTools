@@ -214,7 +214,7 @@
           'socketstatechanged',
           this.onSocketStateChanged
         );
-
+        client.removeEventListener('patch-applied', this.onPatchApplied);
         this.isListening = false;
       }
     }
