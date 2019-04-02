@@ -8,11 +8,16 @@
       this.isListening = false;
 
       this.onPatchReceived = this.onPatchReceived.bind(this);
+      this.onPatchApplied = this.onPatchApplied.bind(this);
       this.onPatchSent = this.onPatchSent.bind(this);
       this.onSocketStateChanged = this.onSocketStateChanged.bind(this);
       this.updateListeners = [];
     }
-
+    // when a patch is applied we need to notify the listener. But we don't need to add a row,
+    // because a row is already added at onPatchReceived
+    onPatchApplied() {
+      this.updateListeners.forEach(c => c());
+    }
     formatDate(date) {
       return [
         date.getFullYear(),
@@ -187,6 +192,7 @@
 
         client.addEventListener('patchreceived', this.onPatchReceived);
         client.addEventListener('patchsent', this.onPatchSent);
+        client.addEventListener('patch-applied', this.onPatchApplied);
         client.addEventListener(
           'socketstatechanged',
           this.onSocketStateChanged
@@ -208,7 +214,7 @@
           'socketstatechanged',
           this.onSocketStateChanged
         );
-
+        client.removeEventListener('patch-applied', this.onPatchApplied);
         this.isListening = false;
       }
     }

@@ -1,5 +1,3 @@
-import Vue from 'vue';
-import App from './App.vue';
 import './palindrom-js-listener';
 import { setTimeout } from 'timers';
 
@@ -14,7 +12,7 @@ import { setTimeout } from 'timers';
     );
 
     // if we're reusing the pop-up, tell it to not close itself
-    if (popup.closeTimeout) {
+    if (popup && popup.closeTimeout) {
       clearTimeout(popup.closeTimeout);
     }
 

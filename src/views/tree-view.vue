@@ -48,7 +48,7 @@ export default {
         const diff = jsonpatch.compare(currentTree, nextTree);
 
         if (diff.length > 0) {
-          this.editor.set((this.json = nextTree));
+          this.editor.update((this.json = nextTree));
         }
       }
     }
@@ -67,7 +67,9 @@ export default {
         const newState = this.editor.get();
         const patches = jsonpatch.compare(currentState, newState);
         jsonpatch.applyPatch(this.palindromClient.obj, patches);
-      }
+      },
+      enableTransform: false,
+      enableSort: false
     };
 
     this.editor = new JSONEditor(
