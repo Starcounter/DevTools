@@ -1,8 +1,12 @@
 <template>
 <div>
-  <div class="sc-debug-aid-overlay-popup">    
+  <div class="sc-debug-aid-overlay-popup">
+    <div class="sc-debug-aid-parent-control">
+        <button v-on:click="focusOnParent">Focus on owner tab</button>
+        <input type="text" title="Owner tab URL" disabled="true" :value="parentUrl">
+    </div>
     <div id="sc-debug-aid" class="sc-debug-aid-in-popup">
-
+      
       <input class="sc-debug-aid-tabbing-radio" id="tab1" name="tab-control" type="radio" checked>
       <input class="sc-debug-aid-tabbing-radio" id="tab2" name="tab-control" type="radio">
       <input class="sc-debug-aid-tabbing-radio" id="tab3" name="tab-control" type="radio">
@@ -81,10 +85,30 @@ const App = {
     palindromJsSettings,
     healthChecks
   },
+  methods: {
+    focusOnParent() {
+    var parentWindowRef = window.open('', 'parent-starcounter-app-window');
+      parentWindowRef.focus();
+    },
+    refreshParentURL() {
+      this.parentUrl = window.opener && window.opener.location.href
+    },
+  },
   name: 'app',
+  destroyed() {
+    const index = this.listener.updateListeners.indexOf(this.refreshParentURL);
+    if (index > -1) {
+      this.listener.updateListeners.splice(index, 1);
+    }
+  },
+  mounted() {
+    // subscribe to URL changes
+    this.listener = window.opener.starcounterDebugAidListener;
+    this.listener.updateListeners.push(this.refreshParentURL);
+  },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      parentUrl: window.opener && window.opener.location.href,
       // to warn about key combination deprecation
       usedKeyComb: App.usedKeyComb === true
     };
@@ -107,6 +131,22 @@ h4 {
 
 .sc-debug-aid-overlay * {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sc-debug-aid-parent-control {
+  padding: 0.5em;
+}
+.sc-debug-aid-parent-control {
+  display: flex;
+  align-items: center
+}
+
+.sc-debug-aid-parent-control > * {
+  display: block;
+}
+
+.sc-debug-aid-parent-control > *:nth-child(2) {
+  flex: 1
 }
 
 .sc-debug-aid-overlay {

@@ -11,6 +11,9 @@ import { setTimeout } from 'timers';
       'width=1200,height=500, toolbar=0,location=0,menubar=0'
     );
 
+    // in order to be able to focus on parent window, we need to give it a name
+    window.name = 'parent-starcounter-app-window';
+
     // if we're reusing the pop-up, tell it to not close itself
     if (popup && popup.closeTimeout) {
       clearTimeout(popup.closeTimeout);
@@ -33,14 +36,9 @@ import { setTimeout } from 'timers';
       window.localStorage.setItem('starcounterDebug-popup-open', false);
     };
 
-    // close pop-up iff no one used it later in 2500ms
-    popup.closeLater = function() {
-      popup.closeTimeout = setTimeout(() => {
-        popup.close();
-      }, 2500);
-    };
-
     window.addEventListener('beforeunload', function onNavigateAway() {
+      // closeLater closes the popup after 2500ms
+      // this allows us to re-connect to the popup if the window is refershed
       popup && popup.closeLater();
       window.removeEventListener('beforeunload', onNavigateAway);
     });
