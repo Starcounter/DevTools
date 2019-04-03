@@ -33,10 +33,7 @@ module.exports = [
         {
           test: /\.vue$/,
           loader: 'vue-loader',
-          options: {
-            loaders: {}
-            // other vue-loader options go here
-          }
+          
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
@@ -77,11 +74,7 @@ module.exports = [
         },
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
-          options: {
-            loaders: {}
-            // other vue-loader options go here
-          }
+          loader: 'vue-loader'
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
@@ -130,9 +123,7 @@ module.exports = [
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
-            extractCSS: true,
-            loaders: {}
-            // other vue-loader options go here
+            extractCSS: true
           }
         },
         {
