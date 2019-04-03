@@ -1,81 +1,82 @@
 <template>
-<div>
-  <div class="sc-debug-aid-overlay-popup">
-    <div class="sc-debug-aid-parent-control">
+  <div>
+    <div class="sc-debug-aid-overlay-popup">
+      <div class="sc-debug-aid-parent-control">
         <button v-on:click="focusOnParent">Focus on owner tab</button>
         <input type="text" title="Owner tab URL" disabled="true" :value="parentUrl">
-    </div>
-    <div id="sc-debug-aid" class="sc-debug-aid-in-popup">
-      
-      <input class="sc-debug-aid-tabbing-radio" id="tab1" name="tab-control" type="radio" checked>
-      <input class="sc-debug-aid-tabbing-radio" id="tab2" name="tab-control" type="radio">
-      <input class="sc-debug-aid-tabbing-radio" id="tab3" name="tab-control" type="radio">
-      <input class="sc-debug-aid-tabbing-radio" id="tab4" name="tab-control" type="radio">
-      <input class="sc-debug-aid-tabbing-radio" id="tab5" name="tab-control" type="radio">
-      <input class="sc-debug-aid-tabbing-radio" id="tab6" name="tab-control" type="radio">
-
-      <label for="tab1">View-model</label>
-      <label for="tab2">Patches</label>
-      <label for="tab3">Imports</label>
-      <label for="tab4">Settings</label>
-      <label for="tab5">Health Checks</label>
-      <label for="tab6">Help</label>
-
-      <div class="tab-content">
-        <tree-view></tree-view>
       </div>
+      <div id="sc-debug-aid" class="sc-debug-aid-in-popup">
+        <input class="sc-debug-aid-tabbing-radio" id="tab1" name="tab-control" type="radio" checked>
+        <input class="sc-debug-aid-tabbing-radio" id="tab2" name="tab-control" type="radio">
+        <input class="sc-debug-aid-tabbing-radio" id="tab3" name="tab-control" type="radio">
+        <input class="sc-debug-aid-tabbing-radio" id="tab4" name="tab-control" type="radio">
+        <input class="sc-debug-aid-tabbing-radio" id="tab5" name="tab-control" type="radio">
+        <input class="sc-debug-aid-tabbing-radio" id="tab6" name="tab-control" type="radio">
 
-      <div class="tab-content">
-        <palindrom-patches></palindrom-patches>
-      </div>
+        <label for="tab1">View-model</label>
+        <label for="tab2">Patches</label>
+        <label for="tab3">Imports</label>
+        <label for="tab4">Settings</label>
+        <label for="tab5">Health Checks</label>
+        <label for="tab6">Help</label>
 
-      <div class="tab-content">
-        <html-imports></html-imports>
-      </div>
-
-      <div class="tab-content">
-        <palindrom-js-settings></palindrom-js-settings>
-      </div>
-
-      <div class="tab-content">
-          <health-checks></health-checks>
-      </div>
-
-      <div class="tab-content">
-        <div>
-          <h1>Starcounter DevTools</h1>
-          <p>
-            Suggestions and bug reports welcome at
-            <a target="_blank" href="https://github.com/Starcounter/DevTools">
-              GitHub Issues.
-            </a>
-          </p>
+        <div class="tab-content">
+          <tree-view></tree-view>
         </div>
 
-        <!-- uncomment with a nice tabbed UI and no errors in Launcher
+        <div class="tab-content">
+          <palindrom-patches></palindrom-patches>
+        </div>
+
+        <div class="tab-content">
+          <html-imports></html-imports>
+        </div>
+
+        <div class="tab-content">
+          <palindrom-js-settings></palindrom-js-settings>
+        </div>
+
+        <div class="tab-content">
+          <health-checks></health-checks>
+        </div>
+
+        <div class="tab-content">
+          <div>
+            <h1>Starcounter DevTools</h1>
+            <p>
+              Suggestions and bug reports welcome at
+              <a
+                target="_blank"
+                href="https://github.com/Starcounter/DevTools"
+              >GitHub Issues.</a>
+            </p>
+          </div>
+
+          <!-- uncomment with a nice tabbed UI and no errors in Launcher
         <juicy-error-dialog id="errorDialog" on-error-catched="{{openDialog}}">
           <template>
             <fast-json-patch-error-reporter></fast-json-patch-error-reporter>
             <juicy-error-stacktrace-reporter></juicy-error-stacktrace-reporter>
           </template>
-        </juicy-error-dialog>-->
+          </juicy-error-dialog>-->
+        </div>
+        <div v-if="usedKeyComb" class="starcounter-debug-aid-key-comb-warning">
+          <p>
+            ⚠️ You've opened Starcounter DevTools using the key combination, this shortcut is deprecated in favour of the browser
+            action button in the top right corner of your browser window.
+          </p>
+        </div>
       </div>
-      <div v-if="usedKeyComb" class="starcounter-debug-aid-key-comb-warning">
-        <p>⚠️ You've opened Starcounter DevTools using the key combination, this shortcut is deprecated in favour of the browser
-          action button in the top right corner of your browser window.</p>
-      </div>
-
     </div>
-  </div>
   </div>
 </template>
 
 <script>
-import treeView from './views/tree-view.vue';
-import palindromPatches from './views/palindrom-patches.vue';
-import palindromJsSettings from './views/palindrom-js-settings.vue';
-import healthChecks from './views/health-checks.vue';
-import htmlImports from './views/html-imports.vue';
+import treeView from "./views/tree-view.vue";
+import palindromPatches from "./views/palindrom-patches.vue";
+import palindromJsSettings from "./views/palindrom-js-settings.vue";
+import healthChecks from "./views/health-checks.vue";
+import htmlImports from "./views/html-imports.vue";
 
 const App = {
   components: {
@@ -87,14 +88,14 @@ const App = {
   },
   methods: {
     focusOnParent() {
-    var parentWindowRef = window.open('', 'parent-starcounter-app-window');
+      var parentWindowRef = window.open("", "parent-starcounter-app-window");
       parentWindowRef.focus();
     },
     refreshParentURL() {
-      this.parentUrl = window.opener && window.opener.location.href
-    },
+      this.parentUrl = window.opener && window.opener.location.href;
+    }
   },
-  name: 'app',
+  name: "app",
   destroyed() {
     const index = this.listener.updateListeners.indexOf(this.refreshParentURL);
     if (index > -1) {
@@ -130,7 +131,7 @@ h4 {
 }
 
 .sc-debug-aid-overlay * {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .sc-debug-aid-parent-control {
@@ -138,7 +139,7 @@ h4 {
 }
 .sc-debug-aid-parent-control {
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .sc-debug-aid-parent-control > * {
@@ -146,7 +147,7 @@ h4 {
 }
 
 .sc-debug-aid-parent-control > *:nth-child(2) {
-  flex: 1
+  flex: 1;
 }
 
 .sc-debug-aid-overlay {

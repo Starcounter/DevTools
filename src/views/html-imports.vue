@@ -1,7 +1,9 @@
 <template>
   <div class="html-imports-view">
-    <div  v-if="!importsLoaded">
-      <div><button v-on:click="processImportsAsync">Load imports</button></div>
+    <div v-if="!importsLoaded">
+      <div>
+        <button v-on:click="processImportsAsync">Load imports</button>
+      </div>
       <div v-if="progress < 100">
         <progress v-bind:value="progress" max="100"></progress>
       </div>
@@ -11,16 +13,17 @@
         <label title="Show installed versions, as reported by .bower.json">
           <button v-on:click="getBowerVersions">Get Bower versions</button>
         </label>
-      </div>    
+      </div>
       <div id="view">
         <table class="sda-imports">
           <thead>
             <tr>
               <th>File</th>
               <th>Path</th>
-              <th style="cursor: help" title="Information from &quot;.bower.json&quot; file. Available only for packages installed using Bower.">
-                Bower version
-              </th>
+              <th
+                style="cursor: help"
+                title="Information from &quot;.bower.json&quot; file. Available only for packages installed using Bower."
+              >Bower version</th>
             </tr>
           </thead>
           <tbody v-html="this.importsHTML"></tbody>
@@ -30,19 +33,19 @@
   </div>
 </template>
 <script>
-import BowerVersionGetter from '../utils/bower-version-getter';
+import BowerVersionGetter from "../utils/bower-version-getter";
 
 function constructSingleImportHTML(
   { classes, path, href, file, error, bowerJSONPath },
   showBowerVersions
 ) {
-  return `<tr class="${classes.join(' ')}">
+  return `<tr class="${classes.join(" ")}">
       <td>
         <span> ${file}</span>
       </td>
       <td>
         <a class="path" href="${href}">${path}</a>
-        ${error ? `<span class="error" >${error}</span>` : ''}
+        ${error ? `<span class="error" >${error}</span>` : ""}
       </td>
       <td class="bowerCell" data-bower-json-path='${bowerJSONPath}'></td>
     </tr>`;
@@ -50,13 +53,13 @@ function constructSingleImportHTML(
 function constructAllImportsHTML(imports, showBowerVersions) {
   return imports.reduce(
     (html, imp) => (html += constructSingleImportHTML(imp, showBowerVersions)),
-    ''
+    ""
   );
 }
 var currentImports = [];
 
 export default {
-  name: 'html-imports',
+  name: "html-imports",
   data() {
     return {
       /* this is just a number the we use inside importsHTML computed property. To trigger its compution on demand,
@@ -81,18 +84,18 @@ export default {
   },
   methods: {
     async getBowerVersions() {
-      const elements = this.$el.querySelectorAll('.bowerCell');
+      const elements = this.$el.querySelectorAll(".bowerCell");
       for (const el of elements) {
         const version = await this.bowerVersionGetter.getBowerInfo(
-          el.getAttribute('data-bower-json-path')
+          el.getAttribute("data-bower-json-path")
         );
-        el.innerHTML = (version && version.bowerInfo) || '-';
+        el.innerHTML = (version && version.bowerInfo) || "-";
       }
     },
     findImports(doc, imports, level, levels = []) {
       var imports = imports || [];
       var level = level || 0;
-      const links = doc.querySelectorAll('link[rel=import');
+      const links = doc.querySelectorAll("link[rel=import");
       for (let i = 0; i < links.length; i++) {
         imports.push(links[i]);
         levels.push(level);
@@ -118,7 +121,7 @@ export default {
         levels
       );
 
-// we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
+      // we don't want to set imports as `this.currentImports`, Vue automatically makes it reactive (slow).
       currentImports = processedImports;
 
       // bump compution of importsHTML computed property
@@ -137,33 +140,33 @@ export default {
         }
 
         const url = new URL(href);
-        const lastSlash = url.href.lastIndexOf('/');
+        const lastSlash = url.href.lastIndexOf("/");
         processedImport.path = url.href.replace(
           `${url.protocol}//${url.host}`,
-          ''
+          ""
         );
         let packagePath = url.href.match(/.+\/sys\/([\w|-]+)\//);
 
         if (packagePath) {
-          processedImport.bowerJSONPath = packagePath[0] + '.bower.json';
+          processedImport.bowerJSONPath = packagePath[0] + ".bower.json";
         }
         processedImport.href = href;
         processedImport.file = href.substring(lastSlash + 1);
 
         if (processedImport.path.length > 50) {
-          processedImport.path = processedImport.path.substring(0, 50) + '...';
+          processedImport.path = processedImport.path.substring(0, 50) + "...";
         }
 
         if (processedImport.file.length > 50) {
-          processedImport.file = processedImport.file.substring(0, 50) + '...';
+          processedImport.file = processedImport.file.substring(0, 50) + "...";
         }
 
         if (!importee.import) {
-          processedImport.error = 'Import failed';
+          processedImport.error = "Import failed";
         }
       } else {
-        processedImport.error = 'href attribute missing';
-        processedImport.file = '???';
+        processedImport.error = "href attribute missing";
+        processedImport.file = "???";
       }
       return processedImport;
     },
@@ -259,11 +262,11 @@ table.sda-imports th {
 }
 
 table.sda-imports td:first-child::before {
-  content: '└';
+  content: "└";
 }
 
 table.sda-imports tr.level-0 td:first-child::before {
-  content: '';
+  content: "";
 }
 
 table.sda-imports tr.level-1 td:first-child {

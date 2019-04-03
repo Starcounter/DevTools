@@ -1,1 +1,105 @@
-(function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)})([function(){if('undefined'!=typeof chrome&&'undefined'==typeof a)var a=chrome;a.tabs.onUpdated.addListener(function(b){a.tabs.sendMessage(b,{content:'Hey! Are you a Starcounter app?'},{},function(c){'Yup!'===c&&a.pageAction.show(b)})});a.pageAction.onClicked.addListener(function(b){a.tabs.sendMessage(b.id,{content:'showDebugAid'},function(){})})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+// Called when the url of a tab changes.
+
+if (typeof chrome !== 'undefined' && typeof browser === 'undefined') {
+  var browser = chrome;
+}
+
+function checkForValidUrl(tabId, changeInfo, tab) {
+  browser.tabs.sendMessage(
+    tabId,
+    {
+      content: 'Hey! Are you a Starcounter app?'
+    },
+    {},
+    function responseCallback(answer) {
+      if (answer === 'Yup!') {
+        browser.pageAction.show(tabId);
+      }
+    }
+  );
+}
+// Listen for any changes to the URL of any tab.
+browser.tabs.onUpdated.addListener(checkForValidUrl);
+
+const sendMessageToTab = function(tab, type) {
+  browser.tabs.sendMessage(tab.id, { content: 'showDebugAid', type }, function(
+    response
+  ) {});
+};
+
+browser.pageAction.onClicked.addListener(function(tab) {
+  browser.tabs.sendMessage(tab.id, { content: 'showDebugAid' }, function() {});
+});
+
+
+/***/ })
+/******/ ]);

@@ -1,59 +1,60 @@
 <template>
-    <fieldset>
-        <legend>PalindromJs settings</legend>
-        <div class="item">
-            <label>
-                <input type="checkbox" v-on:change="useSocketChanged" v-bind:checked="useWebSocket" />
-                <span>Enable WebSocket</span>
-            </label>
-            <div class="description">
-                When checked PalindromJs sends patches over WebSocket connection.
-            </div>
-        </div>
-        <div class="item">
-            <label>
-                <input type="checkbox" v-on:change="useMorphChanged" v-bind:checked="useMorphUrl" />
-                <span>Enable URL morphing</span>
-            </label>
-            <div class="description">
-                When checked PalindromJs performs partial page reload on link clicks and url history changes.
-            </div>
-        </div>       
-        <div class="item">
-            <label>
-                <input type="checkbox" v-on:change="preserveChanged" v-bind:checked="preserveSettings" />
-                <span>Preserve settings upon page reload</span>
-            </label>
-            <div class="description">
-                When checked the above values will be stored in
-                <code>window.localStorage</code> and restored on page load.
-            </div>
-        </div>
-         <div class="item">
-            <label>
-                <input type="number" style="width: 50px" v-on:change="historyLengthChanged" v-model="historyLength" />
-                <span>Patches</span>
-            </label>
-            <div class="description">
-                How many patches to keep in patches log
-            </div>
-        </div>
-    </fieldset>
+  <fieldset>
+    <legend>PalindromJs settings</legend>
+    <div class="item">
+      <label>
+        <input type="checkbox" v-on:change="useSocketChanged" v-bind:checked="useWebSocket">
+        <span>Enable WebSocket</span>
+      </label>
+      <div class="description">When checked PalindromJs sends patches over WebSocket connection.</div>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" v-on:change="useMorphChanged" v-bind:checked="useMorphUrl">
+        <span>Enable URL morphing</span>
+      </label>
+      <div
+        class="description"
+      >When checked PalindromJs performs partial page reload on link clicks and url history changes.</div>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" v-on:change="preserveChanged" v-bind:checked="preserveSettings">
+        <span>Preserve settings upon page reload</span>
+      </label>
+      <div class="description">
+        When checked the above values will be stored in
+        <code>window.localStorage</code> and restored on page load.
+      </div>
+    </div>
+    <div class="item">
+      <label>
+        <input
+          type="number"
+          style="width: 50px"
+          v-on:change="historyLengthChanged"
+          v-model="historyLength"
+        >
+        <span>Patches</span>
+      </label>
+      <div class="description">How many patches to keep in patches log</div>
+    </div>
+  </fieldset>
 </template>
 
 <script>
 const settingName = {
-  ws: 'starcounter-debug-aid-palindrom-js-useWebSocket',
-  morph: 'starcounter-debug-aid-palindrom-js-morphUrls',
-  preserve: 'starcounter-debug-aid-palindrom-js-preserveSettings',
-  historyLength: 'starcounter-debug-aid-patch-history-length'
+  ws: "starcounter-debug-aid-palindrom-js-useWebSocket",
+  morph: "starcounter-debug-aid-palindrom-js-morphUrls",
+  preserve: "starcounter-debug-aid-palindrom-js-preserveSettings",
+  historyLength: "starcounter-debug-aid-patch-history-length"
 };
 function parseBool(value, def) {
-  if (typeof value == 'undefined' || value === null) {
+  if (typeof value == "undefined" || value === null) {
     return def;
   }
 
-  if (!value || value == 'false') {
+  if (!value || value == "false") {
     return false;
   }
 
@@ -61,7 +62,7 @@ function parseBool(value, def) {
 }
 
 export default {
-  name: 'palindrom-js-settings',
+  name: "palindrom-js-settings",
   methods: {
     applyWebSocketValue(value) {
       const palindromClient = this.listener.getPalindromClient();
@@ -74,10 +75,7 @@ export default {
     },
     getSettingValue(name, def = true) {
       if (typeof def === Boolean) {
-        return parseBool(
-          window.opener.localStorage.getItem(name),
-          def
-        );
+        return parseBool(window.opener.localStorage.getItem(name), def);
       } else {
         return Number(window.opener.localStorage.getItem(name), def);
       }
