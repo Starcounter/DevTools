@@ -1,5 +1,7 @@
 (function(global) {
-  const historyLength = Number(localStorage['starcounter-debug-aid-patch-history-length'] || 100);
+  const historyLength = Number(
+    localStorage['starcounter-debug-aid-patch-history-length'] || 100
+  );
   class Listener {
     constructor() {
       this.rows = [];
@@ -79,10 +81,9 @@
 
     createRow(direction, data, url, method, index, duration) {
       let json = null;
-      if(data == null) {
+      if (data == null) {
         data = 'Nothing was sent';
-      }
-      else if (typeof data == 'string') {
+      } else if (typeof data == 'string') {
         json = JSON.parse(data);
       } else if (typeof data == 'object') {
         json = data;
@@ -129,7 +130,7 @@
     }
     pushRow(row) {
       this.rows.push(row);
-      if(this.rows.length > historyLength) {
+      if (this.rows.length > historyLength) {
         this.rows.shift();
       }
     }

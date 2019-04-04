@@ -1,7 +1,7 @@
 {
   "name": "sc-debug-aid-extension",
   "description": "A browser extension that helps you debug Starcounter apps with ease",
-  "version": "3.5.1",
+  "version": "3.6.0",
   "author": "Omar Alshaker <omar@omaralshaker.com>",
   "license": "MIT",
   "private": true,
@@ -29,7 +29,7 @@
     "babili-webpack-plugin": "^0.1.2",
     "copy-webpack-plugin": "^4.6.0",
     "cross-env": "^5.2.0",
-    "css-loader": "^2.1.1",
+    "css-loader": "^1.0.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "vue-loader": "^13.7.3",

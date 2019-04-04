@@ -6,13 +6,16 @@
         Tree
       </label>
       <label>
-        <input name="view-switch" value="plain"  v-model="treeOrPlain" type="radio">
+        <input name="view-switch" value="plain" v-model="treeOrPlain" type="radio">
         Text
       </label>
       <button v-on:click="dumbToConsole">Dump to console</button>
     </div>
     <div id="starcounter-debug-aid-tree-view-view">
-      <div id="starcounter-debug-aid-jsoneditor-tree-view" v-bind:class="[treeOrPlain === 'tree' ? '' : 'hidden']"></div>
+      <div
+        id="starcounter-debug-aid-jsoneditor-tree-view"
+        v-bind:class="[treeOrPlain === 'tree' ? '' : 'hidden']"
+      ></div>
       <pre v-bind:class="[treeOrPlain === 'tree' ? 'hidden' : '']">{{json}}</pre>
     </div>
   </div>
@@ -88,7 +91,7 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/jsoneditor.css';
+@import "../assets/jsoneditor.css";
 
 #starcounter-debug-aid-tree-view {
   width: 100%;

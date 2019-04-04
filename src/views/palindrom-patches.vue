@@ -2,8 +2,18 @@
   <div id="host">
     <div class="actions">
       <span class="pull-right">
-        <button type="button" class="btn" v-on:click="refreshRows" title="Relaod log entries from PalindromListener">Refresh</button>
-        <button type="button" class="btn" v-on:click="clearRows" title="Remove all log entries">Clear log</button>
+        <button
+          type="button"
+          class="btn"
+          v-on:click="refreshRows"
+          title="Relaod log entries from PalindromListener"
+        >Refresh</button>
+        <button
+          type="button"
+          class="btn"
+          v-on:click="clearRows"
+          title="Remove all log entries"
+        >Clear log</button>
       </span>
       <select class="form-control" v-on:change="refreshRows" v-model="methodFilterValue">
         <option value="all">All types</option>
@@ -51,14 +61,19 @@
             <a title="row.url" href="row.url" target="_blank">{{row.path}}</a>
           </td>
           <td class="td td-code">{{row.statusCode}}</td>
-            <td class="td td-duration">{{row.duration}}</td>
-            <td class="td td-data">
-              <div>
-                <textarea readonly="readonly" v-on:click="changeCurrentPatch(row.json); editorVisible=true" v-model="row.data" title="Double click me to enter JSON viewer"
-                  json="row.data"></textarea>
-                  <em class='hover-note'>You can click this field for a better patch view</em>
-              </div>
-            </td>
+          <td class="td td-duration">{{row.duration}}</td>
+          <td class="td td-data">
+            <div>
+              <textarea
+                readonly="readonly"
+                v-on:click="changeCurrentPatch(row.json); editorVisible=true"
+                v-model="row.data"
+                title="Double click me to enter JSON viewer"
+                json="row.data"
+              ></textarea>
+              <em class="hover-note">You can click this field for a better patch view</em>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -71,18 +86,18 @@
   </div>
 </template>
 <script>
-import JSONEditor from 'jsoneditor';
-import '../assets/jsoneditor.css';
+import JSONEditor from "jsoneditor";
+import "../assets/jsoneditor.css";
 
 export default {
-  name: 'palindrom-patches',
+  name: "palindrom-patches",
   data() {
     return {
       filteredRows: [],
-      methodFilterValue: 'all',
-      directionFilterValue: 'all',
+      methodFilterValue: "all",
+      directionFilterValue: "all",
       editorVisible: false,
-      currentPatch: ''
+      currentPatch: ""
     };
   },
   destroyed() {
@@ -93,7 +108,7 @@ export default {
   },
   mounted() {
     this.editor = new JSONEditor(
-      this.$el.querySelector('#starcounter-debug-aid-jsoneditor-patches'),
+      this.$el.querySelector("#starcounter-debug-aid-jsoneditor-patches"),
       { history: false }
     );
     this.listener = window.opener.starcounterDebugAidListener;
@@ -111,8 +126,8 @@ export default {
     clearRows() {
       this.listener.clear();
       this.refreshRows();
-      this.methodFilterValue = 'all';
-      this.directionFilterValue = 'all';
+      this.methodFilterValue = "all";
+      this.directionFilterValue = "all";
     },
     refreshRows() {
       this.filteredRows = this.filterRows(this.listener.rows, {
@@ -133,8 +148,8 @@ export default {
         let is = true;
         const row = rows[i];
 
-        is = is && (method == 'all' || method == row.method);
-        is = is && (direction == 'all' || direction == row.direction);
+        is = is && (method == "all" || method == row.method);
+        is = is && (direction == "all" || direction == row.direction);
 
         if (is) {
           result.push(row);
